@@ -1,0 +1,25 @@
+1.安装express框架，npm install express --save ;
+
+
+2.express的能力：
+	01.路由能力：
+		var express = require("express");
+		var app = express();
+
+		app.get("/haha",function(req,res){
+			res.send("这是哈哈");
+		});
+
+		//:...
+		app.get("/haha/:shuzi",function(req,res){
+			res.send("hahha"+req.params.shuzi);
+		})
+
+		app.listen(3000);
+		
+		
+	02.静态文件的伺服能力：
+		app.use(express.static("./public")); 
+		
+	03.模板引擎能力：
+	    
