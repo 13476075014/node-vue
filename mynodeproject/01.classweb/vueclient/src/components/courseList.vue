@@ -34,37 +34,41 @@
 		</div>
 		
 		
-		<el-table ref="singleTable" :data="tableData" highlight-current-row @current-change="handleCurrentChange" style="width: 100%">
-			<el-table-column type="index" width="50">
+		<el-table ref="singleTable" :data="tableData" highlight-current-row @current-change="handleCurrentChange" style="width: 100%;">
+			<el-table-column header-align="center" type="index" width="100" label="排序">
 			</el-table-column>
-			<el-table-column property="date" label="日期" width="120">
+			<el-table-column header-align="center" align="center" property="_id" label="id" width="120">
 			</el-table-column>
-			<el-table-column property="name" label="姓名" width="120">
+			<el-table-column header-align="center" property="title" label="标题" width="120">
 			</el-table-column>
-			<el-table-column property="address" label="地址">
+			<el-table-column header-align="center" property="description" label="描述">
+			</el-table-column>
+			<el-table-column header-align="center" property="img_src" label="图片地址">
 			</el-table-column>
 
-			<el-table-column label="操作">
+			<el-table-column header-align="center" label="操作">
 				<template slot-scope="scope">
-					<el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-					<el-button size="mini" @click="handleEdit2(scope.$index, scope.row)">添加图片</el-button>
+					<el-button ref="btn_upodate" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+					<el-button size="mini" @click="handleEdit2(scope.$index, scope.row)">修改图片</el-button>
 					<el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
 		
 		<!--图片-->
-		<el-dialog title="提示" :visible.sync="dialogVisible2" width="30%" :before-close="handleClose">
+		<el-dialog title="提示"  :visible.sync="dialogVisible2" width="30%" :before-close="handleClose">
 					<el-upload
 					  class="upload-demo"
 					  drag
+					  :data="{_id:id}"
 					  name="picture"
 					  action="http://localhost:3000/backIndex/courseList"
-					  multiple>
+					  >
 					  <i class="el-icon-upload"></i>
 					  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 					  <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
 					</el-upload>
+					<br /><br />
 		</el-dialog>
 		
 
@@ -75,6 +79,9 @@
 				</el-form-item>
 				<el-form-item label="描述">
 					<el-input v-model="form.description" name="description" type="text"></el-input>
+				</el-form-item>
+				<el-form-item label="图片">
+					<el-input v-model="form.img_src" name="img_src" type="text"></el-input>
 				</el-form-item>
 				<el-button @click="dialogVisible = false">取 消</el-button>
 			    <el-button native-type="submit" type="primary" @click="add_course">确 定</el-button>
@@ -89,31 +96,26 @@
 			return {
 				form:{
 					title:"",
-					description:""
+					description:"",
+					img_src:""
 				},
-				dialogVisible: false,
-				dialogVisible2:false,
-				tableData: [{
-					date: '2016-05-02',
-					name: '王小虎',
-					address: '上海市普陀区金沙江路 1518 弄'
-				}, {
-					date: '2016-05-04',
-					name: '王小虎',
-					address: '上海市普陀区金沙江路 1517 弄'
-				}, {
-					date: '2016-05-01',
-					name: '王小虎',
-					address: '上海市普陀区金沙江路 1519 弄'
-				}, {
-					date: '2016-05-03',
-					name: '王小虎',
-					address: '上海市普陀区金沙江路 1516 弄'
-				}],
+				id:"",
+				dialogVisible: false,   //控制是否弹出修改表单的标题等信息的页面
+				dialogVisible2:false,  //控制是否弹出增加图片的页
+				tableData: [],
+				edit_flag:true,
 				currentRow: null
 			}
 		},
-
+		created:function(){ //在vue2中，ready的方法已经被移除，可以使用钩子函数created来替代
+			var _this = this;
+			this.$reqs.post("/backIndex/find",{}).then(function(result){
+					if(result){
+//						console.log(result)
+						_this.tableData = result.data;
+					};
+				});
+		},
 		methods: {
 			setCurrent(row) {
 				this.$refs.singleTable.setCurrentRow(row);
@@ -121,36 +123,82 @@
 			handleCurrentChange(val) { //行数改变触发的事件
 				this.currentRow = val;
 			},
+			
+			//编辑按钮
 			handleEdit(index, row) { //index是行数下标索引；；row是这一行的数据字段和具体的值
+				this.edit_flag = false;
 				this.dialogVisible = true; //这个属性来控制是否弹出对话框
-				console.log(row)
+				this.form.title = row.title;
+				this.form.img_src = row.img_src;
+				this.form.description = row.description;
+				this.id = row._id;
+//				console.log(row)
 			},
+			
+			//修改图片按钮的方法
 			handleEdit2(index, row) { //index是行数下标索引；；row是这一行的数据字段和具体的值
+				this.id = row._id;
 				this.dialogVisible2 = true; //这个属性来控制是否弹出对话框
-				console.log(row)
 			},
+			
+			//删除整行的按钮
 			handleDelete(index, row) {
-				console.log(index, row);
+				var _this = this;
+				this.$confirm('确认删除？')
+					.then(_ => {
+						this.$reqs.post("/backIndex/delete",{
+								_id:row._id
+							}).then(function(result){
+								console.log(result)
+								if(result.data.success){
+									_this.tableData.splice(index,1)
+								}
+						});
+					})
+					.catch(_ => {});
+				
 			},
 			handleClose(done) { //弹出的对话框里的方法
+				var _this = this;
 				this.$confirm('确认关闭？')
 					.then(_ => {
-						done();
+						location.reload()
+//						done();
 					})
 					.catch(_ => {});
 			},
 			edit(){
+				this.form.title = "";
+				this.form.description = "";
+				this.edit_flag = true;
 				this.dialogVisible = true; //这个属性来控制是否弹出对话框
 			},
-			add_course(){
-				this.$reqs.post("/backIndex/add",{
-					title:this.form.title,
-					description:this.form.description
-				}).then(function(result){
-					if(result.success){
-						console.log("成功")
-					}
-				})
+			add_course(){//弹出框点击确认的事件
+				//如果是添加按钮点击的
+				if(this.edit_flag){
+						this.$reqs.post("/backIndex/add",{
+								title:this.form.title,
+								description:this.form.description
+							}).then(function(result){
+								if(result.success){
+									console.log("成功")
+								}
+						});
+				}else{//如果是编辑按钮点击的
+					var _this = this;
+					this.$reqs.post("/backIndex/update",{
+								_id:_this.id,
+								title:this.form.title,
+								description:this.form.description
+						}).then(function(result){
+								if(result.success){
+									console.log("成功")
+								}
+						});
+				};
+				
+				
+			
 			}
 		}
 	}

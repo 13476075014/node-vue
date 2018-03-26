@@ -37,13 +37,13 @@
                 <li>
                     <router-link to="/backIndex/studentList">
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                        <span>学员管理</span>
+                        <span>商品展示</span>
                     </router-link>
                 </li>
                 <li>
                     <router-link to="/backIndex/courseList">
                         <i class="fa fa-book" aria-hidden="true"></i>
-                        <span>课程管理</span>
+                        <span>商品管理</span>
                     </router-link>
                 </li>
             </ul>
@@ -94,7 +94,7 @@
                 var _this = this ;
                 this.$reqs.post("/users/logout",{}).then(function(result){
                 	//成功
-                	_this.$reqs
+                	
                 })
             }
         },

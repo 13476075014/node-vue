@@ -114,6 +114,8 @@ var methodType = {
   //  req.query    req.body
   show:find, //后台部分
   add:add,
+  find:find,
+  courseList:updates,
   update:updates,
   delete:deletes,
   updatePwd:updates,

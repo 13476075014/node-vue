@@ -1,113 +1,132 @@
+
+
+
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
-  </div>
+	<!--这个页面主要是学习和实现vue的filter进行的商品搜索功能-->
+	<div id="index_content">
+		<el-row>
+			<el-col :span="6" :offset="9">
+				<el-input placeholder="请输入内容" v-model="searchString">
+					<el-button slot="append" icon="el-icon-search"></el-button>
+				</el-input>
+			</el-col>
+		</el-row>
+
+		<ul>
+			<li>
+				{{[time,search] | ll }}   <!--vue2.**的版本对过滤器的改动-->
+			</li>
+		</ul>
+		<el-row>
+		  <el-col :span="8" v-for="i in ne">
+		  	<a href="#" class="thumbnail" style="display: block;background:cornsilk;padding:10px;margin:10px;">
+		      <img :src="i.img_src" alt="..." style="height:250px;width:100%;">
+		      <p>{{i.title}}</p>
+		      <p>{{i.description}}</p>
+		    </a>
+		  </el-col>
+		</el-row>
+		
+		<!--<div class="row">
+		 <div class="col-xs-6 col-md-3" v-for="i in ne">
+		    <a href="#" class="thumbnail" style="background:cornsilk">
+		      <img :src="i.img_src" alt="..." style="height:250px;width:100%;">
+		      <p>{{i.title}}</p>
+		      <p>{{i.description}}</p>
+		    </a>
+		  </div>
+		</div>-->
+	</div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
-}
+	export default {
+		name: 'indexContent',
+		data() {
+			return {
+				search: "555",
+				time: "20160101",
+				searchString:"",
+				articles: [],
+			}
+		},
+		created:function(){
+			var _this = this;
+			this.$reqs.post("/backIndex/find",{}).then(function(result){
+					if(result){
+						_this.articles = result.data;
+					};
+				});
+		},
+		filters: {
+			ll: function([value, search]) {
+				return value + search
+			},
+			nn:function(value,search){
+				return value + search;
+			},
+			searchFor:function(value, searchString) {
+						var result = [];
+						if(!searchString) {
+							return value;
+						}
+		
+						searchString = searchString.trim().toLowerCase();
+						result = value.filter(function(item) {
+							if(item.title.toLowerCase().indexOf(searchString) !== -1) {
+								return item;
+							}
+						});
+		
+						return result;
+				}
+
+		},
+		computed:{ //这里是通过计算属性，对值进行过滤的搜索
+				ne:function(){
+					var result = [];
+					var ss = this.searchString;
+							result = this.articles.filter(function(item) {
+							if(item.title.toLowerCase().indexOf(ss) !== -1) {
+								return item;
+							}
+						});
+						return result;
+					
+				}
+		}
+	}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
+	li{list-style: none;}
+	.time {
+		font-size: 13px;
+		color: #999;
+	}
+	
+	.bottom {
+		margin-top: 13px;
+		line-height: 12px;
+	}
+	
+	.button {
+		padding: 0;
+		float: right;
+	}
+	
+	.image {
+		width: 100%;
+		display: block;
+	}
+	
+	.clearfix:before,
+	.clearfix:after {
+		display: table;
+		content: "";
+	}
+	
+	.clearfix:after {
+		clear: both
+	}
 </style>
