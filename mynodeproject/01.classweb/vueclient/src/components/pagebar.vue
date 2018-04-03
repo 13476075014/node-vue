@@ -76,7 +76,7 @@
                 if(index == this.current) return;
                     //this.current = index;
                     //这里可以发送ajax请求
-                    this.$emit("on-gopage",index);
+                    this.$emit("on-gopage",index); //$emit触发父组件额自定义事件，v-on的事件
             }
         }
     }

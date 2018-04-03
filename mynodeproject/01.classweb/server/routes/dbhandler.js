@@ -105,7 +105,7 @@ var updates = function(db,collections,selector,fn){
   });
 
 }
-var methodType = {
+/*var methodType = {
     // 项目所需
   login:find,
   //   type ---> 不放在服务器上面
@@ -123,15 +123,49 @@ var methodType = {
   showCourse:find,
   register:add,
   page:page //分页
-};
+};*/
+
+
 //主逻辑    服务器  ， 请求    --》 
 // req.route.path ==》 防止前端的请求 直接操作你的数据库
-module.exports = function(req,res,collections,selector,fn){
+/*module.exports = function(req,res,collections,selector,fn){
   MongoClient.connect(Urls, function(err, db) {
     assert.equal(null, err);
     console.log("Connected correctly to server");
     // 根据 请求的地址来确定是什么操作  （为了安全，避免前端直接通过请求url操作数据库）
     methodType[req.route.path.substr(1)](db,collections,selector,fn);
+    
+    db.close();
+  });
+
+};*/
+
+
+
+
+
+/*自己修改的向外暴露的增删改的接口*/
+var methodType = {
+  login:find,
+  show:find, //后台部分
+  add:add,
+  find:find,
+  courseList:updates,
+  update:updates,
+  delete:deletes,
+  updatePwd:updates,
+  //portal部分
+  showCourse:find,
+  register:add,
+  page:page //分页
+};
+
+module.exports = function(req,res,i,collections,selector,fn){
+  MongoClient.connect(Urls, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    // 根据 请求的地址来确定是什么操作  （为了安全，避免前端直接通过请求url操作数据库）
+    methodType[i](db,collections,selector,fn);
     
     db.close();
   });

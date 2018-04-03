@@ -46,6 +46,18 @@
                         <span>商品管理</span>
                     </router-link>
                 </li>
+                <li>
+                    <router-link to="/backIndex/my">
+                        <i class="fa fa-deaf" aria-hidden="true"></i>
+                        <span>测着玩</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/backIndex/upload">
+                        <i class="fa el-icon-upload" aria-hidden="true"></i>
+                        <span>upload的学习</span>
+                    </router-link>
+                </li>
             </ul>
         </div>
         
@@ -68,7 +80,9 @@
         adminList:"后台人员",
         studentList:"学员管理",
         courseList:"课程管理",
-        courseEdit:"课程编辑"
+        courseEdit:"课程编辑",
+        my:"测着玩",
+        upload:"upload的学习"
     };
     
     export default {
@@ -94,7 +108,7 @@
                 var _this = this ;
                 this.$reqs.post("/users/logout",{}).then(function(result){
                 	//成功
-                	
+                	_this.$router.push({path:'/'});
                 })
             }
         },

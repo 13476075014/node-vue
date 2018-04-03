@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<style>
+		</style>
+	</head>
+	<body>
+		
+		<script>
+		
+			//客户端程序
+			var ws = new WebSocket("ws://127.0.0.1:8000/");
+			ws.onerror = function(e){
+				console.log("错误:" + e);
+			};
+			ws.onopen = function(e){
+			    console.log("成功");
+			};
+			
+		</script>
+		
+	</body>
+</html>

@@ -18,8 +18,8 @@
 			</li>
 		</ul>
 		<el-row>
-		  <el-col :span="8" v-for="i in ne">
-		  	<a href="#" class="thumbnail" style="display: block;background:cornsilk;padding:10px;margin:10px;">
+		  <el-col :span="8" v-for="(i,index) in ne" :key='index'>
+		  	<a href="#" class="thumbnail" style="display: block;background:rgb(240,242,245);padding:10px;margin:10px;">
 		      <img :src="i.img_src" alt="..." style="height:250px;width:100%;">
 		      <p>{{i.title}}</p>
 		      <p>{{i.description}}</p>

@@ -8,6 +8,8 @@ import indexContent from '@/components/indexContent'
 import adminList from '@/components/adminList'
 import studentList from '@/components/studentList'
 import courseEdit from '@/components/courseEdit'
+import my from '@/components/my'
+import upload from '@/components/upload'
 
 
 Vue.use(Router)
@@ -39,6 +41,13 @@ export default new Router({
               path: 'studentList', //学员用户
                 component: studentList
             },{
+               path: 'my',           //测试的
+               component: my
+            },{
+               path: 'upload',           //测试的
+               component: upload
+            }
+            ,{
                path: '*',           //其他路径都跳转到首页
                 redirect: 'indexContent'
             }

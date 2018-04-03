@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');  //这个是用来在post请求的时�
 var index = require('./routes/index');
 var users = require('./routes/users');
 var backIndex = require('./routes/backIndex');
+var upload = require('./routes/upload');
 
 var app = express();
 
@@ -34,6 +35,27 @@ app.use(session({
 	saveUninitialized: true
 }));
 
+// 验证用户登录
+app.use(function(req, res, next){
+
+    //后台请求
+    if(req.session.username){ //表示已经登录后台
+    	console.log("555")
+        next();
+    }else if( req.url.indexOf("login") >=0 || req.url.indexOf("logout") >= 0){
+        //登入，登出不需要登录
+        next();
+    }else{
+        //next(); //TODO:这里是调试的时候打开的，以后需要删掉
+        res.end('{"redirect":"true"}');
+        
+    };
+    
+});
+
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -51,6 +73,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/backIndex', backIndex);
+app.use('/upload', upload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

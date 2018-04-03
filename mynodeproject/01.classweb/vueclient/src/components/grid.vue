@@ -122,7 +122,7 @@
         },
         methods:{
             editHandler(item){
-                this.$emit("on-edit",item);
+                this.$emit("on-edit",item); //调用父组件的方法
             },
             deleteHandler(item){
                 this.$emit("on-delete",item);

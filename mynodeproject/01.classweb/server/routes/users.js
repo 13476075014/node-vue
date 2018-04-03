@@ -10,7 +10,7 @@ router.post('/login', function(req, res, next) {
     var md5 = crypto.createHash('md5');
   var password = md5.update(req.body.password).digest('base64');
 
-    handler(req, res, "user", {name: req.body.username},function(data){
+    handler(req, res,"login" ,"user", {name: req.body.username},function(data){
         if(data.length===0){
             res.end('{"err":"抱歉，系统中并无该用户，如有需要，请向管理员申请"}');
         }else if(data[0].password !== password){
@@ -40,9 +40,9 @@ router.post('/logout', function(req, res, next) {
 router.post('/AdminList', function(req, res, next) {
     //console.log(req.body);
     req.route.path = "/page"; //修改path来设定 对 数据库的操作
-    var page = req.body.page || 1;
-    var rows = req.body.rows || 5;
-    handler(req, res, "user", [{},{limit: rows, skip:(page-1)*rows}] ,function(data,count){
+    var page = req.body.page || 1;  //当前页数
+    var rows = req.body.rows || 5;  //一页显示的条数
+    handler(req, res,"page" ,"user", [{},{limit: rows, skip:(page-1)*rows}] ,function(data,count){
         var obj = {
           data:data,
           total:count,
@@ -59,7 +59,7 @@ router.post('/add', function(req, res, next) {
     //console.log(req.body);
     var md5 = crypto.createHash('md5');
     req.body.password = md5.update(req.body.password).digest('base64');
-    handler(req, res, "user", req.body,function(data){
+    handler(req, res,"add", "user", req.body,function(data){
         
         //console.log(data);
         if(data.length==0){
@@ -74,7 +74,7 @@ router.post('/add', function(req, res, next) {
 //删除用户
 router.post('/delete', function(req, res, next) {
     
-    handler(req, res, "user", {"_id" : ObjectId(req.body._id)},function(data){
+    handler(req, res,"delete" ,"user", {"_id" : ObjectId(req.body._id)},function(data){
         
         console.log(data);
         if(data.length==0){
@@ -103,7 +103,7 @@ router.post('/update', function(req, res, next) {
             }
         }
     ];
-    handler(req, res, "user", selectors,function(data){
+    handler(req, res,"delete" ,"user", selectors,function(data){
         
         //console.log(data);
         if(data.length==0){
