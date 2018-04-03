@@ -12,6 +12,10 @@ import my from '@/components/my'
 import upload from '@/components/upload'
 
 
+//三级页面
+import goods_detail from '@/components/detail/goods_detail'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -39,7 +43,11 @@ export default new Router({
                 component: adminList
             },{
               path: 'studentList', //学员用户
-                component: studentList
+              component: studentList
+            },{
+               path: 'goods_detail/:_id',  //商品详情
+               name:"goods",
+               component: goods_detail
             },{
                path: 'my',           //测试的
                component: my

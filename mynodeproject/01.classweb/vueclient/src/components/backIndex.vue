@@ -5,6 +5,9 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
                 <input @focus="focusFn" @blur="blurFn" type="text" name="" id="" value="" placeholder="搜索 . . . " />
             </div>
+            <div class="time" style="padding-top:20px;float:left;">
+            	{{da}}
+            </div>
             <div class="handler">
                 <div class="more" @click="toggleSlide">
                     <i class="fa fa-bars" aria-hidden="true"></i>
@@ -82,13 +85,15 @@
         courseList:"课程管理",
         courseEdit:"课程编辑",
         my:"测着玩",
-        upload:"upload的学习"
+        upload:"upload的学习",
+        goods_detail:"goods_detail"
     };
     
     export default {
       name: 'backlogin',
       data () {
-        return {
+        return {	
+        			datatime:"",
                     search_box_fouce:false,
                     showExit:false,
                     pageTitle: pageTitleObj[ this.$route.path.substr( this.$route.path.lastIndexOf("/")+1 ) ] || "网站首页"
@@ -111,6 +116,15 @@
                 	_this.$router.push({path:'/'});
                 })
             }
+        },
+        computed:{
+        	da:function(){
+        		var da = new Date();
+	        	da = da.toLocaleString();
+	        	this.datatime = da;
+	        	return da;
+        	}
+        	
         },
         watch:{ //监控路径变化  当路径发送变化的时候，改变面包屑导航的显示
             $route: {

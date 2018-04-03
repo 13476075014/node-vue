@@ -43,7 +43,7 @@ axios.interceptors.response.use(function (response) {
     }
     else{
         //返回response继续执行后面的操作
-        console.log(response)
+        //console.log(response)
         return response;
     }
   }, function (error) {

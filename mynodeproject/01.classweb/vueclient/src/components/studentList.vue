@@ -14,16 +14,21 @@
 
 		<ul>
 			<li>
-				{{[time,search] | ll }}   <!--vue2.**的版本对过滤器的改动-->
+				<!--{{[time,search] | ll }}-->   <!--vue2.**的版本对过滤器的改动-->
 			</li>
 		</ul>
 		<el-row>
-		  <el-col :span="8" v-for="(i,index) in ne" :key='index'>
-		  	<a href="#" class="thumbnail" style="display: block;background:rgb(240,242,245);padding:10px;margin:10px;">
-		      <img :src="i.img_src" alt="..." style="height:250px;width:100%;">
-		      <p>{{i.title}}</p>
-		      <p>{{i.description}}</p>
-		    </a>
+		  <el-col :span="6" v-for="(i,index) in ne" :key='index'>
+		  	<!--下面的to如果里面的路径是要用到vuedata里面的参数，就需要在前面加上冒号-->
+		  	 <router-link :to='{
+						  	 	name:"goods",
+						  	 	params:i
+						  	 	}'
+		  	 	  class="thumbnail" style="display: block;background:rgb(240,242,245);padding:10px;margin:10px;">
+		      	<img :src="i.img_src" alt="..." style="height:250px;width:100%;">
+			    <p>{{i.title}}</p>
+			    <p>{{i.description}}</p>
+		     </router-link>
 		  </el-col>
 		</el-row>
 		
@@ -91,6 +96,7 @@
 								return item;
 							}
 						});
+//						console.log(result)
 						return result;
 					
 				}
