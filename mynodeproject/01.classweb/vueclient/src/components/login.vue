@@ -1,6 +1,6 @@
 <template>
-	
 	<div class="backlogin">
+		<div id="can"></div>
         <div class="login_box">
             <div class="title">后台登录</div>
             <div>
@@ -20,13 +20,11 @@
         <div>
 			 <el-checkbox v-model="checked">备选项</el-checkbox>
 		</div>
-  	</div>
-	
-	
-	
+  </div>
 </template>
 
 <script>
+	import snow from "../../static/js/snow.js" ; //这里是引进用到的登录页的背景效果的插件
 	 export default {
       name: 'backlogin',
       data () {
@@ -37,6 +35,10 @@
                 loginText:"登录",
                  checked: true
         }
+      },
+      mounted:function(){
+      	var can = document.querySelector('#can');
+    	snow.a(can); //这里是调用上面的背景效果插件的a方法，并且传参数，来选择要把canvas放到哪个标签里面
       },
       methods:{
             login(){
@@ -69,7 +71,6 @@
     }
 </script>
 
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 	.header{
@@ -90,6 +91,8 @@
     .login_box{
         width: 320px;
         margin: 50px auto;
+        padding:20px;
+        background:rgba(255,255,255,0.7);
     }
     .login_box .myinput{
         width: 100%;
