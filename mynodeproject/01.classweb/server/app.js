@@ -40,7 +40,6 @@ app.use(function(req, res, next){
 
     //后台请求
     if(req.session.username){ //表示已经登录后台
-    	console.log("555")
         next();
     }else if( req.url.indexOf("login") >=0 || req.url.indexOf("logout") >= 0){
         //登入，登出不需要登录

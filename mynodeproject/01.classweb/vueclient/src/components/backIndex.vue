@@ -31,34 +31,40 @@
                         <span>网站首页</span>
                     </router-link>
                 </li>
-                <li>
+                <!--<li>
                     <router-link to="/backIndex/adminList">
                         <i class="fa fa-user-o" aria-hidden="true"></i>
                         <span>后台人员</span>
                     </router-link>
-                </li>
+                </li>-->
                 <li>
                     <router-link to="/backIndex/studentList">
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                         <span>商品展示</span>
                     </router-link>
                 </li>
-                <li>
+                <!--<li>
                     <router-link to="/backIndex/courseList">
                         <i class="fa fa-book" aria-hidden="true"></i>
                         <span>商品管理</span>
                     </router-link>
-                </li>
-                <li>
+                </li>-->
+                <!--<li>
                     <router-link to="/backIndex/my">
                         <i class="fa fa-deaf" aria-hidden="true"></i>
                         <span>测着玩</span>
                     </router-link>
-                </li>
+                </li>-->
                 <li>
                     <router-link to="/backIndex/upload">
                         <i class="fa el-icon-upload" aria-hidden="true"></i>
                         <span>upload的学习</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/backIndex/limit">
+                        <i class="fa el-icon-bell" aria-hidden="true"></i>
+                        <span>后台表格展示</span>
                     </router-link>
                 </li>
             </ul>
@@ -86,7 +92,10 @@
         courseEdit:"课程编辑",
         my:"测着玩",
         upload:"upload的学习",
-        goods_detail:"goods_detail"
+        goods_detail:"goods_detail",
+        limit:"后台表格展示",
+        one:"后台表格展示",
+        two:"后台表格展示",
     };
     
     export default {

@@ -78,7 +78,9 @@ router.post("/courseList", function(req, res, next) {
 	form.parse(req, function(err, fields, files) {
 		var oldpath = files.picture.path;
 		var extname = files.picture.name;
-
+		var title = fields.title;
+		var description = fields.description;
+		
 		//console.log(fields ,"+" ,files)
 		//新的路径由三个部分组成：时间戳、随机数、拓展名
 		var newpath = "./public/images/" + extname;
@@ -88,6 +90,8 @@ router.post("/courseList", function(req, res, next) {
 					var selectors = [{"_id": ObjectId(fields._id)}, //这里需要这样写
 						{
 							"$set": {
+								title:title,
+								description:description,
 								img_src: "http://localhost:3000/images/" + extname
 							}
 						}
@@ -119,11 +123,11 @@ router.post("/courseList", function(req, res, next) {
 				
 				if(result) {
 					var img = result[0].img_src;
-					console.log("img:",img)
+					//console.log("img:",img)
 					if(img) {
 						//把图片地址换过来，用fs的unlink模块删掉
 						img = img.replace("http://localhost:3000", "./public");
-						console.log("img:",img);
+						//console.log("img:",img);
 						fs.unlink(img, function(err) {
 								upda();
 						})
@@ -143,7 +147,13 @@ router.post("/courseList", function(req, res, next) {
 
 	});
 
-})
+});
+
+
+
+
+
+
 
 //删除一条数据
 router.post("/delete", function(req, res, next) {
@@ -163,6 +173,24 @@ router.post("/delete", function(req, res, next) {
 			}
 		});
 	};
-})
+});
+
+
+
+//分页
+router.post('/page', function(req, res, next) {
+    var page = req.body.page || 1;  //当前页数
+    var rows = req.body.rows || 5;  //一页显示的条数
+    handler(req, res,"page" ,"backIndex", [{},{limit: rows, skip:(page-1)*rows}] ,function(data,count){
+        var obj = {
+          data:data,
+          total:count,
+          success:"成功"
+        };
+        var str = JSON.stringify(obj);
+        res.end(str);
+    });
+});
+
 
 module.exports = router;

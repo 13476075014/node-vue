@@ -10,10 +10,13 @@ import studentList from '@/components/studentList'
 import courseEdit from '@/components/courseEdit'
 import my from '@/components/my'
 import upload from '@/components/upload'
+import limit from '@/components/limit'
 
 
 //三级页面
 import goods_detail from '@/components/detail/goods_detail'
+import goods from '@/components/detail/goods'
+import user from '@/components/detail/user'
 
 
 Vue.use(Router)
@@ -34,7 +37,7 @@ export default new Router({
 			        component: courseList
             },{
               path: 'courseEdit/:sysId', //编辑课程
-                component: courseEdit
+              component: courseEdit
             },{
               path: 'indexContent', //首页统计
                 component: indexContent
@@ -54,6 +57,19 @@ export default new Router({
             },{
                path: 'upload',           //测试的
                component: upload
+            },{
+               path: 'limit',           //测试的
+               component: limit,
+               children:[
+               		{path:'one',
+               		component:user},
+               		{path:'two',
+               		component:goods},
+               		{
+			               path: '/',           //其他路径都跳转到首页
+			               component:user
+			            }
+               ]
             }
             ,{
                path: '*',           //其他路径都跳转到首页

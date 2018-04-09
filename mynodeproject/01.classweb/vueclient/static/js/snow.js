@@ -30,7 +30,7 @@ var snow = {
 				return ctx;
 			},
 
-			setCursor: function(type) {
+			setCursor: function(type) { //鼠标指针上去的样式
 
 				if(type !== this.cursor) {
 					this.cursor = type;
@@ -193,11 +193,11 @@ var snow = {
 		'use strict';
 		// setup
 
-		var count = 20, //小球的数量
+		var count = 10, //小球的数量
 			circles = [],
 			ds = 2, //初始的球的距离
-			dragging = false,
-			colors = ['#f80', '#08f', '#666'],
+			dragging = false, //是否可以手动的拖拽球
+			colors = ['#f80', '#08f', '#666'],//球的颜色
 			//colors = ["black","red","green"], //球的颜色
 			maxRad, grd;
 
@@ -313,7 +313,8 @@ var snow = {
 		function draw(doms) {
 			requestAnimationFrame(draw);
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.globalCompositeOperation = 'lighter';
+			ctx.globalCompositeOperation = 'lighter';//'source-over' //参考网址：https://blog.csdn.net/laijieyao/article/details/41862473；
+													//canvas的合成操作，lighter这个值与顺序无关，如果源与目标重叠，就将两者的颜色值想家。得到的颜色值的最大取值为255，结果就为白色。
 			pointer.over = false;
 
 			// looping through circle array
@@ -334,7 +335,7 @@ var snow = {
 
 			// vignette
 
-			ctx.globalAlpha = 1;
+			ctx.globalAlpha = 1;//透明度
 			ctx.globalCompositeOperation = 'source-over';
 			ctx.fillStyle = grd;
 //				ctx.fillStyle = "black"
@@ -355,10 +356,12 @@ var snow = {
 			// vignette
 			var outerRadius = this.width * 0.7;
 			var innerRadius = this.height * 0.3;
+			
+			//采用放射状去绘制矩形
 			grd = ctx.createRadialGradient(this.width / 2, this.height / 2, innerRadius, this.width / 2, this.height / 2, outerRadius);
-			grd.addColorStop(0, 'rgba(0,0,0,0)');
-			grd.addColorStop(1, 'rgba(0,0,0,1)');
-
+			//grd.addColorStop(0, 'rgba(0,0,0,0)');
+			//grd.addColorStop(1, 'rgba(0,0,0,1)');
+			//grd="white";
 		};
 
 		canvas.resize();

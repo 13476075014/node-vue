@@ -20,6 +20,17 @@
 			      >
 			    </el-table-column>
 		    </template>
+		    	 <el-table-column label="操作" align="center">
+			      <template slot-scope="scope">
+			        <el-button
+			          size="mini"
+			          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+			        <el-button
+			          size="mini"
+			          type="danger"
+			          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+			      </template>
+			    </el-table-column>
 		  </el-table>
 		  
 		  <!--分页-->
@@ -79,6 +90,12 @@
 		    	
 		    },
 		     methods: {
+		      handleEdit(index,row){//表格行的编辑
+		      	this.$emit("handleEditTWO",index,row)
+		      },
+		      handleDelete(index,row){
+		      	
+		      },
 		      handleSizeChange(val) {
 		        console.log(`每页 ${val} 条`);
 		      },
