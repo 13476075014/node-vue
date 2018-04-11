@@ -69,13 +69,13 @@
 		    			return 1;
 		    		}
 		    	},
-		    	total:{//总共页数
+		    	total:{//总共条数
 		    		type:Number,
 		    		default:function(){
 		    			return 6;
 		    		}
 		    	},
-		    	page_sizes:{//总共页数
+		    	page_sizes:{//每页显示几条
 		    		type:Array,
 		    		default:function(){
 		    			return [6];
@@ -91,10 +91,10 @@
 		    },
 		     methods: {
 		      handleEdit(index,row){//表格行的编辑
-		      	this.$emit("handleEditTWO",index,row)
+		      	this.$emit("handleEditTWO",index,row);
 		      },
-		      handleDelete(index,row){
-		      	
+		      handleDelete(index,row){//表格行的删除操作
+		      	this.$emit("handleDeleteTWO",index,row);
 		      },
 		      handleSizeChange(val) {
 		        console.log(`每页 ${val} 条`);

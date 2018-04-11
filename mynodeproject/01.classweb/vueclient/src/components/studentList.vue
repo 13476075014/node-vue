@@ -11,12 +11,6 @@
 				</el-input>
 			</el-col>
 		</el-row>
-
-		<ul>
-			<li>
-				<!--{{[time,search] | ll }}-->   <!--vue2.**的版本对过滤器的改动-->
-			</li>
-		</ul>
 		<el-row>
 		  <el-col :span="6" v-for="(i,index) in ne" :key='index'>
 		  	<!--下面的to如果里面的路径是要用到vuedata里面的参数，就需要在前面加上冒号-->
@@ -25,8 +19,8 @@
 						  	 	params:i
 						  	 	}'
 		  	 	  class="thumbnail" style="display: block;background:rgb(240,242,245);padding:10px;margin:10px;">
+		      	<p>{{i.title}}</p>
 		      	<img :src="i.img_src" alt="..." style="height:250px;width:100%;">
-			    <p>{{i.title}}</p>
 			    <p>{{i.description}}</p>
 		     </router-link>
 		  </el-col>
@@ -104,7 +98,9 @@
 	}
 </script>
 
-<style>
+<style scoped>
+	p{line-height: 21px;}
+	a{text-decoration: none;color:rgb(45,45,45)}
 	li{list-style: none;}
 	.time {
 		font-size: 13px;

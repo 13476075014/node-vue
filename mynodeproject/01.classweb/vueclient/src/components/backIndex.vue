@@ -11,7 +11,7 @@
             <div class="handler">
                 <div class="more" @click="toggleSlide">
                     <i class="fa fa-bars" aria-hidden="true"></i>
-                    <ul :class="{showul:showExit}">
+                    <ul :class="{showul:showExit}" style="z-index:999;">
                         <li><a href="javascript:;" @click="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>退出</a></li>
                         <li><a href="javascript:;" @click="">修改密码</a></li>
                         <li><a href="javascript:;">意见反馈</a></li>
@@ -25,12 +25,12 @@
         <div class="sidenav_box">
             <img class="logo" src="../assets/images/logo03.png" alt="" />
             <ul class="sidenav">
-                <li class="now">
+                <!--<li class="now">
                     <router-link to="/backIndex/indexContent">
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>网站首页</span>
                     </router-link>
-                </li>
+                </li>-->
                 <!--<li>
                     <router-link to="/backIndex/adminList">
                         <i class="fa fa-user-o" aria-hidden="true"></i>

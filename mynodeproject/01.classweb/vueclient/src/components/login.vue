@@ -54,7 +54,7 @@
                     if(result.data.err){
                     	alert(result.data.err);
                     }else{
-                    	_this.$router.push({path:'/backIndex/indexContent'});
+                    	_this.$router.push({path:'/backIndex/studentList'});
                     }
                     
                     //console.log(result)
