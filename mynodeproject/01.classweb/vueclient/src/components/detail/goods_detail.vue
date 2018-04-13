@@ -17,6 +17,7 @@
 			<h1>{{content.title}}</h1>
 			<img :src="content.img_src" alt="" style="width:60%;"/>
 			<p>{{content.description}}</p>
+			<p>{{content.scan_cout}}</p>
 		</el-col>
 	</el-row>
 </template>

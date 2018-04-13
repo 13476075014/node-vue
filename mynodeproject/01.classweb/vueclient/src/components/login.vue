@@ -9,6 +9,21 @@
             <div>
                 <input @keyup.13="login" class="myinput" type="password" placeholder="口令" v-model="password" />
             </div>
+            <!--极客验证的使用-->
+             <div>
+             	<el-row>
+             		<el-col :span="24" style="text-align: left;margin:10px 0;">
+             			<label>完成验证：</label>
+             		</el-col>
+             		<el-col :span="24" style="margin:5px 0 10px;">
+             			<div id="captcha" :span="16">
+				            <p id="wait" class="show">正在加载验证码......</p>
+				        </div>
+             		</el-col>
+             	</el-row>
+		    </div>
+            
+            
             <div class="login_other">
                 <a href="javascript:;">找回密码</a>
                 <input type="checkbox" id="remenberme" /><label for="remenberme">记住我</label>
@@ -24,7 +39,13 @@
 </template>
 
 <script>
+	import jqu from "../../static/js/jquery-2.1.0.js" ;
 	import snow from "../../static/js/snow.js" ; //这里是引进用到的登录页的背景效果的插件
+	import gt from "../../static/js/gt.js" ; 
+	import slid from "../../static/js/slider.js" ;
+	
+	
+	
 	 export default {
       name: 'backlogin',
       data () {
@@ -164,4 +185,17 @@
             margin: 50px auto;
         }
     }
+    
+     #captcha {
+            width: 100%!important;
+            display: inline-block;
+        }
+        
+     #wait {
+            text-align: left;
+            color: #666;
+            margin: 0;
+        }
+       
+
 </style>

@@ -6,6 +6,7 @@ const app = express();
 app.get("/",function(req,res,next){
 	//1.异步读取文件
 	//参数1：是要读取的文件的相对地址； 参数2：是字符编码；参数3是事件结束后的回调
+	//windows默认的是gbk编码，但node不支持，同意使用utf-8编码，所以在文件过大时会卡，可以使用readline模块；
 	fs.readFile("./read.txt",'utf8',function(err,data){//err如果存在就是读取失败，会返回错误信息；data是成功后的读取信息
 		if(err){
 			res.send("错误");

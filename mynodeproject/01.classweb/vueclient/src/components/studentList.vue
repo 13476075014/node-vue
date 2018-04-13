@@ -22,6 +22,10 @@
 		      	<p>{{i.title}}</p>
 		      	<img :src="i.img_src" alt="..." style="height:250px;width:100%;">
 			    <p>{{i.description}}</p>
+			    <p style="text-align: right;">
+			    	<span  class="el-icon-view" style="margin-right:15px;color:royalblue;"><i style="margin-left:5px;">{{i.scan_cout}}</i></span>
+			    	<span  class="el-icon-star-on" style="margin-right:5px;color:indianred;"><i style="margin-left:5px;">{{i.scan_cout}}</i></span>
+			    </p>
 		     </router-link>
 		  </el-col>
 		</el-row>
@@ -54,6 +58,7 @@
 			this.$reqs.post("/backIndex/find",{}).then(function(result){
 					if(result){
 						_this.articles = result.data;
+						//console.log(result.data)
 					};
 				});
 		},
