@@ -40,6 +40,18 @@ app.use(session({
 
 
 
+app.use(function(req,res,next){
+    console.log(req.session)
+    if(req.session.ok == "ok"){
+        console.log("have ok");
+        next();
+    }else{
+        console.log("haven't ok");
+        next();
+    }
+})
+
+
 //极客验证
 app.get("/gt/register-slide", function (req, res) {
   slide.register(null, function (err, data) {
@@ -77,6 +89,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 极客验证
 app.post("/gt/validate-slide", function (req, res) {
+    var name = req.body.username;
+    var password = req.body.password;
+
   // 对ajax提供的验证凭证进行二次验证
   slide.validate(req.session.fallback, {
       geetest_challenge: req.body.geetest_challenge,
@@ -99,11 +114,21 @@ app.post("/gt/validate-slide", function (req, res) {
               info: '登录失败'
           });
       } else {
+          //验证码成功后来验证账号和密码是否正确，正确的话就存一个session
+        if(name == "liuchun" && password == "12356"){
+            req.session.ok = "ok";
         console.log("eleseeeee");
           res.send({
               status: "success",
               info: '登录成功'
           });
+        }else{
+            res.send({
+                status: "fail",
+                info: '账号密码错误'
+            });
+        }
+        
       }
   });
 });

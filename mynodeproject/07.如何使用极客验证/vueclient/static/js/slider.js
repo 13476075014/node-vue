@@ -13,8 +13,11 @@
                 url: 'http://localhost:3000/gt/validate-slide', //这里的地址是根据你的后台接口的地址，我这里是这样的
                 type: 'POST',
                 dataType: 'json',
+                xhrFields:{//这个属性来决定，是否跨域保存session
+                  withCredentials:true
+                },
                 data: {
-                    username: $('#username2').val(), //用户名
+                  username: $('#username2').val(), //用户名
                     password: $('#password2').val(), //密码
                     geetest_challenge: result.geetest_challenge,
                     geetest_validate: result.geetest_validate,
@@ -24,7 +27,7 @@
                     if (data.status === 'success') {
                         alert('登录成功');
                     } else if (data.status === 'fail') {
-                        alert('登录失败，请完成验证');
+                        alert(data.info);
                         captchaObj.reset();
                     }
                 },

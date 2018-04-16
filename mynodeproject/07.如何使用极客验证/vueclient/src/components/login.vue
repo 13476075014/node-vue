@@ -4,12 +4,12 @@
     <form id="form">
         <div>
             <label for="username">用户名：</label>
-            <input class="inp" id="username" type="text" value="用户名">
+            <input class="inp" id="username2" type="text" value="liuchun">
         </div>
         <br>
         <div>
             <label for="password">密码：</label>
-            <input class="inp" id="password" type="password" value="123456">
+            <input class="inp" id="password2" type="password" value="12356">
         </div>
         <br>
         <div>

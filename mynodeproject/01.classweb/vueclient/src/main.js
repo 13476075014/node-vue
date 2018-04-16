@@ -24,11 +24,11 @@ axios.defaults.baseURL = "http://localhost:3000"; //打包的时候直接删掉�
 
 
 
-//将 axios 赋值给 Vue，方便在子组件里面使用 
+//将 axios 赋值给 Vue，方便在子组件里面使用
 Vue.prototype.$reqs = axios;
 
 // 添加响应拦截器
-//这里有具体的解释：https://www.kancloud.cn/yunye/axios/234845   
+//这里有具体的解释：https://www.kancloud.cn/yunye/axios/234845
 axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
 //  if(response.data.err){
@@ -42,8 +42,6 @@ axios.interceptors.response.use(function (response) {
         return Promise.reject(response);
     }
     else{
-        //返回response继续执行后面的操作
-        //console.log(response)
         return response;
     }
   }, function (error) {

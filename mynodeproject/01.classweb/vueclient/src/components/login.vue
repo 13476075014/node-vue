@@ -4,23 +4,16 @@
         <div class="login_box">
             <div class="title">后台登录</div>
             <div>
-                <input class="myinput" type="text" placeholder="手机号/用户名" v-model="username" />
+                <input class="myinput username" type="text" placeholder="手机号/用户名" v-model="username" />
             </div>
             <div>
-                <input @keyup.13="login" class="myinput" type="password" placeholder="口令" v-model="password" />
+                <input @keyup.13="login" class="myinput password" type="password" placeholder="口令" v-model="password" />
             </div>
             <!--极客验证的使用-->
              <div>
-             	<el-row>
-             		<el-col :span="24" style="text-align: left;margin:10px 0;">
-             			<label>完成验证：</label>
-             		</el-col>
-             		<el-col :span="24" style="margin:5px 0 10px;">
-             			<div id="captcha" :span="16">
-				            <p id="wait" class="show">正在加载验证码......</p>
-				        </div>
-             		</el-col>
-             	</el-row>
+             	 <div id="captcha">
+		            <p id="wait" class="show">正在加载验证码......</p>
+		        </div>
 		    </div>
             
             
@@ -28,7 +21,8 @@
                 <a href="javascript:;">找回密码</a>
                 <input type="checkbox" id="remenberme" /><label for="remenberme">记住我</label>
             </div>
-            <button :disabled="disablebtn" class="login" @click="login">{{loginText}}</button>
+            <!--<button :disabled="disablebtn" class="login" @click="login">{{loginText}}</button>-->
+            <button :disabled="disablebtn" class="login" id="btn">{{loginText}}</button>
         </div>
         
         <!--下面这个是自己尝试的使用element.ui的使用方法-->
@@ -39,14 +33,12 @@
 </template>
 
 <script>
-	import jqu from "../../static/js/jquery-2.1.0.js" ;
 	import snow from "../../static/js/snow.js" ; //这里是引进用到的登录页的背景效果的插件
-	import gt from "../../static/js/gt.js" ; 
-	import slid from "../../static/js/slider.js" ;
+	import jqu from "../assets/js/jquery-1.9.0.js" ; 
+	import gt from "../assets/js/gt.js" ; 
+	import sli from "../assets/js/slider.js" ; 
 	
-	
-	
-	 export default {
+	export default {
       name: 'backlogin',
       data () {
         return {
@@ -60,6 +52,10 @@
       mounted:function(){
       	var can = document.querySelector('#can');
     	snow.a(can); //这里是调用上面的背景效果插件的a方法，并且传参数，来选择要把canvas放到哪个标签里面
+    	
+      },
+      created:function(){
+      	sli(this);
       },
       methods:{
             login(){
