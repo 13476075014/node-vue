@@ -43,7 +43,6 @@ app.use(session({
 
 // 验证用户登录
 app.use(function(req, res, next){
-	console.log(req.session);
     //后台请求
     if(req.session.username){ //表示已经登录后台
         next();

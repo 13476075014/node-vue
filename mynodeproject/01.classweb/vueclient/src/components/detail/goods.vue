@@ -34,16 +34,22 @@
 				<el-form-item label="描述" prop="description">
 					<el-input v-model="form.description" name="description" type="text" ></el-input>
 				</el-form-item>
+				<el-form-item label="浏览量" prop="scan_cout" style="width:49%;display: inline-block;float:left;">
+					<el-input v-model="form.scan_cout" name="scan_cout" type="text" disabled></el-input>
+				</el-form-item>
+				<el-form-item label="收藏量" prop="love_cout" style="width:49%;display: inline-block;float:left;">
+					<el-input v-model="form.love_cout" name="love_cout" type="text" disabled></el-input>
+				</el-form-item>
 			</el-form>
 			
 			<el-upload
-			  style="margin-bottom:10px;"
+			  style="margin-bottom:30px;"
 			  class="upload-demo"
 			  action="https://jsonplaceholder.typicode.com/posts/"
 			  multiple
 			  :before-upload="beforeupload"
 			  >
-			  <el-button size="small" type="primary">点击上传</el-button>
+			  <el-button size="small" type="danger">点击上传</el-button>
 			  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
 			</el-upload>
 			<p>{{img_name}}</p>
@@ -72,6 +78,8 @@
 	 			};
 	 		return {
 	 			form:{
+	 				scan_cout:0,
+	 				love_cout:0,
 	 				title:"",
 	 				description:"",
 	 				img_src:"",
@@ -87,7 +95,7 @@
 	 			img_name:"",
 	 			isaddEdit:false, //是false的时候就是编辑按钮点击，是true的时候就是新增按钮的点击
 	 			dialogVisible:false,
-	 			talPro:[{prop:"_id",label:"id"},{prop:"title",label:"标题"},{prop:"description",label:"描述"},{prop:"img_src",label:"图片"}], //要显示的表头
+	 			talPro:[{prop:"_id",label:"id"},{prop:"scan_cout",label:"浏览量"},{prop:"love_cout",label:"收藏量"},{prop:"title",label:"标题"},{prop:"description",label:"描述"},{prop:"img_src",label:"图片"}], //要显示的表头
 	 			searchString:"",
 	 			total:12,//总共条数
 	 			page_sizes:[6],//每页显示的个数
@@ -124,6 +132,8 @@
 		     	this.form.title = row.title;
 		     	this.form.description = row.description;
 		     	this.form.img_src = row.img_src;
+		     	this.form.scan_cout = row.scan_cout;
+		     	this.form.love_cout = row.love_cout;
 		     	this.form._id = row._id;
 		     	this.isaddEdit = false;
 		     	this.dialogVisible = true;
@@ -133,6 +143,8 @@
 		     	this.form.title = "";
 		     	this.form.description = "";
 		     	this.form.img_src = "";
+		     	this.form.scan_cout = 0;
+		     	this.form.love_cout = 0;
 		     	this.form._id = "";
 		     	this.isaddEdit = true;
 		     	this.dialogVisible = true;
@@ -143,7 +155,8 @@
 		     	this.$confirm('确认删除这条数据，且将把数据库数据移除，不能恢复？')
 					.then(_ => {//点击确认
 						_this.$reqs.post('/backIndex/delete',{"_id":_id}).then(function(result){
-							location.reload();
+							//location.reload();
+							_this.getdate(_this.currentPage);
 						}).catch(function(e){
 							console.log(e);
 						})
@@ -179,7 +192,9 @@
 					this.$reqs.post("/backIndex/add2",this.param2,config).then(function(result){
 						if(result){
 								_this.dialogVisible = false;
-								location.reload();
+								//location.reload();
+								_this.$message({message:"修改成功",type:"success"});
+								_this.getdate(_this.currentPage);
 							};
 					});
 		     	}else{//编辑按钮
@@ -192,7 +207,10 @@
 					.then(function(result) {
 							if(result){
 								_this.dialogVisible = false;
-								location.reload();
+								_this.$message({message:"修改成功",type:"success"});
+								_this.getdate(_this.currentPage);
+							}else{
+								_this.$message({message:"修改失败！",type:"error"})
 							};
 					});
 		     	}

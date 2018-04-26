@@ -33,6 +33,18 @@
 		created:function(){
 			var qu = this.$route.params;
 			this.content = qu;
+			var _that = this;
+			//每次进来这个页面就相当于浏览量+1，的处理；
+			this.$reqs.post("/backIndex/update_scancout",{_id:qu._id}).then(function(result){
+				if(result.data.success === "true"){
+					console.log(result)
+					_that.content.scan_cout += 1;
+				}else{
+					alert("浏览数量异常")
+				}
+			}).catch(function(e){
+				
+			})
 		}
 	}
 </script>

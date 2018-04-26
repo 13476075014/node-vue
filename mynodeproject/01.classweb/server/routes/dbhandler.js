@@ -96,7 +96,7 @@ var updates = function(db,collections,selector,fn){
         assert.equal(err,null);
         assert.notStrictEqual(0,result.result.n);
         }catch(e){
-      console.log(e);
+      console.log("update错啦:" + e);
       result.result = "";
     };
     

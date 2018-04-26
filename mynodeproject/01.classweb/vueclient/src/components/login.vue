@@ -42,7 +42,7 @@
       name: 'backlogin',
       data () {
         return {
-                username:"admin",/*TODO:先预存测试值，以免手动输入*/
+                username:"admin2",/*TODO:先预存测试值，以免手动输入*/
                 password:"123456",
                 disablebtn:false,
                 loginText:"登录",
@@ -58,7 +58,7 @@
       	sli(this);
       },
       methods:{
-            login(){
+            login(){//这里的login暂时没有用，和验证的js一起写在了slider.js里面；
                 var _this = this;
                 this.disablebtn = true;
                 this.loginText = "登录中...";
@@ -69,7 +69,8 @@
                 }).then(function(result){ 
                     //成功
                     if(result.data.err){
-                    	alert(result.data.err);
+                    	//alert(result.data.err);
+                    	_this.$router.push({path:'/'});
                     }else{
                     	_this.$router.push({path:'/backIndex/studentList'});
                     }

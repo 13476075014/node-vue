@@ -75,11 +75,16 @@ app.get("/",function(req,res,next){
 				}
 			})
 	
-	//8.创建文件
+	//8.创建文件，可写流
 	//fs.createWriteStream('./out.txt')
-			fs.createWriteStream('./out.txt')
+			var write = fs.createWriteStream('./out.txt')
 	
+	//9.可读流
+	//fs.createReadStream('./read.txt')
+			var read = fs.createReadStream('./read.txt')
 	
+	//10.pipe()函数；把读的放到写的里面
+			read.pipe(write);
 	});
 	
 	

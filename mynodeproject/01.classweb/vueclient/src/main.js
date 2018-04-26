@@ -15,7 +15,7 @@ import axios from 'axios';//引入axios组件
 
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false //Set this to false to prevent the production tip on Vue startup.
 
 axios.defaults.withCredentials=true;  //跨域保存session有用
 axios.defaults.baseURL = "http://localhost:3000"; //打包的时候直接删掉，默认基础路径在这里配置

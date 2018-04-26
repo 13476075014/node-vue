@@ -28,10 +28,13 @@ var handler = function (captchaObj) {
                 },
                 success: function (data) {
                     if (data.status === 'success') {
-                    	 alert('登录成功');
+                    	 //alert('登录成功');
                     	console.log(th);
                     	th.$router.push({path:'/backIndex/studentList'});
-                    } else if (data.status === 'fail') {
+                    } else if (data.status === 'error') {
+                        alert(data.info);
+                        captchaObj.reset();
+                    }else if (data.status === 'fail') {
                         alert('登录失败，请完成验证');
                         captchaObj.reset();
                         

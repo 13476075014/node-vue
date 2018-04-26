@@ -6,12 +6,15 @@ var ObjectId = require('mongodb').ObjectId;
 var formidable = require('formidable');
 var fs = require("fs");
 
+
 //往表backIndex里面增加一条数据
 router.post("/add", function(req, res, next) {
 	if(req.body) {
 		handler(req, res, "add", "backIndex", {
 			title: req.body.title,
-			description: req.body.description
+			description: req.body.description,
+			scan_cout: req.body.scan_cout,
+			love_cout: req.body.love_cout
 		}, function(data) {
 			if(data) {
 				res.send({
@@ -25,6 +28,94 @@ router.post("/add", function(req, res, next) {
 			}
 		})
 	}
+
+});
+
+
+//往表backIndex里面对应的商品更新浏览量+1；
+router.post("/update_scancout", function(req, res, next) {
+	var selectors = [{
+				"_id": ObjectId(req.body._id)
+			}, //这里需要这样写
+			{
+				"$inc": {
+					scan_cout: 1
+				}
+			}
+		];
+		
+	if(req.body) {
+		handler(req, res, "update", "backIndex",selectors, function(data) {
+			if(data) {
+				res.send({
+					success: "true"
+				})
+			} else {
+				console.log("错误")
+				res.send({
+					success: "false"
+				})
+			}
+		})
+	}
+
+});
+
+//往表backIndex里面对应的商品更新收藏量+1；
+router.post("/update_lovecout", function(req, res, next) {
+	var seid = req.session._id
+	//判断该用户是否已经收藏过该商品
+	if(req.session.loves.indexOf(req.body.goods_id) > -1 ){//已经收藏过了
+		console.log("已经收藏过" + req.session.loves);
+		res.send({
+					love:"false",
+					success: "true"
+				})
+	}else{//没有收藏过
+		console.log(req.body.goods_id);
+		var selectors = [{
+				"_id": ObjectId(req.body.goods_id)
+			}, //这里需要这样写
+			{
+				"$inc": {
+					love_cout: 1
+				}
+			}
+		];
+			handler(req, res, "update", "backIndex",selectors, function(data) {
+				if(data) {
+					//在user表中的love_cout中加入这个id
+					req.session.loves.push(req.body.goods_id);
+					var selectors = [{
+							"_id": ObjectId(seid)
+						}, //这里需要这样写
+						{
+							"$push": {
+								love_cout: req.body.goods_id
+							}
+						}
+					];
+					handler(req, res, "update", "user",selectors, function(data) {
+						if(data) {
+							res.send({
+								love:"true",
+								success: "true"
+							})
+						}else{
+							console.log("数据在用户表里插入失败")
+						};
+					})
+				} else {
+					console.log("错误")
+					res.send({
+						love:"true",
+						success: "false"
+					})
+				}
+			});
+		
+	}
+	
 
 });
 
@@ -238,7 +329,7 @@ router.post("/add2",function(req,res,next){
 					if(err) {
 						throw Error("改名失败");
 					};
-					selectors ={title:title,description:description,img_src: "http://localhost:3000/images/" + extname}
+					selectors ={scan_cout:0,love_cout:0,title:title,description:description,img_src: "http://localhost:3000/images/" + extname}
 					handler(req, res, "add", "backIndex", selectors, function(result) {
 						if(result) {
 							res.send({
@@ -254,7 +345,7 @@ router.post("/add2",function(req,res,next){
 				})
 				
 			}else{
-				selectors = {title:title,description:description};
+				selectors = {title:title,description:description,scan_cout:0,love_cout:0};
 				handler(req, res, "add", "backIndex", selectors, function(result) {
 						if(result) {
 							res.send({

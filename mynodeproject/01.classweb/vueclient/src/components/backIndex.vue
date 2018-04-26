@@ -1,11 +1,11 @@
 <template>
   <div class="backlogin">
     <div class="header">
-            <div class="search_box" :class="{search_box_fouce:search_box_fouce}">
+            <!--<div class="search_box" :class="{search_box_fouce:search_box_fouce}">
                 <i class="fa fa-search" aria-hidden="true"></i>
                 <input @focus="focusFn" @blur="blurFn" type="text" name="" id="" value="" placeholder="搜索 . . . " />
-            </div>
-            <div class="time" style="padding-top:20px;float:left;">
+            </div>-->
+            <div class="time" style="padding-top:20px;float:left;margin-left:15px;color:rgb(145,145,145);">
             	{{da}}
             </div>
             <div class="handler">
@@ -17,7 +17,20 @@
                         <li><a href="javascript:;">意见反馈</a></li>
                     </ul>
                 </div>
-                <img src="../assets/images/logo04.png" alt="" />
+                <!--<img src="../assets/images/logo04.png" alt="" />-->
+                <el-dropdown>
+								  <span class="el-dropdown-link">
+								    <img style="width:40px;border-radius: 40px;height:40px;margin-top:10px;" src="../assets/images/logo04.png" alt="" />
+								  </span>
+								  <el-dropdown-menu slot="dropdown" style="width:200px;" class="el_dropmenu">
+								  	<h4 style="margin:0;padding-left:5px;">我的:</h4>
+								    <el-dropdown-item><i class="fa fa-user"></i>个人信息</el-dropdown-item>
+								    <el-dropdown-item><i class="fa fa-heart" @click="love_cli"></i>收藏</el-dropdown-item>
+								    <el-dropdown-item>螺蛳粉</el-dropdown-item>
+								    <el-dropdown-item disabled>双皮奶</el-dropdown-item>
+								    <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+								  </el-dropdown-menu>
+								</el-dropdown>
             </div>
         </div>
         
@@ -109,6 +122,9 @@
         }
       },
       methods:{
+      			love_cli(){
+      				
+      			},
             focusFn(){  //搜索框获取焦点，添加class
                 this.search_box_fouce = true;
             },
@@ -345,6 +361,6 @@
         margin-top: 10px;
     }
     
-   
+   .el_dropmenu i{margin-right:5px;}
     
 </style>

@@ -27,7 +27,13 @@ export default new Router({
 			path:'/',
 			name:'Login',
 			component:Login
-    },{
+    }
+//  {
+//			path:'/',
+//			name:'backIndex',
+//			component:backIndex
+//  }
+    ,{
     	path:'/backIndex',
     	name:'backIndex',
     	component:backIndex,

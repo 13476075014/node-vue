@@ -86,7 +86,10 @@ router.post("/login",function(req,res,next){
 			            });
 			        }else if(data.length!==0&&data[0].password===password){
 			            req.session.username = username; //存session
-			            req.session.password = password;
+			            req.session.password = password; //存密码
+			            req.session._id = data[0]._id;
+			            req.session.loves = data[0].love_cout; //存下收藏的产品的_id字段
+			            
 			             res.send({
 			            	status:"success",
 	            			info:"成功"
@@ -131,6 +134,7 @@ router.post("/login",function(req,res,next){
 router.post('/logout', function(req, res, next) {
     req.session.username = ""; //清除session中的用户信息
     req.session.password = "";
+    req.session.loves = [];
     res.end('{"success":"true"}');
 });
 
@@ -138,7 +142,7 @@ router.post('/logout', function(req, res, next) {
 //管理员列表
 router.post('/AdminList', function(req, res, next) {
     //console.log(req.body);
-    req.route.path = "/page"; //修改path来设定 对 数据库的操作
+    //req.route.path = "/page"; //修改path来设定 对 数据库的操作
     var page = req.body.page || 1;  //当前页数
     var rows = req.body.rows || 5;  //一页显示的条数
     handler(req, res,"page" ,"user", [{},{limit: rows, skip:(page-1)*rows}] ,function(data,count){
@@ -172,10 +176,7 @@ router.post('/add', function(req, res, next) {
 
 //删除用户
 router.post('/delete', function(req, res, next) {
-    
     handler(req, res,"delete" ,"user", {"_id" : ObjectId(req.body._id)},function(data){
-        
-        console.log(data);
         if(data.length==0){
             res.end('{"err":"抱歉，删除失败"}');
         }else{
@@ -192,8 +193,6 @@ router.post('/delete', function(req, res, next) {
 
 //编辑更新用户
 router.post('/update', function(req, res, next) {
-    //console.log(req.body);
-    
     var selectors = [
         {"_id":ObjectId(req.body._id)},
         {"$set":{
@@ -202,9 +201,13 @@ router.post('/update', function(req, res, next) {
             }
         }
     ];
-    handler(req, res,"delete" ,"user", selectors,function(data){
-        
-        //console.log(data);
+    if(req.body.password){
+    	var md5 = crypto.createHash('md5');
+    	var pa = md5.update(req.body.password).digest('base64');
+    	selectors[1].$set.password = pa;
+    };
+    console.log(selectors);
+    handler(req, res,"update" ,"user", selectors,function(data){
         if(data.length==0){
             res.end('{"err":"抱歉，修改失败"}');
         }else{
