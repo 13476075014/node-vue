@@ -11,6 +11,7 @@ import courseEdit from '@/components/courseEdit'
 import my from '@/components/my'
 import upload from '@/components/upload'
 import limit from '@/components/limit'
+import email from '@/components/email'
 
 
 //三级页面
@@ -60,6 +61,9 @@ export default new Router({
             },{
                path: 'my',           //测试的
                component: my
+            },{
+               path: 'email',           //测试的
+               component: email
             },{
                path: 'upload',           //测试的
                component: upload

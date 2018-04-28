@@ -19,11 +19,19 @@
                 <el-form-item label="密码" prop="pass">
                   <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
                 </el-form-item>
+                 <!--极客验证的使用-->
+                <div>
+                    <div id="captcha">
+                      <p id="wait" class="show">正在加载验证码......</p>
+                    </div>
+                </div>
+
                 <div class="login_more">
                   <el-checkbox v-model="checked" class="remerber">记住密码</el-checkbox>
                   <a href="">忘记密码？</a>
-                  <p>短信验证码登陆</p>
+                  <!-- <p>短信验证码登陆</p> -->
                 </div>
+
                 <el-form-item class="login_submit">
                   <el-button type="primary" @click="submitForm('ruleForm2')">登录</el-button>
                   <el-button @click="resetForm('ruleForm2')">重置</el-button>
@@ -40,6 +48,11 @@
 </template>
 
 <script>
+  import jqu from "../assets/js/jquery-1.9.0.js" ;
+	import gt from "../assets/js/gt.js" ;
+	import sli from "../assets/js/slider.js" ;
+
+
 export default {
   data() {
       var validatePass = (rule, value, callback) => {
@@ -60,12 +73,12 @@ export default {
           }
       };
       return {
+        checked:false,
         ruleForm2: {
           pass: '',
           checkPass: '',
           age: '',
-          username:"",
-          checked:false
+          username:""
         },
         rules2: {
           username:[
@@ -77,6 +90,11 @@ export default {
         }
       };
     },
+
+
+
+
+
   methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -91,16 +109,19 @@ export default {
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }
-    }
+    },
+  created:function(){
+    sli(this);
+  }
 }
 </script>
 
 <style scoped>
-     #login{border-bottom:5px solid rgb(241,241,241);padding:80px 0 40px;background:url('../assets/images/login_03.png')left top no-repeat;background-size:contain;}
+     #login{border-bottom:5px solid rgb(241,241,241);padding:80px 0 40px;background:url('../assets/images/login_03.png')left top no-repeat;background-size:cover;}
     .login_inner{background:white;padding:20px calc(15% + 50px) 40px;border:1px solid rgb(200,200,200);}
     .login_inner .login_btn{margin-bottom:25px;}
     .login_other img{width:30px;height:15px;}
-    .login_more{text-align: left;}
+    .login_more{text-align: left;margin-bottom:15px;}
     .login_more .remerber{margin-left:80px;}
     .login_more a{float:right;font-size:14px;color:crimson;}
     .login_more p{font-size:14px;text-align: left;padding-left:80px;}

@@ -28,9 +28,6 @@
                 <el-form-item prop="phone" label="手机号" auto-complete="off">
                   <el-input type="text" v-model="ruleForm2.phone"></el-input>
                 </el-form-item>
-                <el-form-item prop="code" label="输入验证码" auto-complete="off">
-                  <el-input type="text" v-model="ruleForm2.code"></el-input>
-                </el-form-item>
 
                 <div class="login_more">
                   <el-checkbox v-model="checked" class="remerber">《******协议》</el-checkbox>
@@ -84,8 +81,7 @@ export default {
           pass: '',
           pass2: '',
           username:"",
-          phone:"",
-          code:""
+          phone:""
         },
         rules2: {
           username:[
@@ -104,20 +100,20 @@ export default {
           phone:[
             {required:true,message:'请输入正确手机号',trigger:'blur'},
             { validator: checkName, trigger: 'blur' }
-          ],
-          code:[
-            {required:true,message:'请输入正确验证码',trigger:'blur'},
-            { validator: checkName, trigger: 'blur' }
           ]
         }
       };
     },
     methods: {
-      submitForm(formName) {
+      submitForm(formName) { //注册按钮的点击
         this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
+          if (valid) {//验证成功
+            var user = {};
+            user.username = this.ruleForm2.username;
+            user.password = this.ruleForm2.pass;
+            user.phone = this.ruleForm2.phone;
+            user.email = this.ruleForm2.email;
+          } else {//验证失败
             console.log('error submit!!');
             return false;
           }
@@ -131,7 +127,7 @@ export default {
 </script>
 
 <style scoped>
-     #login{border-bottom:5px solid rgb(241,241,241);padding:80px 0 40px;background:url('../assets/images/login_03.png')left top no-repeat;background-size:contain;}
+     #login{border-bottom:5px solid rgb(241,241,241);padding:80px 0 40px;background:url('../assets/images/login_03.png')left top no-repeat;background-size:cover;}
     .login_inner{background:white;padding:20px calc(15% + 50px) 40px;border:1px solid rgb(200,200,200);}
     .login_inner .login_btn{margin-bottom:25px;}
     .login_more{text-align: left;}
