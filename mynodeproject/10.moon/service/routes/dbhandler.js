@@ -4,8 +4,8 @@ var assert = require('assert');
 var url = require('url');
 var host="localhost";
 var port="27017";
-var Urls = 'mongodb://localhost:27017/classweb';
-// classweb  ===> 自动创建一个
+var Urls = 'mongodb://localhost:27017/moon';
+// moon  ===> 自动创建一个
 
 
 //add一条数据 

@@ -12,6 +12,7 @@ import my from '@/components/my'
 import upload from '@/components/upload'
 import limit from '@/components/limit'
 import email from '@/components/email'
+import swiper from '@/components/swiper'
 
 
 //三级页面
@@ -61,6 +62,9 @@ export default new Router({
             },{
                path: 'my',           //测试的
                component: my
+            },{
+               path: 'swiper',           //测试的
+               component: swiper
             },{
                path: 'email',           //测试的
                component: email

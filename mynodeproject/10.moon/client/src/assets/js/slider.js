@@ -20,8 +20,8 @@ var handler = function (captchaObj) {
 						withCredentials:true
 					},
                 data: {
-                    username: $('.username').val(),
-                    password: $('.password').val(),
+                    username: th.ruleForm2.username,
+                    password: th.ruleForm2.pass,
                     geetest_challenge: result.geetest_challenge,
                     geetest_validate: result.geetest_validate,
                     geetest_seccode: result.geetest_seccode
@@ -32,6 +32,7 @@ var handler = function (captchaObj) {
                     	console.log(th);
                     	th.$router.push({path:'/backIndex/studentList'});
                     } else if (data.status === 'error') {
+                      console.log(th.ruleForm2.pass)
                         alert(data.info);
                         captchaObj.reset();
                     }else if (data.status === 'fail') {

@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'  //使用elementui的时候，css需要单独的再引入一遍
+import swip from 'swiper/dist/css/swiper.css'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 import router from './router'
 import axios from 'axios';//引入axios组件
 //import * as custom from './common/filters/custom'  //引入全局过滤器
@@ -58,7 +60,7 @@ axios.interceptors.response.use(function (response) {
 
 
 Vue.use(ElementUI);
-
+Vue.use(VueAwesomeSwiper)
 
 
 

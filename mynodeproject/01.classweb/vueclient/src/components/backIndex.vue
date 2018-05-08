@@ -86,6 +86,12 @@
                         <span>邮箱的验证方法</span>
                     </router-link>
                 </li>
+                <li>
+                    <router-link to="/backIndex/swiper">
+                        <i class="fa el-icon-bell" aria-hidden="true"></i>
+                        <span>swiper的用法</span>
+                    </router-link>
+                </li>
             </ul>
         </div>
         

@@ -14,10 +14,10 @@
 
               <el-form style="border-bottom:1px solid rgb(213,213,213);margin-bottom:20px;" :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="80px" class="demo-ruleForm">
                 <el-form-item label="用户名" prop="username">
-                  <el-input type="text" v-model="ruleForm2.username" auto-complete="off"></el-input>
+                  <el-input type="text" class="username" v-model="ruleForm2.username" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="pass">
-                  <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+                  <el-input type="password" class="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
                 </el-form-item>
                  <!--极客验证的使用-->
                 <div>
@@ -33,7 +33,7 @@
                 </div>
 
                 <el-form-item class="login_submit">
-                  <el-button type="primary" @click="submitForm('ruleForm2')">登录</el-button>
+                  <el-button type="primary" id="btn">登录</el-button>
                   <el-button @click="resetForm('ruleForm2')">重置</el-button>
                 </el-form-item>
               </el-form>
@@ -49,11 +49,12 @@
 
 <script>
   import jqu from "../assets/js/jquery-1.9.0.js" ;
-	import gt from "../assets/js/gt.js" ;
-	import sli from "../assets/js/slider.js" ;
+	import gt from "../assets/js/gt.js" ;  //极客验证的包
+	import sli from "../assets/js/slider.js" ;  //极客验证的包
 
 
 export default {
+  name:"login",
   data() {
       var validatePass = (rule, value, callback) => {
         if (value === '') {
@@ -77,7 +78,6 @@ export default {
         ruleForm2: {
           pass: '',
           checkPass: '',
-          age: '',
           username:""
         },
         rules2: {
@@ -96,16 +96,6 @@ export default {
 
 
   methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }

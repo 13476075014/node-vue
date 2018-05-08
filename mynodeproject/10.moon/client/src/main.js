@@ -2,8 +2,10 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import ElementUI from '_element-ui@2.3.6@element-ui'
-import '_element-ui@2.3.6@element-ui/lib/theme-chalk/index.css'
+import ElementUI from 'element-ui'
+import Ele from 'element-ui/lib/theme-chalk/index.css'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import swip from 'swiper/dist/css/swiper.css'
 import router from './router'
 import axios from 'axios'
 
@@ -20,8 +22,9 @@ Vue.prototype.$reqs = axios;
 
 
 
-
+Vue.use(VueAwesomeSwiper);
 Vue.use(ElementUI);
+
 
 
 

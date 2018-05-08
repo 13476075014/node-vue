@@ -1,5 +1,5 @@
 <template>
-    <div id="onefoot" style="font-size:12px;">
+    <div id="onefoot" style="font-size:12px;background:rgb(247,247,247);">
         <el-row>
           <el-col :span="14" :offset="5">
               <p class="p1">

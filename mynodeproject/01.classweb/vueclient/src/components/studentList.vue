@@ -14,8 +14,9 @@
 		<el-row>
 		  <el-col :span="6" v-for="(i,index) in ne" :key='index'>
 		  	<!--下面的to如果里面的路径是要用到vuedata里面的参数，就需要在前面加上冒号-->
+		  	<!--如果要用params来传参，这里不能用path,要用name-->
 		  	 <router-link :to='{
-						  	 	name:"goods",
+						  	 	name:"goods", 
 						  	 	params:i
 						  	 	}'
 		  	 	  class="thumbnail" style="display: block;background:rgb(240,242,245);padding:10px;margin:10px;">
