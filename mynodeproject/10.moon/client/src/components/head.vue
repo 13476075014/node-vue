@@ -100,7 +100,7 @@
     </div>
 
      <!-- 头部3 -->
-      <div style="background:rgb(219,219,219);line-height:40px;text-align:left;">
+      <div id="top3" style="background:rgb(219,219,219);line-height:40px;text-align:left;">
         <el-row>
           <el-col :offset="3">
               <el-dropdown trigger="click" style="padding:0 35px;" v-for="(i,index) in drop" :key="index" :class="{'drop_active':index == active_index}" id="clickMe">

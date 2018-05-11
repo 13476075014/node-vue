@@ -49,7 +49,9 @@
                     <div v-for="(con2,index4) in con2_data" class="content2" :id="con2.id" :key="index4">
                       <h4 class="top_title" style="text-align:left;margin-bottom:0;overflow:hidden;">
                         {{con2.h4}} <span>HOT COMMODITY</span>
-                        <a class="more bg_red bg_red_hover" href="#">MORE >></a>
+                        <router-link :to="{path:'/moregoods?type=热门商品'}">
+                            <span class="more bg_red bg_red_hover" href="#">MORE >></span>
+                        </router-link>
                       </h4>
                       <div class="con2_out" style="margin-right:0;">
                           <div class="con2_inner" v-for="(con2_detail,index5) in con2.detail" :key="index5">
@@ -189,7 +191,7 @@ import{swiper,swiperSlide} from 'vue-awesome-swiper'
               let cur = document.querySelectorAll("#img0");
               cur = cur[0].clientHeight ;
               that.lun_h = cur + "px";
-          }, 300);
+          }, 500);
       },
       created:function(){
 

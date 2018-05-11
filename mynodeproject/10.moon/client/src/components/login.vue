@@ -56,7 +56,7 @@
 export default {
   name:"login",
   data() {
-      var validatePass = (rule, value, callback) => {
+      var validatePass = (rule, value, callback) => { //表单密码的验证
         if (value === '') {
           callback(new Error('请输入密码'));
         } else {
@@ -66,7 +66,7 @@ export default {
           callback();
         }
       };
-      var checkName= (rule,value,callback) =>{
+      var checkName= (rule,value,callback) =>{//表单用户名的验证
           if(value === ""){
             callback(new Error('请输入用户名'));
           }else{
@@ -75,7 +75,7 @@ export default {
       };
       return {
         checked:false,
-        ruleForm2: {
+        ruleForm2: {//表单里面的字段
           pass: '',
           checkPass: '',
           username:""
@@ -96,11 +96,12 @@ export default {
 
 
   methods: {
-      resetForm(formName) {
+    //登录的放在了slider.js里面；
+      resetForm(formName) {//重置表单
         this.$refs[formName].resetFields();
       }
     },
-  created:function(){
+  created:function(){//调用极客验证里面的方法，来进行验证和登录请求
     sli(this);
   }
 }

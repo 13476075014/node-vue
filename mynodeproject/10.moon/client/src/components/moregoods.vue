@@ -6,9 +6,7 @@
           <div class="top1">
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-              <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-              <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+              <el-breadcrumb-item>{{whatype}}</el-breadcrumb-item>
             </el-breadcrumb>
           </div>
           <!-- 面包屑导航结束 -->
@@ -57,6 +55,7 @@ import goodsdetail from './littleComponent/goods_detail' ;
     name:"moregoods",
     data(){
       return{
+          whatype:"热门商品",
           currentPage:1, //当前页
           total:12, //总共的商品数
           page_sizes:[6], //每页显示的条数
@@ -79,6 +78,10 @@ import goodsdetail from './littleComponent/goods_detail' ;
     },
     components:{
         goodsdetail
+    },
+    created:function(){
+        var whatypes = this.$route.query.type; //获取到地址栏里面的现在详细页打开的类型
+        this.whatype = whatypes;
     },
     methods: {
       handleChange(val) {
