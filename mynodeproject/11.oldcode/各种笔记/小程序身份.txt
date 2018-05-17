@@ -1,0 +1,14 @@
+小程序密钥：7b18d233ca5738d553d15c5a7e7ca6b7；
+
+小程序ID：wx2967080727c1b8a7；
+
+开发环境 request 域名：https://earqwfia.qcloud.la ；
+
+开发环境 socket 域名：wss://earqwfia.ws.qcloud.la；
+
+开发环境 upload 域名：https://earqwfia.qcloud.la；
+
+开发环境 download 域名：https://earqwfia.qcloud.la ；
+
+
+

@@ -1,0 +1,21 @@
+/* Write your styles */
+
+/* 登陆logo */
+.myapp-login-logo { font-size: 130px; color: #ff6a4c;}
+
+// 输入框
+.myapp-login-form {}
+.am-form-set { margin-bottom: 10px;}
+.myapp-login-form .myapp-login-input-text { font-size: 14px!important; padding-left: 48px!important; line-height: 1.8!important; border-radius: 30px!important; margin-top: 8px;}
+.myapp-login-form .myapp-login-input-text:focus { border-color: #ff6a4c!important; -webkit-box-shadow: inset 0 1px 1px rgba(225,86,86,.075),0 0 5px rgba(225,86,86,.3)!important;box-shadow: inset 0 1px 1px rgba(225,86,86,.075),0 0 5px rgba(225,86,86,.3)!important; }
+.am-form-set>input:first-child {border-radius: 30px!important;}
+.myapp-login-form .am-form-icon i {color: #ccc; padding-left: 15px;}
+.myapp-login-form-submit { background: #ff6a4c; border-radius: 30px; border-color: #ff6a4c;}
+.myapp-login-form-submit:hover { background: #ff8e77;border-color: #ff8e77;}
+.myapp-login-form-shortcut { position: relative; height: 30px; line-height: 30px; margin-top: 30px; padding: 0; width: 88%;  overflow: hidden;box-sizing: border-box;-webkit-box-sizing: border-box; }
+.myapp-login-form-shortcut .myapp-login-form-hr { background: #ccc;  position: absolute; top:50%; left:0; right:0;display: block;  width: 100%; z-index: 1;}
+.myapp-login-form-shortcut .myapp-login-form-hr-font { display: inline-block; padding: 0 16px; background: #fff; position: relative; font-size: 12px; color: #ccc; z-index: 2;}
+.myapp-login-form-listico { padding-top: 30px;}
+.myapp-login-form-listico .am-icon-btn { width: 60px; height: 60px; line-height: 60px; font-size: 30px;}
+.myapp-login-form-listico .am-icon-btn:hover { opacity: .9;}
+

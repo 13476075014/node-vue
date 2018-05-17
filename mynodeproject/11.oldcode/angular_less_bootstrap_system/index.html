@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title></title>
+		<script src="js/jquery-1.9.1.js"></script>
+		<script src="js/angular.1.5.0.js"></script>
+		<script src="js/angular.1.5.0beta.router.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/ri.js"></script>
+		<script src="js/home.js"></script>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<link rel="stylesheet" href="css/ri.css" />
+		<link rel="stylesheet" href="css/home.css" />
+		
+		
+		<style>
+			nav{}
+		</style>
+	</head>
+	<body ng-app="my">
+		<!--
+			这个是公用的页面，点击一些后主要是里面的内容发生改变
+		-->
+		
+		<div  ng-controller="myct" class="all_wrap container-fluid">
+			<!--头部-->
+			<nav class="navbar navbar-default navbar-fixed-top container-fluid  row">
+				<div class="navbar-header col-lg-2 row">
+					<button class="collapsed navbar-toggle" data-target="#yc" data-toggle="collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!--logo  "navbar-brand"-->
+					<div class="navbar-brand col-lg-12 col-xs-6">
+						logo
+					</div>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="yc">
+				<!--横向的导航条内容  “nav”“navbar-nav"-->
+				<ul class="nav navbar-nav">
+					<li class="pack_up"><a href="#">收起</a></li>
+					<li ng-click="nav_click($event)"><a href="#">首页</a></li>
+					<li ng-click="nav_click($event)"><a href="#">流程管理</a></li>
+					<li ng-click="nav_click($event)"><a href="#">客户管理</a></li>
+					<li ng-click="nav_click($event)"><a href="#">项目管理</a></li>
+					<li class="dropdown">
+						<a href="#" data-toggle="dropdown">更多应用<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">1111</a></li>
+							<li><a href="#">1111</a></li>
+						</ul>
+					</li>
+				</ul>
+				<!--搜索框-->
+				<ul class="nav navbar-nav pull-right">
+					<li><a href="#">首页</a></li>
+					<li><a href="#">首页</a></li>
+					<li><a href="#">首页</a></li>
+					<li class="dropdown">
+						<a href="#" data-toggle="dropdown">首页 		<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">1111</a></li>
+							<li><a href="#">1111</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+			
+			<!--中间内容区域-->
+			<div class="content container-fluid row">
+				<!--左边-->
+				<div class="left col-lg-2 col-xs-12 col-sm-12">
+					<div class="top row">
+						<div class="img col-lg-3">
+							<div class="inner">
+								<img src="images/home2.png" alt="" />
+							</div>
+							
+						</div>
+						<div class="col-lg-6">
+							<p>liuchunchun</p>
+							<p>信息技术部</p>
+						</div>
+						<div class="col-lg-3 text-right">
+							<img src="images/message1.png" alt="" />
+						</div>
+					</div>
+					
+					<h4>门户</h4>
+					<ul>
+						<li ng-repeat="item in change_num">{{item}}</li>
+						
+						<!--<li>公司门户</li>
+						<li>知识门户</li>
+						<li>运营门户</li>
+						<li>营销门户</li>
+						<li>门户网站</li>
+						<li>日程安排</li>
+						<li>培训测试</li>
+						<li>集成门户</li>
+						<li>培训门户</li>-->
+					</ul>
+				</div>
+				<!--中间和右边-->
+				<div ng-view>
+				<div class="right col-lg-10 col-xs-12 col-sm-12 row">
+					<!--中间-->
+					<div class="center col-lg-6">
+						<div class="cen_inner">
+							<h4>工作流程</h4>
+							 <!-- 各个流程Nav tabs -->
+							  <ul class="nav nav-tabs" role="tablist">
+							    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">待办流程</a></li>
+							    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">已办流程</a></li>
+							    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">办结流程</a></li>
+							    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">我的请求</a></li>
+							    <li role="presentation"><a href="#send" aria-controls="send" role="tab" data-toggle="tab">抄送流程</a></li>
+							  </ul>
+							
+							  <!-- 各个流程点击后的内容Tab panes -->
+							  <div class="tab-content">
+							    <div role="tabpanel" class="tab-pane active" id="home">
+						    		<div class="" style="">
+						    			<p class="">
+						    				Google Chrome，
+						    				器图形使用者界面（GUI）。软件的beta测试版本在2008
+						    				ndows、OS X、Linux、Android、以及iOS版本提供下载。 
+						    			</p>
+						    		</div>
+							    </div>
+							    
+							    <div role="tabpanel" class="tab-pane" id="profile">
+							    	<div class="" style="">
+						    			<p class="">
+						    				2，
+						    				器图形使用者界面（GUI）。软件的beta测试版本在2008
+						    				ndows、OS X、Linux、Android、以及iOS版本提供下载。 
+						    			</p>
+						    		</div>
+							    </div>
+							    
+							    <div role="tabpanel" class="tab-pane" id="messages">
+							    	<div class="" style="">
+						    			<p class="">
+						    				3333,.
+						    				器图形使用者界面（GUI）。软件的beta测试版本在2008
+						    				ndows、OS X、Linux、Android、以及iOS版本提供下载。 
+						    			</p>
+						    		</div>
+							    </div>
+							    
+							    <div role="tabpanel" class="tab-pane" id="settings">
+							    	<div class="" style="">
+						    			<p class="">
+						    				4444444,
+						    				器图形使用者界面（GUI）。软件的beta测试版本在2008
+						    				ndows、OS X、Linux、Android、以及iOS版本提供下载。 
+						    			</p>
+						    		</div>
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="send">
+							    	<div class="" style="">
+						    			<p class="">
+						    				55555555,
+						    				器图形使用者界面（GUI）。软件的beta测试版本在2008
+						    				ndows、OS X、Linux、Android、以及iOS版本提供下载。 
+						    			</p>
+						    		</div>
+							    </div>
+							  </div>   <!--tabcontent结束-->
+							 
+							 <div class="myproject">
+							  	<h4>我的项目	</h4>
+							  	<ul>
+							  		<li>项目1</li>
+							  		<li>项目2</li>
+							  		<li>项目3</li>
+							  	</ul>
+							  </div>
+							
+						</div>
+					</div>
+					
+					<!--右边-->
+					<div class="r_right col-lg-6">
+						<div class="r_kaoqin">
+							<h4>考勤中心</h4>
+							<table class="table text-center">
+								<tr>
+									<td class="shangban">上班 <br /><small>09:00</small></td>
+									<td class="shang_date">2017-09-25 10:30:45</td>
+								</tr>
+								<tr>
+									<td class="xiaban">下班<br /> <small>18:00</small></td>
+									<td class="xia_date">未签退</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<button class="btn">签到</button>
+										<button class="btn">签退</button>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2"><span></span>表示正常的考勤信息</td>
+								</tr>
+								<tr>
+									<td colspan="2"><span></span>表示异常的考勤信息</td>
+								</tr>
+							</table>
+						</div> <!--r_kaoqin结束-->	
+						<div class="richeng">
+							<h4>我的日程</h4>
+							<!--日历-->
+							<div id="in" style="position:relative;"></div>
+						</div>
+							
+							
+						
+					</div> <!--right结束-->
+				</div>
+			</div>
+			
+			
+			
+			
+			
+		</div>
+		
+		
+		
+		
+		
+		
+		<script>
+			
+			  //3.angular实现的数据
+			    var app=angular.module("my",[]);
+			    app.controller("myct",function($scope,$timeout){
+			    	//content里面的left的内容，随着头部的点击改变
+			    	$scope.ul_data={
+			    		"num1":["个人中心","公司门户","知识门户","运营门户","营销门户","门户网站","日程安排","培训测试","集成门户","培训门户"]
+			    		,"num3":["客户报表","新建客户","联系记录","回收站","合并客户","申请权限","权限审核","客户信息","销售记录","商机管理","合同信息","产品管理","供应商管理","联系人管理"]
+			    		,"num4":["新建项目","待上线项目","已上线项目","维护项目"]
+			    		,"num2":["新建流程","待办流程","已办流程","办结流程","我的请求","抄送流程"]
+			    	};
+			    	$scope.le_change=function(){
+			    		  var nav_height = $("nav").height();
+						  var left_height = $(".content>.left").height();
+						  var win_height = $(window).height();
+						  var left_pas = win_height-left_height-nav_height;
+						  $(".content>.left").css({"padding-bottom":left_pas});
+						
+			    	}
+			    	$scope.change_num = $scope.ul_data["num1"];
+			    	$scope.nav_click=function($event){
+			    			var nav_index = $($event.target).parent().index();
+					    	var now_num="num"+nav_index;
+					    	this.change_num = this.ul_data[now_num];
+					    	$timeout(this.le_change,0,false);
+					    	//$scope.$$postDigest(this.le_change) //这是第二种解决异步加载的办法
+						
+					    	
+			    	}
+			    });
+			    setTimeout(function(){
+			    	$(".content .left ul li").eq(0).addClass("active");
+			    },10)
+			   
+			   
+		</script>
+	</body>
+</html>

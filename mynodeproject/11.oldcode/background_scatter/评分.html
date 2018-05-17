@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.9.0.js"></script>
+	</head>
+	<body>
+		<div class="pinfen">
+			<img src="img/yping.png" alt="" data-src="img/xping.png"/>
+			<img src="img/yping.png" alt="" data-src="img/xping.png"/>
+			<img src="img/yping.png" alt="" data-src="img/xping.png"/>
+			<img src="img/yping.png" alt="" data-src="img/xping.png"/>
+			<img src="img/yping.png" alt="" data-src="img/xping.png"/>
+			
+		</div>
+		<textarea name="" rows="10" cols="" placeholder="输入您的看法"></textarea>
+		
+		<script type="text/javascript">
+			$(".pinfen img").click(function(){
+				$(".pinfen img").attr("src","img/yping.png")
+				var count = $(this).index();
+				for(var i=0;i<count+1;i++){
+					var img = $(".pinfen img").eq(i);
+					img.attr("src",img.attr("data-src"))
+				}
+			})
+		</script>
+	</body>
+</html>

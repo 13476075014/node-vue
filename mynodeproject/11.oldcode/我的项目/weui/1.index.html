@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/jquery-1.9.0.js"></script>
+		<script src="js/jquery-weui.js"></script>
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/weui.css" />
+		<link rel="stylesheet" href="css/jquery-weui.css" />
+		<!--<script src="js/vue.js"></script>-->
+		<script src="js/angular.1.5.0.js"></script>
+		<style>
+			html,body,#app{height:100%;}
+			/*头部*/
+			
+			/*中间*/
+			.weui-grid {width: 25%;}
+			.p1{padding-left:5px;line-height: 30px;font-size:12pt;background:rgb(245,245,245);color:rgb(48,48,48);}
+			.weui-grid__icon{text-align: center;width:35px;height:35px;line-height: 35px;}
+			.weui-grid__icon i{font-size:25px;color:#6b0848;}
+			.js_grid p{font-size:10pt;color:rgb(98,98,98);}
+			.weui-tab__bd{padding-bottom:54px;background:rgb(245,245,245);}
+			.weui-grids{background:white;}
+			
+			/*底部*/
+			.weui-tabbar{background:white;position:fixed;bottom:0;left:0;z-index:999;}
+			.weui-tabbar__item.weui-bar__item--on .iconfont {
+				color:darkorange;
+			}
+			.weui-tabbar__item.weui-bar__item--on .weui-tabbar__label{
+				color:darkorange;
+			}
+		</style>
+	</head>
+
+	<body ng-controller="myctr">
+		<div id="app">
+			<!--头部-->
+			
+			
+			
+			
+			<!--中间内容和底部的tab-->
+			<div class="weui-tab">
+				<div class="weui-tab__bd">
+					<div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+						<!--<div v-for="a in menu">
+							<aaa :p_data=a.p :a_data=a.a_data></aaa>
+						</div>-->
+						<div ng-repeat="a in menu">
+							<div>
+								<div>
+									<p class="p1">{{a.p}}</p>
+									<div class="weui-grids">
+										<div ng-repeat="ab in a.a_data">
+											<a ng-href="{{ab.href}}" class="weui-grid js_grid">
+												<div class="weui-grid__icon">
+													<i class="{{ab.src}}"></i>
+												</div>
+												<p class="weui-grid__label">
+													{{ab.text}}
+												</p>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					
+					
+					<div id="tab2" class="weui-tab__bd-item">
+						12
+					</div>
+					<div id="tab3" class="weui-tab__bd-item">
+						13
+					</div>
+					<div id="tab4" class="weui-tab__bd-item">
+						14
+					</div>
+
+				</div>
+				<div class="weui-tabbar" style="">
+					<a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
+						<!--<span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>-->
+						<div class="weui-tabbar__icon">
+							<i class="iconfont icon-shouye "></i>
+						</div>
+						<p class="weui-tabbar__label">首页</p>
+					</a>
+					<a href="#tab2" class="weui-tabbar__item">
+						<div class="weui-tabbar__icon">
+							<i class="iconfont icon-gongneng"></i>
+						</div>
+						<p class="weui-tabbar__label">功能</p>
+					</a>
+					<a href="#tab3" class="weui-tabbar__item">
+						<div class="weui-tabbar__icon">
+							<i class="iconfont icon-daibantixing"></i>
+						</div>
+						<p class="weui-tabbar__label">待办</p>
+					</a>
+					<a href="#tab4" class="weui-tabbar__item">
+						<div class="weui-tabbar__icon">
+							<i class="iconfont  icon-wode"></i>
+						</div>
+						<p class="weui-tabbar__label">我的</p>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<script>
+
+			
+			var app = angular.module("myapp",[]);
+			app.controller("myctr",function($scope){
+				$scope.menu =  [{
+							"p": "销售管理",
+							"a_data": [{
+								"src": "iconfont icon-hailiangxiansuo",
+								"text": "线索"
+							}, {
+								"href":"2.client.html",
+								"src": "iconfont icon-kehu",
+								"text": "客户"
+							}, {
+								"src": "iconfont icon-yewujihui",
+								"text": "机会"
+							}, {
+								"src": "iconfont icon-hetong-",
+								"text": "合同"
+							}]
+						},
+						{
+							"p": "销售支持",
+							"a_data": [{
+								"src": "iconfont icon-lianxiren1",
+								"text": "联系人"
+							}, {
+								"src": "iconfont icon-gonghaiguanli",
+								"text": "公海"
+							}, {
+								"src": "iconfont icon-chanpin",
+								"text": "产品"
+							}, {
+								"src": "iconfont icon-wode1",
+								"text": "待办"
+							}]
+						},
+						{
+							"p": "销售行动",
+							"a_data": [{
+								"src": "iconfont icon-qdao",
+								"text": "拜访签到"
+							}, {
+								"src": "iconfont icon-mingdangenjin",
+								"text": "销售跟进"
+							}, {
+								"src": "iconfont icon-pingjiabaogao",
+								"text": "工作报告"
+							}, {
+								"src": "iconfont ",
+								"text": "暂无"
+							}]
+						},
+						{
+							"p": "报表统计",
+							"a_data": [{
+								"src": "iconfont icon-jianbao",
+								"text": "销售简报"
+							}, {
+								"src": "iconfont icon-laiyuanqingkuang",
+								"text": "客户来源"
+							}, {
+								"src": "iconfont icon-jingxihuade",
+								"text": "销售进展"
+							}, {
+								"src": "iconfont ",
+								"text": "暂无"
+							}]
+						}
+					];
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>OA</display-name>
+	<context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>OA.root</param-value>
+    </context-param>
+	
+	<!-- log4j配置。如果不需要下面的配置，可以将log4j文件放到src目录下，log4j会默认加载 -->
+	<context-param>  
+        <param-name>log4jConfigLocation</param-name>  
+        <param-value>classpath:/properties/log4j.xml</param-value>  
+    </context-param> 
+    <listener>  
+        <listener-class>  
+            org.springframework.web.util.Log4jConfigListener  
+        </listener-class>  
+    </listener>  
+    
+	<!-- 添加对spring的支持 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/xml/applicationContext.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- 添加springMVC前端控制器 -->
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:/xml/springMVC-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- <filter>
+	    <filter-name>encodingFilter</filter-name>
+	    <filter-class>com.znkhb.webservice.util.ControllerInterfaceFilter</filter-class>
+  	</filter>
+  	<filter-mapping>
+	    <filter-name>encodingFilter</filter-name>
+	    <url-pattern>/service/*</url-pattern>
+  	</filter-mapping> -->
+  	
+  	<filter>
+	    <filter-name>vmFilter</filter-name>
+	    <filter-class>com.oa.filter.VmFilter</filter-class>
+  	</filter>
+  	<filter-mapping>
+	    <filter-name>vmFilter</filter-name>
+	    <url-pattern>/system/*</url-pattern>
+  	</filter-mapping>
+	
+	<!-- 当hibernate+spring配合使用的时候，如果设置了lazy=true,那么在读取数据的时候，当读取了父数据后， hibernate会自动关闭session，这样，当要使用子数据的时候，系统会抛出lazyinit的错误， 
+		这时就需要使用spring提供的 OpenSessionInViewFilter,OpenSessionInViewFilter主要是保持Session状态 
+		知道request将全部页面发送到客户端，这样就可以解决延迟加载带来的问题 -->
+	<filter>
+		<filter-name>openSessionInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+		<init-param>
+			<param-name>singleSession</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>openSessionInViewFilter</filter-name>
+		<url-pattern>/system/*</url-pattern>
+	</filter-mapping>
+	<!-- 添加UTF-8编码支持 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/system/*</url-pattern>
+	</filter-mapping>
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/prev-tag</taglib-uri>
+			<taglib-location>/META-INF/prev.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/error/message.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/jsp/error/message.jsp</location>
+	</error-page>
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

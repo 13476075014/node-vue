@@ -1,0 +1,35 @@
+1.在angular中绑定的ng-click事件，的函数中如何获取当前的点击对象节点？
+	
+	实例代码：
+	  html:
+		<li ng-click="nav_click()"><a href="#">流程管理</a></li>
+
+	  js:
+			$scope.nav_click=function($event){
+			    			var nav_index = $($event.target).attr("myindex");
+//					    	this.change_num = this.ul_data[now_num];
+			    	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

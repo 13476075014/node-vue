@@ -1,0 +1,151 @@
+/*
+ 
+ * 一些需要注意的地方：
+ * 1.注意这里面所有的;号，""号，:号都要用英文格式的额，否则就会报错
+ * 2.注意所有的变量声明完了一定要加上分号，否则会报错。
+ * 
+ * 
+ * 
+ * */
+* {
+  list-style: none;
+  text-decoration: none;
+  font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+}
+a {
+  color: #707070;
+}
+body {
+  background: #dfdfdf;
+}
+nav {
+  background: #03a9f4 !important;
+  padding: 0 40px 0 0;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #ffffff;
+  font-size: 17px;
+}
+.navbar-default .navbar-brand {
+  color: #ffffff;
+  text-align: center;
+}
+.navbar-default .navbar-nav > li:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+.navbar-default .navbar-nav > li:hover > a {
+  color: #ffffff;
+}
+.content {
+  margin-top: 51px;
+  padding: 0;
+}
+.content .left {
+  background: white;
+  padding-left: 0;
+  padding-bottom: 50px;
+}
+.content .left .top {
+  padding: 10px 0;
+  padding-left: 20px;
+}
+.content .left .top .img {
+  line-height: 60px;
+}
+.content .left .top .img .inner {
+  width: 60px;
+  border-radius: 50%;
+  background: yellow;
+}
+.content .left .top .img img {
+  width: 100%;
+}
+.content .left h4 {
+  padding-left: 20px;
+}
+.content .left > ul {
+  padding-left: 0!important;
+}
+.content .left > ul li {
+  border-left: 3px solid white;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 10px 0;
+  padding-left: 75px;
+  background: url(../images/message1.png) 35px center no-repeat;
+  background-size: 20px 20px;
+}
+.content .left > ul li:hover {
+  cursor: pointer;
+  border-left: 3px solid #03a9f4;
+  color: #03a9f4;
+}
+.content .left > ul .active {
+  border-left: 3px solid #03a9f4;
+  color: #03a9f4;
+}
+.content .center {
+  padding: 0;
+}
+.content .center .cen_inner {
+  margin: 15px;
+}
+.content .center .cen_inner > h4,
+.content .center .cen_inner .myproject > h4,
+.content .right h4 {
+  line-height: 40px;
+  padding-left: 40px;
+  background: url(../images/home1.png) left center no-repeat, #ffffff;
+  margin: 0 ;
+}
+.content .center .nav-tabs {
+  outline: 1px solid #d5d5d5;
+  padding-left: 20px;
+  background: #ebebeb;
+}
+.content .center .nav-tabs > li.active {
+  border: none;
+  border-bottom: 2px solid #03a9f4;
+}
+.content .center .nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: #03a9f4;
+  border: none;
+  background: none;
+}
+.content .center .tab-content {
+  padding: 20px;
+  min-height: 240px;
+  background: white;
+}
+.content .center .cen_inner .myproject {
+  padding-bottom: 80px;
+  margin-top: 20px;
+  background: white;
+}
+.content .center .cen_inner .myproject li {
+  line-height: 40px;
+  padding-left: 15px;
+  border-bottom: 1px solid #d5d5d5;
+}
+.content .right {
+  padding-right: 0;
+}
+.content .r_right {
+  padding-left: 0;
+  margin-top: 15px;
+}
+.content .r_right .r_kaoqin {
+  background: white;
+  outline: #d5d5d5;
+}
+.content .r_right .r_kaoqin table tr td {
+  padding: 12px;
+}
+.content .r_right .r_kaoqin table .shangban,
+.xiaban {
+  text-align: center;
+  width: 10%;
+  border-right: 1px solid #d5d5d5;
+}

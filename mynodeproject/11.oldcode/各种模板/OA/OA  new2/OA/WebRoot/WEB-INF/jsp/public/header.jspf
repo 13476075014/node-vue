@@ -1,0 +1,18 @@
+  <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <!--
+  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/i/favicon.png">
+   -->
+  <link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/images/app-icon72x72@2x.png">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/validateCss.css"/>
+  <script src="${pageContext.request.contextPath}/plugins/jquery/jquery-1.9.1.min.js"></script>
+  <script src="${pageContext.request.contextPath}/plugins/amazeui.min.js"></script>
+  <script src="${pageContext.request.contextPath}/plugins/validateJs.js"></script>
+  <script src="${pageContext.request.contextPath}/plugins/My97DatePicker/WdatePicker.js"></script>

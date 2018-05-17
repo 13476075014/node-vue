@@ -1,0 +1,52 @@
+1.enterprise:企业版
+
+2.business intelligence：商务智能版
+
+3.ascending: 上升的；向上的；上升；攀爬
+
+4.descending: 递减；下降；下来；下去；下斜；
+
+5.scend: 波浪的推动力，船的纵摇；随波浪载沉
+
+6.aggregate functions: 聚合函数；
+
+7.migrations: 迁移，移居；这里是复数的形式
+
+8.annotation:注释
+
+9.plug:插头，塞子，消防栓，插上插头，插入，枪机，殴打
+
+10.plug-in 插件程序
+
+11.execute:执行，完成，履行，处死，处决；
+
+
+
+12.Atomicity:原子性；
+
+13.Consistency:一致性；
+
+14.Isolation:独立性；
+
+15.Durability:持久性；
+
+16.embedded:植入的，深入的，内含的；把。。。嵌入。。；埋入；
+
+17.alias:别名，化名。化名为
+
+18.reference:参考，证明书，标记，征求；
+
+19.constraint:约束，限制，强制；
+
+20.increment:增量，增长，增额，定期的加薪；
+
+21.currrency:货币，通用，流通，流传，传播，市价，行情，流通时间
+
+22.aggregate:合计，总数的，使聚集；
+
+
+
+
+
+
+

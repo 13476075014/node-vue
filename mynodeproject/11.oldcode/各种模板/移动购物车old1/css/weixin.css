@@ -1,0 +1,56 @@
+﻿* { padding:0px; margin:0px;}
+html{ height:100%;font-size:20px}
+body{ color:#000; font-family: "黑体",Arial; background-color:#fff; font-size:0.625rem;}
+html, body, address, blockquote, div, dl, form, h1, h2, h3, h4, h5, h6, ol, p, pre, table, ul, dd, dt, li, tbody, td, tfoot, th, thead, tr, button, del, ins, map, object,
+a, abbr, acronym, b, bdo, big, br, cite, code, dfn, em, i, img, kbd, q, samp, small, span,
+strong, sub, sup, tt, var, legend, fieldset {margin: 0;padding: 0;}
+ol,ul,li{list-style:none;list-style-image:none;list-style-position:outside;list-style-type:none;}
+img, fieldset,abbr,acronym {border:0 none;}
+del,ins{text-decoration:none; }
+a{ text-decoration:none; color:#000;outline:none;}
+table{ border-collapse:collapse;　border-spacing: 0;  }
+i,b,address{ text-decoration:none; font-style:normal; font-weight:lighter;}
+caption{ text-align:left;}
+time,mark{ margin:0px; padding:0px; background:none}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+display: block;margin: 0;padding: 0;}
+/*多分辨率设定rem设定*/
+/*Note3*/
+@media only screen and (min-width: 360px) {
+html { font-size: 22px !important; }
+}
+/*iPhone6*/
+@media only screen and (min-width: 376px) {
+html { font-size: 23px !important; }
+}
+/*iPhone6 plus*/
+@media only screen and (min-width: 414px) {
+html { font-size: 25px !important; }
+}
+/*big Resolution*/
+@media only screen and (min-width: 641px) {
+html { font-size: 25px !important; }
+}
+h1,h2,h3,h4,h5,h6{font-size:0.875em;}
+form, fieldset, legend, input, button, textarea, p, blockquote,select,option{ font-size:0.625rem;font-family: "黑体",Arial;}
+img{-ms-interpolation-mode:bicubic; max-width:100%;}/*防止windows缩放图片时，图像失真*/
+/*组合商品结束*/
+
+.settle_box_h{ height:60px;}
+.settle_box{ background:#fff; position:fixed; left:0px; bottom:0px; overflow:hidden; z-index:2;width: 100%;padding:0 0 0 4%;border-top: solid 1px #e6e6e6;} 
+.settle_box .all_check,.settle_box .total_amount{ float:left;}
+.settle_box .all_check{ width:17%;margin-bottom:0;margin-top: 15px}
+.settle_box .all_check dd{ color:#999999; font-size:12px;}
+.settle_box .all_check span{ width:20px; height:20px; border:solid 1px #a2a2a2; vertical-align:middle; border-radius:50%;float: left;}
+.settle_box .all_check .disabled{ background:#e1e1e1;border:solid 1px #e1e1e1;}
+.settle_box .all_check  .pitch_on{ background:url(../images/s_goods_pitch.png) no-repeat center center #ff900d;border:solid 1px #ff900d; background-size:22px 22px; }
+.settle_box .total_amount {color: #999;font-size: 14px;margin: 0;width: 50%;text-align: right;margin-top: 5px;padding-right: 2%;}
+.settle_box .total_amount dd{ margin-top:1px;clear: both;font-size: 0.6rem;}
+.settle_box .total_amount dt p {color: #ff900d;font-size: 0.8rem;float: right;line-height: 20px;}
+.settle_box .total_amount dt p:first-letter{ font-size:0.6rem}
+.settle_box .total_amount dt {font-weight: initial;}
+.settle_box .settle_btn{ float:right; width:33%; background:#ff900d; color:#fff; padding:17px 0; text-align:center;font-size: 0.7rem;}
+#confirm_cart1 {display: none;}
+.select .pitch_on{ background:url(../images/s_goods_pitch.png) no-repeat center center #ff900d;border:solid 1px #ff900d; background-size:22px 22px; }
+.account_info li{ overflow: hidden;position: relative; border-bottom:solid 1px #eee; padding: 0 4%;line-height: 45px; }
+.account_info li .info_name{color:#9a9a9a;float: left; display:inline-block;margin-right: 5%;color: #333; font-size: 0.7rem;}

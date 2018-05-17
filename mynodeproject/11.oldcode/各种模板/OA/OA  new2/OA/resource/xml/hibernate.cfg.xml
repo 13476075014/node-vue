@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="jdbc.batch_size">20</property>
+		<property name="connection.autocommit">false</property>
+
+		<!-- 显示sql语句 -->
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		<property name="connection.useUnicode">true</property>
+		<property name="connection.characterEncoding">UTF-8</property>
+
+		<!-- 缓存设置 -->
+		<!-- 指定开启二级缓存 -->
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="cache.provider_configuration_file_resource_path">/xml/ehcache.xml</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		<property name="cache.use_query_cache">true</property>
+		<property name="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</property>
+		<property name="hibernate.javax.persistence.validation.mode">none</property>
+	</session-factory>
+</hibernate-configuration>
