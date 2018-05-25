@@ -139,7 +139,7 @@ router.post('/logout', function(req, res, next) {
 });
 
 
-//管理员列表
+//分页获取
 router.post('/AdminList', function(req, res, next) {
     //console.log(req.body);
     //req.route.path = "/page"; //修改path来设定 对 数据库的操作
@@ -219,5 +219,13 @@ router.post('/update', function(req, res, next) {
 });
 
 
+var arr = ["111","111","111","111","111","111","111","111","111","111","111","111","111","111","111","111","111","111"]
+//测试给上拉加载下拉刷新的数据
+router.post('/getdown',function(req,res,next){
+	var page = req.body.page;
+	var rows = req.body.rows;
+	var count= page*rows;
+	res.send(arr.slice(0,count));
+})
 
 module.exports = router;

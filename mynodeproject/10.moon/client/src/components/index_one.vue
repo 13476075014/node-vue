@@ -55,7 +55,9 @@
                       </h4>
                       <div class="con2_out" style="margin-right:0;">
                           <div class="con2_inner" v-for="(con2_detail,index5) in con2.detail" :key="index5">
-                            <img class="bg_red_hover_bor" :src="con2_detail.src" alt="">
+                            <router-link :to="{path:'/goods_show?id=' + index5}">
+                              <img class="bg_red_hover_bor" :src="con2_detail.src" alt="">
+                            </router-link>
                             <p>{{con2_detail.des}}</p>
                             <p class="price">{{con2_detail.price}}</p>
                           </div>

@@ -10,7 +10,7 @@
 				<el-tabs v-model="activeName" type="border-card" @tab-click="tab" style="border:none;margin-bottom:20px;height:39px;overflow: hidden;">
 				  <el-tab-pane label="用户管理" name="one" path="/service_index/one"></el-tab-pane>
 				  <el-tab-pane label="热门商品管理" name="two" path="/service_index/two"></el-tab-pane>
-				  <el-tab-pane label="角色管理" name="three" path="/service_index/three"></el-tab-pane>
+				  <el-tab-pane label="化妆品数据管理" name="three" path="/service_index/three"></el-tab-pane>
 				</el-tabs>
 			</el-col>
 		</el-row>
@@ -36,6 +36,7 @@
     created:function(){
       var pa = this.$route.path.substr(this.$route.path.lastIndexOf("/")+1);
     	if(pa == "service_index"){
+        this.$router.push("/service_index/one")
     		this.activeName = "one";
     	}else{
     		this.activeName = pa;

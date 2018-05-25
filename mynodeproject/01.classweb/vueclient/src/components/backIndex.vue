@@ -92,6 +92,12 @@
                         <span>swiper的用法</span>
                     </router-link>
                 </li>
+                <li>
+                    <router-link to="/backIndex/upanddown">
+                        <i class="fa el-icon-bell" aria-hidden="true"></i>
+                        <span>vue结合better-scroll来实现上拉加载下拉刷新</span>
+                    </router-link>
+                </li>
             </ul>
         </div>
         
@@ -121,6 +127,7 @@
         limit:"后台表格展示",
         one:"后台表格展示",
         two:"后台表格展示",
+        upanddown:"上拉加载下拉刷新"
     };
     
     export default {
@@ -346,7 +353,7 @@
     .content{
         margin: 20px 30px 0px 100px;
         min-height: 300px;
-        min-width: 700px;
+        /*min-width: 700px;*/
     }
     
     .breadcrumb{

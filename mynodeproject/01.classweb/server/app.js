@@ -13,7 +13,7 @@ var app = express();
 
 //跨域  后期删
 app.all('*', function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "http://localhost:8081"); //为了跨域保持session，所以指定地址，不能用*
+	res.header("Access-Control-Allow-Origin", "http://10.203.1.87:8081"); //为了跨域保持session，所以指定地址，不能用*
 	res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 	res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -43,7 +43,7 @@ app.use(session({
 
 
 // 验证用户登录
-app.use(function(req, res, next){
+/*app.use(function(req, res, next){
     //后台请求
     if(req.session.username){ //表示已经登录后台
         next();
@@ -58,7 +58,7 @@ app.use(function(req, res, next){
         res.end('{"redirect":"true"}');
     };
     
-});
+});*/
 
 
 

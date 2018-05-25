@@ -20,7 +20,7 @@ import axios from 'axios';//引入axios组件
 Vue.config.productionTip = false //Set this to false to prevent the production tip on Vue startup.
 
 axios.defaults.withCredentials=true;  //跨域保存session有用
-axios.defaults.baseURL = "http://localhost:3000"; //打包的时候直接删掉，默认基础路径在这里配置
+axios.defaults.baseURL = "http://10.203.1.87:3000"; //打包的时候直接删掉，默认基础路径在这里配置
 
 
 
@@ -31,7 +31,7 @@ Vue.prototype.$reqs = axios;
 
 // 添加响应拦截器
 //这里有具体的解释：https://www.kancloud.cn/yunye/axios/234845
-axios.interceptors.response.use(function (response) {
+/*axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
 //  if(response.data.err){
 //      alert(response.data.err);
@@ -52,7 +52,7 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(error);
   });
 
-
+*/
 
 
 

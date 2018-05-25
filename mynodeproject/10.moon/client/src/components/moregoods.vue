@@ -34,6 +34,8 @@
               </el-collapse>
           </div>
           <!-- 折叠效果的商品筛选结束 -->
+
+          <!-- 商品展示的页面 -->
           <goodsdetail
             :detail2="goodslist"
             :currentPage="currentPage"

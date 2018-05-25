@@ -1,0 +1,10 @@
+化妆品数据表格 ： MakeUp
+	字段{
+		brand: "",  //商品的类型
+		facialCare: "" , //面部护理类型
+		perfumeCosmetics:"" , //香水彩妆类型
+		bodyCare:"" , //身体护理类型
+		productionPlace:""  //产地
+			
+
+}

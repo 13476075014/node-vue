@@ -13,6 +13,7 @@ import upload from '@/components/upload'
 import limit from '@/components/limit'
 import email from '@/components/email'
 import swiper from '@/components/swiper'
+import upanddown from '@/components/upAndDown'
 
 
 //三级页面
@@ -46,6 +47,9 @@ export default new Router({
             },{
               path: 'courseEdit/:sysId', //编辑课程
               component: courseEdit
+            },{
+              path: 'upanddown', //编辑课程
+              component: upanddown
             },{
               path: 'indexContent', //首页统计
                 component: indexContent

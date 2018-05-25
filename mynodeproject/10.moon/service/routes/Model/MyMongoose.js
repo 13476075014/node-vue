@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Url = "mongodb://localhost:27017/moon"; //要用到的数据库moon;
-mongoose.connect(Url);
+var db = mongoose.connect(Url);
 
 // 监听连接成功
 mongoose.connection.on('connected', function() {
@@ -17,5 +17,8 @@ mongoose.connection.on('disconnected', function() {
     console.log('连接数据库现在已经断开')
 })
 
-
-module.exports = mongoose;
+module.exports = {
+    mongoose: mongoose,
+    db: db,
+    schmea: mongoose.Schema
+};

@@ -75,7 +75,7 @@
     <div id="top2" style="text-align:left;padding-top:45px;">
          <el-row style="margin-top:10px;">
           <el-col :offset="3" :span="5">
-            <a href="">
+            <a href="#/index_one">
                 <img src="../assets/images/login_01.png" alt="">
             </a>
           </el-col>

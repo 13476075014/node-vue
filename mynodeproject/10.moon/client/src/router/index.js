@@ -4,9 +4,12 @@ import login from '@/components/login'
 import register from '@/components/register'
 import index_one from '@/components/index_one'
 import moregoods from '@/components/moregoods'
+import goods_show from '@/components/goods_show'
+import membercenter from '@/components/memberCenter'
 import service_index from '@/components/service_index'
 import user from '@/components/littleComponent/services/user'
 import hotgoods from '@/components/littleComponent/services/user'
+import makeup_goods from '@/components/littleComponent/services/makeupGoods'
 
 Vue.use(Router)
 
@@ -21,14 +24,19 @@ export default new Router({
             name: 'service_index',
             component: service_index,
             children: [{
-                    path: 'one', //登录页面
+                    path: 'one', //用户表
                     name: 'user',
                     component: user
                 },
                 {
-                    path: 'two', //登录页面
+                    path: 'two', //热门商品表
                     name: 'hotgoods',
                     component: hotgoods
+                },
+                {
+                    path: 'three', //热门商品表
+                    name: 'makeupGoods',
+                    component: makeup_goods
                 }
             ]
         },
@@ -46,6 +54,16 @@ export default new Router({
             path: '/moregoods', //更多商品页面
             name: 'moregoods',
             component: moregoods
+        },
+        {
+            path: '/goods_show', //更多商品页面
+            name: 'goods_show',
+            component: goods_show
+        },
+        {
+            path: '/membercenter', //更多商品页面
+            name: 'membercenter',
+            component: membercenter
         },
         {
             path: '*', //其他路径都跳转到首页
