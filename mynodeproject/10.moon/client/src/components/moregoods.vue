@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="18" :offset="3">
         <!-- 面包屑导航 -->
-          <div class="top1">
+          <div class="breadcrumb">
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item>{{whatype}}</el-breadcrumb-item>
@@ -100,7 +100,6 @@ import goodsdetail from './littleComponent/goods_detail' ;
 
 
 <style scoped="scoped">
-.top1 span{line-height: 50px;}
 .top2 .item{position:relative;border:1px solid rgb(247,247,247);}
 .top2 .title_left{line-height: 49px;position: absolute;left:0;top:0px;background:rgb(247,247,247);width:70px;text-align: left;height:100%;padding-left:5px;}
 .title_top{position:absolute;left:80px;top:0px;line-height: 49px;}

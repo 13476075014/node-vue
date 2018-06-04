@@ -4,6 +4,7 @@ var myfang = function(out, left, right) {
         var cw = document.documentElement.clientWidth;
         if (cw > 1000) {
             right.style.display = "block";
+            //console.log(out.offsetTop)
             left.onmousemove = function(ev) {
                 var scr = document.documentElement.scrollTop || document.body.scrollTop;
                 var eve = ev || event;
