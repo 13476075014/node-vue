@@ -9,7 +9,11 @@ var users = require('./routes/users');
 var backIndex = require('./routes/backIndex');
 var upload = require('./routes/upload');
 var email = require('./routes/email');
+var ueditor = require('./routes/ueditor');
 var app = express();
+
+
+//var ueditor = require('ueditor');
 
 //跨域  后期删
 app.all('*', function(req, res, next) {
@@ -86,6 +90,9 @@ app.use('/users', users);
 app.use('/backIndex', backIndex);
 app.use('/upload', upload);
 app.use('/email', email);
+app.use("/ueditor",ueditor)
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

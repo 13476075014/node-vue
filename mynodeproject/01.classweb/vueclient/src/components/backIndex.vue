@@ -98,6 +98,12 @@
                         <span>vue结合better-scroll来实现上拉加载下拉刷新</span>
                     </router-link>
                 </li>
+                 <li>
+                    <router-link to="/backIndex/myueditor">
+                        <i class="fa el-icon-phone" aria-hidden="true"></i>
+                        <span>Ueditor的使用</span>
+                    </router-link>
+                </li>  
             </ul>
         </div>
         

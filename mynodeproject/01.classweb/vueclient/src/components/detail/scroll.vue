@@ -1,13 +1,10 @@
 <template>
   <div ref="wrapper" style="position:relative;">
-  	
-    
     <slot></slot>
     <!--提示放开更新数据-->
     <div class="top">
     	松开刷新数据
     </div>
-    
     <!--提示放开加载-->
     <div class="bottom">
     	松开加载更多
@@ -117,8 +114,9 @@
           this.scroll.on('scrollEnd', (pos) => {//拉动完了之后回到位置后的状态 ;
             // 滚动到底部
             //console.log("shang:" , pos)
-            //console.log(this.scroll)
-            if (this.scroll.startY<this.scroll.maxScrollY - 20) {
+            console.log(this.scroll)
+            //官方写的是this.scroll.y
+            if (this.scroll.startY<this.scroll.maxScrollY - 20) {//maxScrollY，就是wrapper的高度减去content的高度，是负数
             	this.$emit('pulldown');
             }
           })

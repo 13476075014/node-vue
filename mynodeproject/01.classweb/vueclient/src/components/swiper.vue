@@ -32,12 +32,13 @@
           notNextTick: true,
           loop:true,
           // swiper configs 所有的配置同swiper官方api配置
-          autoplay: 3000,
+          autoplay: {delay:3000}, //设置多久自动滚动一次
           direction : 'horizontal',  //滚动的方向，horizontal：横向水平 ； vertical:竖直的；
-          grabCursor : true,
+          grabCursor : true, //手抓形状
           setWrapperSize :true,
           autoHeight: true,
-          pagination : '.swiper-pagination',
+          pagination : {el : '.swiper-pagination' ,clickable:true},
+          //pagination :  '.swiper-pagination' ,
           paginationClickable :true,
           navigation: { //最新版本的需要这样配置，按钮才有效
           prevEl:'.swiper-button-prev',//上一张
@@ -56,7 +57,7 @@
         return this.$refs.mySwiper.swiper
       }
     },
-    metholds:{
+    methods:{
     	changess(eee){
     		console.log(eee);
     	}
@@ -75,7 +76,7 @@
 		 width: 100%;
 		}
 		.swiper-container-autoheight, .swiper-container-autoheight .swiper-slide {
-		 height: 100vh;
+		 height: 50vh;
 		}
 		.swiper-pagination-bullet {
 		 width: 15px;

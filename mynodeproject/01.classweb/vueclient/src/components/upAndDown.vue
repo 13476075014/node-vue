@@ -9,7 +9,7 @@
           :data="data"
           :pulldown="pulldown"
           :pullup="pullup"
-          @pulldown="loadData" style="height:300px;background:red;">
+          @pulldown="loadData" style="height:450px;background:red;">
     <ul class="content" style="background:yellow;position:relative;z-index:4;">
       <li v-for="(item,index) in data">{{index}}:{{item}}</li>
     </ul>

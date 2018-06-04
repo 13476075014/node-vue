@@ -50,9 +50,9 @@ Vue.prototype.$reqs = axios;
     // 对响应错误做点什么
     console.log(error)
     return Promise.reject(error);
-  });
+  });*/
 
-*/
+
 
 
 

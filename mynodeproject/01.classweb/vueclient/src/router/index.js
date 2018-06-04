@@ -14,6 +14,7 @@ import limit from '@/components/limit'
 import email from '@/components/email'
 import swiper from '@/components/swiper'
 import upanddown from '@/components/upAndDown'
+import myueditor from '@/components/myueditor'
 
 
 //三级页面
@@ -47,6 +48,9 @@ export default new Router({
             },{
               path: 'courseEdit/:sysId', //编辑课程
               component: courseEdit
+            },{
+              path: 'myueditor', //编辑课程
+              component: myueditor
             },{
               path: 'upanddown', //编辑课程
               component: upanddown

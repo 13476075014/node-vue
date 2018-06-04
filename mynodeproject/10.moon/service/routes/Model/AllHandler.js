@@ -33,6 +33,65 @@ var find = function(Mod, selector, fn) {
 
 }
 
+
+//通过ID更新某条数据
+var updateById = function(Mod, selector, fn) {
+    var id = selector[0].id;
+    var updatestr = selector[1];
+    try {
+        Mod.findByIdAndUpdate(id, updatestr, function(err, res) {
+            if (err) {
+                assert.equal(err, null);
+            } else {
+                fn(res);
+            }
+        })
+    } catch (ex) {
+        console.log("AllHandler报错：" + ex);
+        fn(null);
+    }
+
+};
+
+//通过ID来删除一条数据
+var deleteById = function(Mod, selector, fn) {
+    var id = selector[0].id;
+    try {
+        Mod.findByIdAndRemove(id, function(err, res) {
+            if (err) {
+                assert.equal(err, null);
+            } else {
+                fn(res);
+            }
+        })
+
+    } catch (ex) {
+        console.log("AllHandler报错：" + ex);
+        fn(null);
+    }
+
+};
+
+//通过条件来删除所有符合条件的
+var deleteByStr = function(Mod, selector, fn) {
+    var conditions = selector[0];
+    try {
+        Mod.remove(conditions, function(err, res) {
+            if (err) {
+                assert.equal(err, null);
+            } else {
+                fn(res);
+            }
+        })
+    } catch (ex) {
+        console.log("AllHandler报错：" + ex);
+        fn(null);
+    }
+
+}
+
+
+
 //分页
 var page = function(Mod, selector, fn) {
     var pageSize = selector[1].pageSize || 5; //一页多少条
@@ -55,7 +114,7 @@ var page = function(Mod, selector, fn) {
             assert.equal(err, null);
             if (res) {
                 results = res;
-                console.log(count, results)
+                //console.log(count, results)
                 fn(results, count);
             }
 
@@ -74,6 +133,9 @@ var OperateType = {
     add: add,
     find: find,
     page: page,
+    deleteByStr: deleteByStr,
+    deleteById: deleteById,
+    updateById: updateById
 
 };
 
