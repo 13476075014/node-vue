@@ -5,6 +5,8 @@ var crypto = require('crypto');
 var ObjectId = require('mongodb').ObjectId;
 var mongoose = require('./Model/MyMongoose').mongoose;
 var handle = require('./Model/AllHandler');
+var formidable = require('formidable');
+var fs = require('fs');
 
 /*
         brand: "",  //商品的类型
@@ -21,7 +23,7 @@ var handle = require('./Model/AllHandler');
         productionPlace:""  //产地
  */
 var schema = mongoose.Schema;
-var MakeUpSch = new schema({
+var MakeUpSch = new schema({ //这个表的字段
     goodsName: String,
     goodsDescribe: String,
     goodsDetail: String,
@@ -66,6 +68,17 @@ router.post("/deleteById", function(req, res) {
     })
 })
 
+//根据ID来update更新数据
+router.post("/updateById", function(req, res) {
+    var id = req.body.selector._id;
+    var collection = [];
+    collection[0] = { id: ObjectId(id) };
+    collection[1] = req.body.selector;
+    handle(MolMakeUp, "updateById", collection, function(result) {
+        res.send(result)
+    })
+})
+
 
 //分页查询
 router.post('/page', function(req, res) {
@@ -83,5 +96,34 @@ router.post('/page', function(req, res) {
 
 })
 
+
+//wangEditor编辑器接口
+//wangeditor上传图片的地址
+router.post("/wangeditor/upload", function(req, res, next) {
+    var form = new formidable.IncomingForm();
+    //设置文件上传存放地址
+    form.uploadDir = "./public/images/makeUp";
+    //执行里面的回调函数的时候，表单已经全部接收完毕了。
+    form.parse(req, function(err, fields, files) {
+        //if(files.File){
+        var oldpath = files.myFileName.path;
+        var extname = files.myFileName.name;
+        //新的路径由三个部分组成：时间戳、随机数、拓展名
+        var newpath = "./public/images/makeUp/" + extname;
+        //改名
+        try {
+            fs.rename(oldpath, newpath, function(err) {
+                if (err) {
+                    res.json({ errno: 1, data: [] });
+                };
+                var mypath = newpath.replace("./public", "http://localhost:3000");
+                res.json({ errno: 0, data: [mypath] })
+            });
+        } catch (ex) {
+            res.json({ errno: 1, data: null })
+        }
+
+    });
+})
 
 module.exports = router;

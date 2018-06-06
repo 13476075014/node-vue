@@ -10,7 +10,7 @@
 
 <script>
 	import wangEditor from 'wangeditor';
-	
+
 	export default({
 		name:"MyWangEditor",
 		data(){
@@ -19,11 +19,11 @@
 				img_params:{
 					img_name:""
 				}
-				
+
 			}
 		},
 		created(){
-			
+
 		},
 		mounted(){
 			var _this = this;
@@ -35,8 +35,8 @@
 				uploadFileName : 'myFileName' , //设置上传图片文件的时候，后台接受的文件名，files.myFileName;
 				withCredentials : true , //跨域上传中如果需要传递 cookie 需设置 withCredentials
 				uploadImgTimeout : 3000 , //自定义 timeout 时间，这里是设置的3秒
-				uploadImgServer : 'http://10.203.1.87:3000/ueditor/wangeditor/upload' , //上传到后台的接口
-				
+				uploadImgServer : 'http://localhost:3000/ModelMakeUp/wangeditor/upload' , //上传到后台的接口
+
 			};
 			/*
 			editor.customConfig.uploadImgParams = {//如果要自定义传一些参数，就在这里；
@@ -55,7 +55,7 @@
 				    before: function (xhr, editor, files) {
 				        // 图片上传之前触发
 				        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
-				        
+
 				        // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
 				        // return {
 				        //     prevent: true,
@@ -78,7 +78,7 @@
 				        // 图片上传超时时触发
 				        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
 				    },
-				
+
 				    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
 				    // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
 				    customInsert: function (insertImg, result, editor) {
@@ -86,18 +86,19 @@
 				        // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
 						console.log(result)
 				        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-				        var url = result.data[0]
-				        insertImg(url)
-				
+
+               //var url = result.data[0]
+				        //insertImg(url)
+
 				        // result 必须是一个 JSON 格式字符串！！！否则报错
 				    }
 				    }
 				}
 			}
-		
+
 	})
 </script>
-	
+
 <style scoped>
-	
+
 </style>

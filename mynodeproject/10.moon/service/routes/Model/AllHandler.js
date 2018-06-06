@@ -110,7 +110,7 @@ var page = function(Mod, selector, fn) {
                  fn(res)
              })*/
         Mod.find(selector[0]).skip(skipnum).limit(pageSize).exec(function(err, res) {
-            console.log("hahaha")
+            //console.log("hahaha")
             assert.equal(err, null);
             if (res) {
                 results = res;

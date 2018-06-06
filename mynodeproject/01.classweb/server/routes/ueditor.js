@@ -1,44 +1,8 @@
-var ueditor = require('ueditor');
 var express = require('express');
 var router = express.Router();
 var formidable = require('formidable');
 var fs = require("fs");
 var context = require('../public/javascripts/context');
-
-router.get('/ue',function(req,res,next){
-	 //客户端上传文件设置
-    var imgDir = '/ueditor/imgages/'  //上传的图片保存的位置；
-    var ActionType = req.query.action;
-    if (ActionType === 'uploadimage' || ActionType === 'uploadfile' || ActionType === 'uploadvideo') {
-        var file_url = imgDir;//默认图片上传地址
-        /*其他上传格式的地址*/
-        if (ActionType === 'uploadfile') {
-            file_url = '/ueditor'; //附件
-        }
-        if (ActionType === 'uploadvideo') {
-            file_url = '/ueditor'; //视频
-        }
-        console.log("tupian")
-        res.ue_up(file_url); //你只要输入要保存的地址 。保存操作交给ueditor来做
-        res.send("haha")
-        //res.setHeader('Content-Type', 'text/html');
-    }
-    //  客户端发起图片列表请求
-    else if (req.query.action === 'listimage') {
-        var dir_url = imgDir;
-        res.ue_list(dir_url); // 客户端会列出 dir_url 目录下的所有图片
-    }
-    // 客户端发起其它请求
-    else {
-        // console.log('config.json')
-        console.log("gangjinlai")
-        //res.setHeader('Content-Type', 'application/json');
-        //res.redirect('/ueditor/nodejs/config.json');
-        res.json("/ueditor/nodejs/config.json")
-    }
-})
-
-
 
 //wangeditor上传图片的地址
 router.post("/wangeditor/upload",function(req,res,next){
