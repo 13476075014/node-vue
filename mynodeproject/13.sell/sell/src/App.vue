@@ -5,19 +5,18 @@
     <router-link :to='{"path":"/goods"}'>
         <div class="tab-item">商品</div>
     </router-link>
-      
+
     <router-link :to='{path:"/ratings"}'>
         <div class="tab-item">评价</div>
     </router-link>
-      
+
     <router-link :to='{path:"/seller"}'>
         <div class="tab-item">商标</div>
     </router-link>
-      
+
     </div>
 
 
-    <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>

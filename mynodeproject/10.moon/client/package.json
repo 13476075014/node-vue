@@ -17,7 +17,7 @@
         "vue-router": "^3.0.1",
         "wangeditor": "^3.1.1"
     },
-    "devDependencies": { //开发环境要用的插件，正式打包后不需要  npm i ** --save-dev
+    "devDependencies": {
         "autoprefixer": "^7.1.2",
         "babel-core": "^6.22.1",
         "babel-helper-vue-jsx-merge-props": "^2.0.3",
