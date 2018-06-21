@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.9.0.js"></script>
+		<style type="text/css">
+			.flowChart{border-left:5px solid rgb(0,184,245);padding:15px 0;margin-left:20px;}
+			.flowChart_inner{padding:20px 30px;position: relative;}
+			.flowChart_inner span{transition:all linear .5s;width:20px;height:20px;background:rgb(0,184,245);border:5px solid rgb(235,235,235);line-height: 20px;font-size:10px;
+			border-radius: 50px;display: block;position: absolute;
+			left:-2.5px;top:50%;transform: translate(-50%,-50%);-webkit-transform: translate(-50%,-50%);}
+			.flowChart_inner.active{color:rgb(0,184,245);font-size:20px;}
+			.flowChart_inner:hover span{box-shadow: 0 0 20px 1px rgb(0,184,245);}
+			.flowChart_inner.active span{box-shadow: 0 0 20px 5px rgb(0,184,245);}
+		</style>
+	</head>
+	<body>
+		<div class="flowChart"> 
+                                 <!--
+                                 	作者：1137088752@qq.com
+                                 	时间：2018-06-21
+                                 	描述：外在容器
+                                 -->
+                                 
+             <p class="flowChart_inner">
+             	<span></span>
+             	订单已提交hahaahhaha <br />jjjjj <br /> kkkk</p>                    
+             <p id="id_2" class="flowChart_inner"><span></span>订单已发货</p>                    
+             <p class="flowChart_inner"><span></span>订单已揽件</p>                    
+             <p class="flowChart_inner"><span></span>订单已签收</p>                    
+             <p class="flowChart_inner"><span></span>订单已完成</p>                    
+			
+			
+		</div>
+		<button index="1">让状态变第二步</button><button index="4">让状态变第五步</button>
+		<script>
+			var a = 0;
+			function change(index){
+				$("flowChart_inner").removeClass("active");
+				$(".flowChart_inner").eq(index).addClass("active");
+			};
+			
+			$("button").on("click",function(){
+				var index = $(this).attr("index");
+				change(index)
+			})
+			
+			
+		</script>
+		
+	</body>
+</html>
