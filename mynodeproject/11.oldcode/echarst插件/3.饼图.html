@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="js/echarts.min.js"></script>
+		
+		<div id="main" style="width:400px;height:500px"></div>
+		
+		
+		
+		<script>
+			var myChart = echarts.init(document.getElementById("main"));
+			var option={
+				title:{
+					text:"画饼图",
+					subtext:"huabingtu"
+				},
+				legend:{
+					data:["第一个","第二个","第三个"],
+					
+				},
+				tooltip:{
+					show:true
+				},
+				series:{
+					name:"饼子饼子",
+					type:"pie",
+					data:[
+						{value:22,name:"第一个"},
+						{value:122,name:"第二个"},
+						{value:252,name:"第三个"},
+					]
+				}
+			}
+			myChart.setOption(option)
+		</script>
+	</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<!--
+			插件的使用步骤：
+				1.为ECharts准备一个具备大小（宽高）的Dom
+				2.新建<script>标签引入模块化单文件echarts.js
+				3.新建<script>标签中为模块加载器配置echarts和所需图表的路径（相对路径为从当前页面链接到echarts.js），引入图表文件见引入ECharts2
+				4.<script>标签内动态加载echarts和所需图表，回调函数中可以初始化图表并驱动图表的生成，option见API & Doc
+		-->
+		 <!-- 1.为ECharts准备一个具备大小（宽高）的Dom -->
+   		 <div id="main" style="height:400px"></div>
+   		 
+   		 <!-- 2.ECharts单文件引入 -->
+   		 <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		
+		 <script type="text/javascript">
+       	 // 3.路径配置
+	        require.config({
+	            paths: {
+	                echarts: 'http://echarts.baidu.com/build/dist'
+	            }
+	        });
+	        
+	        
+	        
+	        
+	         // 4.使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载   //当这里加载的方式改变时，改变最后一个路径，下面的series的type也要改变。
+                //图表的类型：
+//line: 折线图（如需折柱动态类型切换，require时还需要echarts/chart/bar）
+//bar: 柱形图（如需折柱动态类型切换，require时还需要echarts/chart/line）
+//scatter: 散点图
+//k: K线图
+//pie: 饼图（如需饼漏斗图动态类型切换，require时还需要echarts/chart/funnel）
+//radar: 雷达图
+//map: 地图
+//force: 力导向布局图（如需力导和弦动态类型切换，require时还需要echarts/chart/chord）
+//chord: 和弦图（如需力导和弦动态类型切换，require时还需要echarts/chart/force）
+//funnel: 漏斗图（如需饼漏斗图动态类型切换，require时还需要echarts/chart/pie）
+//gauge: 仪表盘
+//eventRiver: 事件河流图
+//treemap: 矩阵树图
+//venn: 韦恩图
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+                    tooltip: {//tooltip 是设置提示框，鼠标悬浮时，交互的信息提示；
+                        show: true,
+//                      showContent:false // 是否显示内容框
+//						showDelay:2000    //延迟显示框出来的时间，单位是毫秒
+//						hideDelay:1000    //延迟提示框消失的时间，
+//						backgroundColor:"red",   //提示框的背景颜色，默认是透明度0.7的黑色，
+//						borderRadius:20,     //提示框的边框圆角，默认是4,单位是px,
+//						borderWidth:10 ,   //提示框的边框宽度，默认是0，单位是px
+//						borderColor:"yellow", //提示框的边框颜色，
+//						padding:10 ,         //提示框的内边距
+//						textStyle:{color:"red",decoration:"underline",fontSize:50,baseline:"bottom"}//提示框的一些文本样式设置
+                    },
+                    legend: {//图例的设置
+//                  	show:false,  ///显示或影藏策略
+//						orient:"horizontal", //布局方式，默认为水平布局，可选为：'horizontal' | 'vertical'
+//                    	x:"right",    //水平安放位置，默认为全图居中，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+//                     	y:"bottom",  //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+//                     backgroundColor:"red",  //图例的背景颜色，默认是透明的
+//                     borderWidth:10,  //图例的边框宽度，默认是0；
+//                     borderColor:"yellow",   //图例的边框颜色
+//                     itemWidth:30,   //图例图形的宽度
+//                     itemHeight:50,  //图例图形的高度
+//                     itemGap:50,     //各个图例之间的间距，默认是10个像素
+//                    textStyle:{color:"red"},  //设置一系列文本样式，后面要用json数组
+                      data:['销量'] //图例的内容，可以写多个["销量"，"成本"，"利润"]
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data : ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            "name":"销量",
+                            "type":"line",  //当上面的类型改变时，这里也要改变
+                            "data":[15, 20, 50, 10, 10, 20]
+                        }
+                    ]
+                };
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+	
+	
+	</body>
+</html>
