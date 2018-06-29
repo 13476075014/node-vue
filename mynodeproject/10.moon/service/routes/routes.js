@@ -3,6 +3,6 @@
 module.exports = function(app) {
     app.use('/', require('./index'))
     app.use('/users', require('./users'))
-        //app.use('/ModelUser', require('./ModelUser'))
-    app.use('/ModelMakeUp', require('./ModelMakeUp'))
+    app.use('/ModelMakeUp', require('./ModelMakeUp')) //加这个
+    app.use('/shopCar', require('./shopCar')) //加这个
 }

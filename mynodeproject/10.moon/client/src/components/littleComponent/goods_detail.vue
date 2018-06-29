@@ -13,7 +13,7 @@
           <p>{{goods_detail.goodsDescribe}}</p>
           <el-button-group>
             <el-button size="small" type="danger">立即购买</el-button>
-            <el-button size="small" type="plain">加入购物车</el-button>
+            <el-button size="small" type="plain" @click="addCar(goods_detail._id)">加入购物车</el-button>
           </el-button-group>
         </div>
     </div>
@@ -76,7 +76,10 @@
           },
           handleCurrentChange2(val){//下面的handleCk，需要在这个模板引用后写上这个事件，才能顺利调用
 		      	this.$emit("handleCk",val);//组件应用后绑定的方法
-		      }
+          },
+          addCar(id){
+            this.$emit("addCar",id);
+          }
       }
   }
 </script>

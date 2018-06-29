@@ -1,4 +1,36 @@
 'use strict'
+
+/*新版的vue-cli代替原来的dev-server.js文件，现在在这里可以简单配置node请求，获取一些本地数据 */
+const express = require("express");
+const app = express();
+const appData = require("../data.json");
+const appRoutes = express.Router();
+appRoutes.get("/seller", function(req, res) {
+    res.json({
+        errno: 0,
+        data: appData.seller
+    })
+});
+appRoutes.get("/ratings", function(req, res) {
+    res.send({
+        errno: 0,
+        data: appData.ratings
+    })
+});
+appRoutes.get("/goods", function(req, res) {
+    res.send({
+        errno: 0,
+        data: appData.goods
+    })
+});
+
+//app.use("/api", appRoutes);
+
+
+/*结束 */
+
+
+
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
@@ -14,38 +46,6 @@ const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 
-/*新版的vue-cli代替原来的dev-server.js文件，现在在这里可以简单配置node请求，获取一些本地数据 */
-const express = require("express");
-const appp = express();
-const appData = require("../data.json");
-const appRoutes = express.Router();
-appRoutes.get("/seller", function(req, res) {
-    res.json({
-        errno: 0,
-        data: appData["seller"]
-    })
-});
-appRoutes.get("/ratings", function(req, res) {
-    res.json({
-        errno: 0,
-        data: appData["ratings"]
-    })
-});
-appRoutes.get("/goods", function(req, res) {
-    res.json({
-        errno: 0,
-        data: appData["goods"]
-    })
-});
-
-
-
-
-appp.use("/api", appRoutes);
-
-
-
-/*结束 */
 
 
 
@@ -59,6 +59,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
     // these devServer options should be customized in /config/index.js
     devServer: {
+        before(app) {
+            app.use("/api", appRoutes);
+        },
         clientLogLevel: 'warning',
         historyApiFallback: {
             rewrites: [

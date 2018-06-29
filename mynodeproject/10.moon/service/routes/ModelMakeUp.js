@@ -33,7 +33,7 @@ var MakeUpSch = new schema({ //这个表的字段
     originPrice: Number,
     newPrice: Number,
     productionPlace: String,
-    img: String,
+    img: { type: String, default: "http://localhost:3000/images/makeUp/啦.jpg" },
     stock: Number,
     SalesCount: Number,
     monthlySales: Number
@@ -44,6 +44,9 @@ var MolMakeUp = mongoose.model('MakeUp', MakeUpSch, 'MakeUp');
 //往表格里面插数据
 router.post('/add', function(req, res) {
     var collection = [];
+    if (req.body.collection.img == "") {
+        req.body.collection.img = "http://localhost:3000/images/makeUp/啦.jpg"
+    }
     collection[0] = req.body.collection;
     handle(MolMakeUp, 'add', collection, function(result) {
         res.send(result)
@@ -61,7 +64,8 @@ router.post("/find", function(req, res) {
 //查询表里符合条件的数据，并且筛选只要部分字段
 router.post("/findSome", function(req, res) {
     var collection = [{}, {}];
-    collection[1] = req.body.show;
+    collection[0] = req.body.condition;
+    collection[1] = req.body.show; //需要查询展示的字段
     handle(MolMakeUp, 'find', collection, function(result) {
         res.send(result)
     })

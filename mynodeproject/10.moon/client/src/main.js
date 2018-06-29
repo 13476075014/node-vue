@@ -8,14 +8,16 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import swip from 'swiper/dist/css/swiper.css'
 import router from './router'
 import axios from 'axios'
+import VueCookies from 'vue-cookies'
+
 
 
 
 Vue.config.productionTip = false;
 
 //axios的基本设置：
-axios.defaults.withCredentials = true ;//设置跨域保存session
-axios.defaults.baseURL = "http://localhost:3000" ; //设置需要数据传输的后台网址的基础路径
+axios.defaults.withCredentials = true; //设置跨域保存session
+axios.defaults.baseURL = "http://localhost:3000"; //设置需要数据传输的后台网址的基础路径
 
 //把axios绑在VUE身上，在后面组件中使用起来更方便
 Vue.prototype.$reqs = axios;
@@ -24,14 +26,14 @@ Vue.prototype.$reqs = axios;
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(ElementUI);
-
+Vue.use(VueCookies)
 
 
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })

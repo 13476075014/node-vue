@@ -1,5 +1,7 @@
 <template>
-    
+    <div id="goods">
+      这是goods
+    </div>
 </template>
 
 
@@ -8,7 +10,7 @@ export default {
     name:"",
     data(){
         return {
-            
+
         }
     }
 }

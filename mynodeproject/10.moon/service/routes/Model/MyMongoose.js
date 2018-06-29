@@ -19,6 +19,5 @@ mongoose.connection.on('disconnected', function() {
 
 module.exports = {
     mongoose: mongoose,
-    db: db,
-    schmea: mongoose.Schema
+    db: db
 };

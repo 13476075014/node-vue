@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+
 import login from '@/components/login'
 import register from '@/components/register'
 import index_one from '@/components/index_one'
 import moregoods from '@/components/moregoods'
 import goods_show from '@/components/goods_show'
 import membercenter from '@/components/memberCenter'
+import shopCar from '@/components/shopCar'
 import service_index from '@/components/service_index'
 import user from '@/components/littleComponent/services/user'
 import hotgoods from '@/components/littleComponent/services/user'
@@ -54,6 +57,11 @@ export default new Router({
             path: '/moregoods', //更多商品页面
             name: 'moregoods',
             component: moregoods
+        },
+        {
+            path: '/shopCar', //更多商品页面
+            name: 'shopCar',
+            component: shopCar
         },
         {
             path: '/goods_show', //更多商品页面

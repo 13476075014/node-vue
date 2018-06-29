@@ -1,3 +1,7 @@
 .float_left {
     float: left;
 }
+
+a {
+    text-decoration: none;
+}

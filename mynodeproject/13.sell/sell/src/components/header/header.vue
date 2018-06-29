@@ -4,17 +4,17 @@
    <div class="merchant">
      <div class="top">
         <div class="left">
-          <img src="../../assets/images/logo.png" alt="">
+          <img :src="seller.avatar" alt="">
         </div>
         <div class="center">
           <p>
-            <img src="../../assets/images/brand@2x.png" alt="">粥品香坊（大运村）
+            <img class="brand" src="../../assets/images/brand@2x.png" alt="">粥品香坊（大运村）
           </p>
           <p>
             蜂鸟专送/38分钟必达
           </p>
-          <p>
-              <img src="../../assets/images/decrease_1@2x.png" alt="">在线支付，满28减5，满50减15
+          <p class="discount">
+              <img src="../../assets/images/decrease_1@2x.png" alt="">在线支付，满28减5
               <button class="abs">5个 <span class="icon-keyboard_arrow_right"></span></button>
           </p>
         </div>
@@ -33,17 +33,21 @@ export default {
   name: "v_header",
   data() {
     return {};
+  },
+  props:{
+    seller:{
+      type:Object
+    }
   }
 };
 </script>
 
 
 <style scoped>
-.top{overflow: hidden;position:relative;}
-.merchant {
-  padding: 24px 12px 18px 24px;
-}
-.left{position:absolute;top:0;left:0;}
+#v_header{background:black;color:white;}
+.top{overflow: hidden;position:relative;padding: 24px 12px 18px 24px;}
+
+.left{position:absolute;top:24px;left:24px;}
 .left img {
   width: 64px;
   height: 64px;
@@ -53,8 +57,9 @@ export default {
   padding-left: 80px;
   text-align: left;
 }
-.center p{margin:0;}
-.center img{width:30px;}
+.center p{margin:0;font-size:14px;}
+.center img.brand{width:30px;vertical-align: middle;height:18px;}
+.discount img{height:18px;vertical-align: middle;}
 .abs {
   position: relative;
   bottom: 0;
@@ -67,5 +72,5 @@ export default {
   font-weight: 200;
   font-size: 10px;
 }
-.bottom{text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+.bottom{text-overflow: ellipsis;white-space: nowrap;overflow: hidden;background:rgba(255,255,255,0.3)}
 </style>

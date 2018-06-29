@@ -46,8 +46,10 @@
         </router-link>
       </el-menu-item>
       <el-menu-item class="item" index="5" style="float:right;">
-        <router-link to="{path:'/'}" target="_blank">
+        <router-link :to="{path:'/shopCar'}" target="_blank">
+          <el-badge :value="12" class="item">
             购物车
+          </el-badge>
         </router-link>
       </el-menu-item>
       <el-menu-item class="item" index="6" style="float:right;">
