@@ -123,8 +123,8 @@ import goodsdetail from './littleComponent/goods_detail' ;
               _this.goodslist = result.data;
 
               //设置cookie的方法
-              var k = JSON.stringify(result.data);
-              _this.$cookies.set("makeupGoods_list",k,"1d"); //把这个数据存在cookie中，如果，这个数据是从表makeup中来的；
+              //var k = JSON.stringify(result.data);
+              //_this.$cookies.set("makeupGoods_list",k,"1d"); //把这个数据存在cookie中，如果，这个数据是从表makeup中来的；
           }
         });
       },
@@ -151,16 +151,35 @@ import goodsdetail from './littleComponent/goods_detail' ;
 
         this.getData(condition);
       },
-      addCar(id){
-         var _this = this;
-          var collection = {goodsID:id,tableName:_this.typePost[_this.whatype]}
-          console.log(collection.tableName);
-         // console.log(_this.typePost["化妆品"]);
-          _this.$reqs.post("/shopCar/add",{collection:collection}).then(function(result){
-              console.log(result)
-          }).catch(function(e){
-              console.log("goods_detail.vue报错：" + e);
+      addCar(id){//加到购物车中id是商品的id
+      var flag = false;
+        this.shopList.forEach((item,index) => {//检查现在购物车里面是否已经有了这个商品
+            if(item.goodsID == id){
+              flag = true;
+              return ;
+            }
+        })
+        if(flag){
+          return ;
+        }
+        var username = this.$cookies.get("username");
+        var collection = {goodsID:id,buy:false,tableName:this.whatype,count:1,username:username};
+        this.$reqs.post("/shopCar/add",{collection:collection}).then(function(result){
+
+        }).catch(function(ex){
+
+        })
+      },
+      computed:{
+        shopList(){
+          var data = "";
+          this.$reqs.post("/shopCar/find").then(function(result){
+            data = result
+          }).catch(function(ex){
+            data = ""
           })
+          return data;
+        }
       }
     }
 

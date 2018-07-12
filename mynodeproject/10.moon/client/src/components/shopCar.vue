@@ -1,13 +1,16 @@
+<!--
+  这个文件主要是实现如何用vue写一个购物车
+ -->
+
 <template>
-  <div id="shopCar">
-   <!--内容-->
-	<div class="mui-content container">
+  <div>
+    <div class="mui-content container">
 	    <!--商品列表-->
 				<div class="pin_out">
-					<div class="pin_list">
+					<div class="pin_list" v-for="(item,index) in shopList" :key="index">
 						<!--店名信息-->
 						<div class="pin_title">
-							<img @click="change_img($event,'all')" :src="img" :src2="img2"/><span>全选</span>
+							<input type="checked"><span>全选</span>
 							<div class="clear"></div>
 						</div>
 						<!--商品-->
@@ -16,20 +19,20 @@
                 <el-row>
                   <el-col :xs="8" :sm="8" :md="8" :lg="8">
                       <div class="shang_left">
-                        <img class="cheack_list"  @click="change_img($event)" :src="img" :src2="img2"/>
-                        <img class="le_tu" src="../assets/images/mt_1.jpg" />
+                        <input type="checked">
+                        <img class="le_tu" :src="item.img" />
                       </div>
                   </el-col>
                   <el-col :xs="12" :sm="12" :md="4" :lg="12" style="vertical-align:center;">
                       <div class="shang_center">
-                        <p class="cen_ming">小黑包</p>
-                        <p class="cen_xiang">小米商旅多功能双肩包  黑色</p>
-                        <p class="now_value"><i>￥</i><b class="money">123.00</b></p>
+                        <p class="cen_ming">{{item.goodsName}}</p>
+                        <p class="cen_xiang">{{item.goodsDescribe}}</p>
+                        <p class="now_value"><i>￥</i><b class="money">{{item.newPrice}}</b></p>
 
                         <div class="cen_bottom">
-                          <button class="jia">-</button>
-                          <input class="shu" type="text" value="1"/>
-                          <button class="jian">+</button>
+                          <button class="jia" @click="jia(index)">+</button>
+                          <input class="shu" type="text" v-model="item.count"/>
+                          <button class="jian" @click="jian(index)">-</button>
                         </div>
 								      </div>
                   </el-col>
@@ -44,51 +47,56 @@
 
 					</div>
 				</div>
-	</div> <!--内容结束-->
-	<!--结算部分-->
-	<div class="mui-content container-fluid bottom">
-    <span>共<i class="num">1</i>件商品 &nbsp;&nbsp;</span>
-    <span>金额：<i class="total">1499</i>元</span>
-    <a class="gotoshop" href="#">继续购物</a>
-    <a class="gotopay" href="#">去结算</a>
-	</div><!--结算部分结束-->
-
+    </div> <!--内容结束-->
+    <!--结算部分-->
+    <div class="mui-content container-fluid bottom">
+      <span>共<i class="num">1</i>件商品 &nbsp;&nbsp;</span>
+      <span>金额：<i class="total">1499</i>元</span>
+      <a class="gotoshop" href="#">继续购物</a>
+      <a class="gotopay" href="#">去结算</a>
+    </div><!--结算部分结束-->
   </div>
 </template>
 
 <script>
-  export default({
-    name:"shopCar",
-    data(){
+  export default {
+    data() {
       return {
-        img:require("../assets/images/gou (2).png"),
-        img2:require("../assets/images/gou (1).png"),
-        img_buy:require("../assets/images/gou (2).png"),
-        flag_cheacked:false
+        shopList:[],
+        carList:[]
       }
     },
-    created(){
-      var cok_makeup = this.$cookies.get("makeupGoods_list"); //获取到化妆品商品的数据
-      cok_makeup = JSON.parse(cok_makeup);
-    },
-    methods:{
 
-      change_img(tag,all){//更换是否选中的图标的事件方法
-          var _this =this;
-          var img = tag.target.attributes.src.nodeValue;
-          var img2 = tag.target.attributes.src2.nodeValue;
-          tag.target.attributes.src.nodeValue = img2;
-          tag.target.attributes.src2.nodeValue = img;
-          if(all){
-            _this.img = tag.target.attributes.src.nodeValue;
-            _this.img2 =  tag.target.attributes.src2.nodeValue;
-          };
+    methods: {
+      jia(index){
+        this.shopList[index].count++;
+      },
+      jian(index){
+        this.shopList[index].count--;
+      },
+      getCardata(){
+        var _this = this;
+        var collection = {username:_this.$cookies.get("username")}
+        this.$reqs.post("/shopCar/find",{collection:collection}).then(function(result){
+          _this.carList = result;
+        })
+
+      },
+      getShopList(arr){
+        var goods = [];
+        arr.forEach((item,index) => {
+          goods.push(item.goodsID);
+        });
+      }
+
+    },
+
+    computed:{
+      shopList2(){ //获取到购物车数据
+
       }
     }
-  });
-
-
-
+  }
 </script>
 
 <style scoped>
@@ -110,7 +118,7 @@ body{font-family:"Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",Fr
     	.pin_shang{background:white;margin-top:0;padding-left:1px;}
     	.pin_shang li{padding:10px 0 10px 5px;outline:1px solid rgb(213,213,213);margin-bottom:10px;}
     	.shang_left{position:relative;text-align:center;padding-right:10px;}
-    	.shang_left .le_tu{width:70%;max-height:100%;}
+    	.shang_left .le_tu{width:60%;max-height:100%;}
     	.shang_left .cheack_list{width:24px;height:24px;display: block;position:absolute;left:0;top:0;border:1px solid rgb(213,213,213);border-radius: 50%;}
       .shang_center p{margin:0;font-size:12px;line-height: 16px;}
       .shang_center{margin-top:70px;}

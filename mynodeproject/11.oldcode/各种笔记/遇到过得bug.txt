@@ -23,3 +23,18 @@
          然后给需要到达固定定位的元素，换成绝对定位；
 
 
+5.
+	在vue中遇到了一个之前没遇到的问题搞了半天才知道原因：
+    问题：自己用的父组件传值给子组件，结果一直不成功，具体的写法是： 
+						data中声明 ：articaldata:[]
+						getdata(id){
+     							 var _this = this;
+     							 _this.$reqs.post("/artical/getById",{id:id}).then(function(result){
+ 						       _this.articaldata[0] = result.data.data.artical; //注意这里就是问题的关键，不能直接写成data[0]=**这样的方式
+ 						       _this.comment_data = result.data.data.comments;
+  						    })
+   						 }
+   原因：上面直接写成data[0] = *** ；这样的写法导致vue的值改变了，但是没有改变全局的data在vue看来，所以页面的内容不会渲染；
+
+   解决：把上面的 _this.articaldata[0] = result.data.data.artical 改成： _this.articaldata = [result.data.data.artical];就好了
+

@@ -77,7 +77,7 @@
           handleCurrentChange2(val){//下面的handleCk，需要在这个模板引用后写上这个事件，才能顺利调用
 		      	this.$emit("handleCk",val);//组件应用后绑定的方法
           },
-          addCar(id){
+          addCar(id,index){
             this.$emit("addCar",id);
           }
       }

@@ -29,7 +29,7 @@ var slis = function(th) {
                     success: function(data) {
                         if (data.status === 'success') {
                             //alert('登录成功');
-                            console.log(th);
+                            th.$cookies.set("user", th.ruleForm2.username, "2d")
                             th.$router.push({ path: '/index_one' });
                         } else if (data.status === 'error') {
                             console.log(th.ruleForm2.pass)

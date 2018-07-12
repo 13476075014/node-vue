@@ -37,6 +37,7 @@ export default {
     var _this = this;
     this.$reqs.get('/api/seller').then( (result) => {
         _this.seller = result.data.data.data;
+        //console.log( _this.seller)
     }).catch(function(ex){
       console.log(ex)
     })

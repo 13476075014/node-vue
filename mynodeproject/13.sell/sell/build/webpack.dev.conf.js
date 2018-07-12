@@ -59,6 +59,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
     // these devServer options should be customized in /config/index.js
     devServer: {
+        //这里是在建立本地传数据的时候需要修改的
         before(app) {
             app.use("/api", appRoutes);
         },

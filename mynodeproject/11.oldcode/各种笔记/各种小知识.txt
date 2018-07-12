@@ -36,4 +36,7 @@
 
 10.关于contenteditable = true,这个属性可以让块元素来模拟输入框功能；
    但是在苹果手机上有时候会遇到不能输入的情况；需要在样式中加上 -webkit-user-select:auto;
+
+11.给图片加上模糊的效果的话就可以用css的filter属性
+	.background{filter:blur(10px) }
 	

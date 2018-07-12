@@ -10,8 +10,9 @@ var schema = mongoose.Schema;
 ShopCarSch = new schema({
     tableName: String,
     goodsID: schema.Types.ObjectId,
-    buy: { type: Boolean, default: false }
-
+    buy: { type: Boolean, default: false },
+    count: { type: Number, required: true, default: 1 },
+    username: String
 })
 
 var shopCar = mongoose.model('shopCar', ShopCarSch, 'shopCar');
@@ -37,7 +38,7 @@ router.post("/find", function(req, res) {
 //查询表里符合条件的数据，并且筛选只要部分字段
 router.post("/findSome", function(req, res) {
     var collection = [{}, {}];
-    collection[0] = req.body.condition;
+    collection[0] = req.body.condition; //查询的条件
     collection[1] = req.body.show; //需要查询展示的字段
     handle(shopCar, 'find', collection, function(result) {
         res.send(result)

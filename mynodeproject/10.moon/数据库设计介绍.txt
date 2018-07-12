@@ -54,7 +54,9 @@
 
 购物车数据表格：ShopCar
 	字段{
+		userId:"", //哪个用户加入的购物车
 		tableName:"",  //关联商品是来自哪个表格，就是获取到商品的类型，来定义从哪个表格去取
  		goodsID:"" ,  //关联的商品表数据里面对应的id
 		buy:false     //是否被选中需要在购物车中结算
+		count: { type: Number, required: true, default: 1 }  //数量
 	}
