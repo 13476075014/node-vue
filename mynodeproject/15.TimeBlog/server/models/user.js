@@ -14,5 +14,8 @@ module.exports = {
             .findOne({ name: name })
             .addCreateAt()
             .exec()
+    },
+    updatePassword: function(id, password) {
+        return User.update({ _id: id }, { $set: { password: password } }).exec();
     }
 }

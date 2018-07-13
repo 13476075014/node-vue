@@ -18,7 +18,7 @@
             </p>
           </router-link>
           <div class="detail" style="text-align:right;margin-top:15px;font-size:14px;">
-              <span>{{item.author.name}}</span> 发布于 <i>{{item.created_at}}</i> 留言数（） <span>阅读数（{{item.pv}}）</span>
+              <span>{{item.author.name}}</span> 发布于 <i>{{item.created_at}}</i> 留言数（{{item.commentsCount}}） <span>阅读数（{{item.pv}}）</span>
           </div>
         </li>
       </ul>
@@ -36,10 +36,10 @@ export default{
   },
   props:{
     tohide:{type:Boolean},
-    artical:{type:Array}
+    artical:{type:Array},
+    comment_data:{type:Array}
   },
   created(){
-    console.log("11");
   }
 
 }
@@ -49,7 +49,7 @@ export default{
 
 <style scoped>
 a{text-decoration: none;}
-ul{list-style: none;}
+ul{list-style: none;margin:0;padding:10px;}
 ul li{background:rgb(223,223,223);padding:10px;margin-bottom:10px;}
 ul li h1{font-size:20px;margin:0;}
 ul li .avatar{width: 100%;display: block;padding:10px;height:70px;border:1px solid rgb(223,223,223);box-sizing: border-box}

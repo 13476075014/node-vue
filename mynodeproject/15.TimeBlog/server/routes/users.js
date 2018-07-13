@@ -3,7 +3,7 @@ var router = express.Router();
 var crypto = require('crypto');
 var fs = require("fs");
 const ModelUser = require('../models/user')
-
+const checkLogin = require('../middlewares/check').checkLogin
 var slide = require('../public/javascripts/slide.js');
 
 /*注册 */
@@ -86,7 +86,7 @@ router.post("/login", function(req, res, next) {
                 if (result.password) {
                     if (result.password == password) {
                         req.session.user = result;
-                        res.send({ state: 1, msg: "成功" })
+                        res.send({ state: 1, msg: "成功", data: result })
                     } else {
                         res.send({ state: -3, msg: "用户名或密码错误" })
                     }
@@ -102,5 +102,38 @@ router.post("/login", function(req, res, next) {
         }
     });
 })
+
+//#region  退出的接口
+router.post("/logout", function(req, res, next) {
+        req.session.user = null;
+        res.send({ state: 1, msg: "成功" })
+    })
+    //#endregion
+
+//#region 通过id来修改用户的密码
+router.post("/updatePassword", checkLogin, function(req, res, next) {
+        var id = req.body.id;
+        var password = req.body.password;
+        var md5 = crypto.createHash('md5');
+        password = md5.update(password).digest('base64');
+        password =
+            ModelUser.updatePassword(id, password).then(function(result) {
+                if (result.result.ok == 1) {
+                    res.send({ state: 1, msg: "成功" })
+                } else {
+                    res.send({ state: -2, msg: "失败" })
+                }
+
+            }).catch(function(ex) {
+                res.send({ state: -4, msg: ex.message })
+            })
+    })
+    //#endregion
+
+//#region 
+//#endregion
+
+//#region 
+//#endregion
 
 module.exports = router;

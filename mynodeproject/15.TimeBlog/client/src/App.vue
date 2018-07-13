@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="back"></div>
     <router-view/>
   </div>
 </template>
@@ -20,4 +21,5 @@ body{margin:0;}
   color: #2c3e50;
 
 }
+/* .back{background:url(../static/back.jpg)left top;filter: blur(20px) ;position:fixed;top:0;left:0;width:100%;height:100vh;z-index:-1;} */
 </style>

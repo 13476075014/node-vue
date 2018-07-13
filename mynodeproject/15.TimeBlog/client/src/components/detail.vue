@@ -1,11 +1,13 @@
 <template>
   <div class="detail">
-      <articals :tohide="tohide" :artical="articaldata"> </articals>
+      <articals :tohide="tohide" :artical="articaldata" :comment_data="comment_data"> </articals>
+      <comment :postID="postID" :comment_data="comment_data"></comment>
   </div>
 </template>
 
 <script>
-import articals from "./artical.vue";
+import articals from "./artical.vue"; //文章组件
+import comment from "./template/tem_comment.vue"; //评论组件
 
 export default({
   name:"detail",
@@ -13,12 +15,14 @@ export default({
     return{
       tohide:false,
       articaldata:[],
-      comment_data:""
+      comment_data:[],
+      postID:""
     }
 
   },
   created(){
     var id = this.$route.params.id; //获取文章的id
+    this.postID = id;
      this.getdata(id);
   },
   methods:{
@@ -31,7 +35,8 @@ export default({
     }
   },
   components:{
-    articals
+    articals,
+    comment
   },
   computed:{
 

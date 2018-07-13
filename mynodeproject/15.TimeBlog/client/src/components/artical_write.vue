@@ -1,5 +1,5 @@
 <template>
-  <div class="towrite">
+  <div class="towrite" style="padding:0 20px 0 0;">
     <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-dynamic">
       <el-form-item label="文章标题" prop="title" :rules="[{required:true,message:'请输入文章标题',trigger:'blur'}]">
         <el-input v-model="ruleForm.title"></el-input>

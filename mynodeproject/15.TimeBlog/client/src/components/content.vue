@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content2">
       <articals :tohide="tohide" :artical="articaldata"> </articals>
   </div>
 </template>
@@ -13,7 +13,7 @@ export default({
     return{
       tohide:true,
       articaldata:[],
-      comment_data:""
+      comment_data:[]
     }
 
   },

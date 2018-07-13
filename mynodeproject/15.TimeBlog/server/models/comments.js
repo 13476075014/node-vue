@@ -41,7 +41,7 @@ module.exports = {
             .populate({ path: 'author', model: 'User' })
             .sort({ _id: 1 })
             .addCreateAt()
-            .contentToHtml()
+            // .contentToHtml()
             .exec()
     },
 

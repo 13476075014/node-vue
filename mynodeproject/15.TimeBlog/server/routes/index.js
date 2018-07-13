@@ -5,6 +5,7 @@ module.exports = function(app) {
         res.render('index', { title: 'Express' });
     });
     app.use("/users", require("./users"));
-    app.use("/artical", require("./artical"))
+    app.use("/artical", require("./artical"));
+    app.use("/comment", require("./comment"));
 
 }

@@ -2,16 +2,17 @@
   <div class="backlogin">
     <div class="header">
             <div class="time" style="padding-top:20px;float:left;margin-left:15px;color:rgb(145,145,145);">
-            	{{da}}
+            	<!-- {{da}} -->
             </div>
             <div class="handler">
                 <router-link to="/index/artical_write/1" style="line-height:60px;height:60px;">创作文章</router-link>
                 <div class="more" @click="toggleSlide">
                     <i class="fa fa-bars" aria-hidden="true"></i>
-                    <ul :class="{showul:showExit}" style="z-index:999;">
-                        <li><a href="javascript:;" @click="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>退出</a></li>
-                        <li><a href="javascript:;">修改密码</a></li>
-                        <li><a href="javascript:;">意见反馈</a></li>
+                    <ul :class="{showul:showExit,menu:true}" style="z-index:999;">
+                        <li><a href="javascript:;" @click="logout"  v-if="!showlogin"><i class="fa fa-sign-out" aria-hidden="true"></i>退出</a></li>
+                        <li><a href="/" v-if="showlogin"><i class="fa fa-sign-out" aria-hidden="true"></i>登录</a></li>
+                        <li><a @click="changepass">修改密码</a></li>
+                        <!-- <li><a href="javascript:;">意见反馈</a></li> -->
                     </ul>
                 </div>
                 <el-dropdown>
@@ -21,10 +22,10 @@
 								  <el-dropdown-menu slot="dropdown" style="width:200px;" class="el_dropmenu">
 								  	<h4 style="margin:0;padding-left:5px;">我的:</h4>
 								    <el-dropdown-item><i class="fa fa-user"></i>个人信息</el-dropdown-item>
-								    <el-dropdown-item><i class="fa fa-heart" @click="love_cli"></i>收藏</el-dropdown-item>
-								    <el-dropdown-item>螺蛳粉</el-dropdown-item>
+								    <!-- <el-dropdown-item><i class="fa fa-heart" @click="love_cli"></i>收藏</el-dropdown-item> -->
+								    <!-- <el-dropdown-item>螺蛳粉</el-dropdown-item>
 								    <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-								    <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+								    <el-dropdown-item divided>蚵仔煎</el-dropdown-item> -->
 								  </el-dropdown-menu>
 								</el-dropdown>
             </div>
@@ -75,13 +76,43 @@
         			datatime:"",
               search_box_fouce:false,
               showExit:false,
+              showlogin:"",
               pageTitle: pageTitleObj[(this.$route.path.split("/"))[2]]|| "网站首页"
         }
       },
       created(){
-
+          if(this.$cookies.get("user") != null){
+            this.showlogin = false;
+          }else{
+            this.showlogin = true;
+          }
       },
       methods:{
+            changepass(){
+              var _this = this;
+              if(_this.showlogin == false){
+                   this.$prompt('请输入新密码', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消'
+                 // inputPattern: /66/,
+                //  inputErrorMessage: '邮箱格式不正确'
+                }).then(({ value }) => {
+                  this.$reqs.post("/users/updatePassword",{id:_this.$cookies.get("user"),password:value}).then(function(result){
+                    console.log(result)
+                  }).catch(function(ex){
+
+                  })
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: '取消输入'
+                  });
+                });
+              }else{
+                _this.$message({message:"请登录后再操作",type:"error"})
+              }
+                return false;
+            },
       			love_cli(){
 
       			},
@@ -96,9 +127,12 @@
             },
             logout(){ //退出系统
                 var _this = this ;
-                this.$reqs.post("/users/logout",{}).then(function(result){
+                this.$reqs.post("/users/logout").then(function(result){
+                  _this.$cookies.remove("user");
+                  _this.$message({message:"退出成功",type:"success"});
+                  _this.showlogin = true;
                 	//成功
-                	_this.$router.push({path:'/'});
+                	//_this.$router.push({path:'/'});
                 })
             }
         },
@@ -128,6 +162,7 @@
     ul, li{
         list-style: none;
     }
+    ul.menu{padding:0;}
     .header{
         height: 60px;
         box-shadow: 0 1px 5px rgba(13,62,73,0.2) ;
@@ -292,7 +327,7 @@
     }
 
     .content{
-        margin: 20px 30px 0px 50px;
+        margin: 20px 0px 0px 80px;
         min-height: 300px;
         /*min-width: 700px;*/
     }

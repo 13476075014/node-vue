@@ -28,7 +28,8 @@ var slis = function(th) {
                     },
                     success: function(data) {
                         var redata = data
-                        if (redata.state > 0) {
+                        if (redata.state > 0) { //登录成功
+                            th.$cookies.set("user", redata.data._id)
                             th.$router.push({ path: '/index/content' }); //跳到博客首页
                         } else if (redata.state < 0) {
                             alert(redata.msg);
