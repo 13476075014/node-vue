@@ -25,10 +25,7 @@
             <button :disabled="disablebtn" class="login" id="btn">{{loginText}}</button>
         </div>
 
-        <!--下面这个是自己尝试的使用element.ui的使用方法-->
-        <div>
-			 <el-checkbox v-model="checked">备选项</el-checkbox>
-		</div>
+
   </div>
 </template>
 

@@ -2,26 +2,27 @@
 
 <template>
 	<div class="backlogin">
+    <iframe src="about:blank" name="tfra" id="tfra" style="display:none;"></iframe>
 		<div id="can"></div>
-    <el-form :model="ruleForm2" :ref="ruleForm2" status-icon :rules="rules2" label-width="100px" class="demo-ruleForm" style="width:400px;margin:10px auto;background:rgba(255,255,255,0.8);padding:30px;">
+    <el-form :model="ruleForm2" id="ruleForm2" :ref="ruleForm2" status-icon :rules="rules2" label-width="100px" class="demo-ruleForm" style="width:400px;margin:10px auto;background:rgba(255,255,255,0.8);padding:30px;" method="post" enctype="multipart/form-data" action="http://localhost:3000/users/signup" target="tfra">
       <div class="title">注册</div>
       <el-form-item label="用户名" prop="name">
-        <el-input type="text" v-model="ruleForm2.name" auto-complete="off"></el-input>
+        <el-input type="text" name="name" v-model="ruleForm2.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input type="password" v-model="ruleForm2.password" auto-complete="off"></el-input>
+        <el-input type="password" name="password" v-model="ruleForm2.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
         <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="头像" prop="avatar">
-        <el-input type="file" v-model="ruleForm2.avatar"></el-input>
+        <el-input type="file" name="avatar" v-model="ruleForm2.avatar"></el-input>
       </el-form-item>
       <el-form-item label="个性签名" prop="description">
-        <el-input type="text" v-model="ruleForm2.description"></el-input>
+        <el-input type="text" name="description" v-model="ruleForm2.description" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="gender">
-        <el-select v-model="ruleForm2.gender" placeholder="请选择" style="width:100%;">
+        <el-select v-model="ruleForm2.gender" name="gender" placeholder="请选择" style="width:100%;">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -119,7 +120,7 @@
 
       },
       methods:{
-          submitForm(ruleForm2){//注册按钮点击事件
+         /* submitForm(ruleForm2){//注册按钮点击事件
             var _this = this;
             this.$refs[ruleForm2].validate((valid) => {
               if(valid){//前端校验成功
@@ -140,7 +141,24 @@
             })
 
             }
-        }
+        */
+        submitForm(ruleForm2){
+          var form = document.querySelector("#ruleForm2");
+          var _this = this;
+          this.$refs[ruleForm2].validate((valid) => {
+                        if(valid){//前端校验成功
+                              form.submit();
+                              _this.$message({message:"注册成功，将跳转到登录页面",type:"success"});
+                              setTimeout(function(){
+                                  _this.$router.push("/")
+                              },1000)
+
+                        }else{
+                            _this.$message={message:"请按照规范来填写信息",type:"error"}
+                        }
+            });
+          }
+       }
     }
 </script>
 

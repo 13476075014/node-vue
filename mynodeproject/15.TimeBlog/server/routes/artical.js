@@ -151,34 +151,23 @@ router.post('/:postId/edit', checkLogin, function(req, res, next) {
     //#endregion
 
 
-//#region   7.  删除一篇文章   GET  /posts/:postId/remove
-router.get('/:postId/remove', checkLogin, function(req, res, next) {
-        const postId = req.params.postId
-        const author = req.session.user._id
 
-        ArticalModel.getRawPostById(postId)
-            .then(function(post) {
-                if (!post) {
-                    throw new Error('不存在该文章')
-                }
-                if (post.author._id.toString() !== author.toString()) {
-                    throw new Error('您没有删除这篇文章的权限')
-                }
-
-                ArticalModel.delPostById(postId)
-                    .then(function() {
-                        //删除成功后
-                        req.flash('success', '删除文章成功')
-                        res.redirect('/posts')
-                    })
-                    .catch(next)
-            })
+//#region 7.通过ID删除一篇文章
+router.post("/deleteById", checkLogin, function(req, res, next) {
+        var Id = req.body.Id;
+        if (Id == null || Id == "" || Id == undefined) {
+            res.send({ state: -2, msg: "文章ID错误" });
+            return;
+        };
+        ArticalModel.delPostById(Id).then(function(result) {
+            res.send({ state: 1, msg: result })
+        }).catch(function(ex) {
+            res.send({ state: -4, msg: ex.message })
+        })
     })
     //#endregion
 
-
-
-//#region  wangEditor编辑器接口 wangeditor上传图片的地址
+//#region  8wangEditor编辑器接口 wangeditor上传图片的地址
 router.post("/wangeditor/upload", function(req, res, next) {
         var form = new formidable.IncomingForm();
         //设置文件上传存放地址

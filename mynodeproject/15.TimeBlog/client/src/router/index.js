@@ -5,6 +5,7 @@ import signup from '@/components/signup'
 import index from '@/components/index'
 import content from '@/components/content'
 import detail from '@/components/detail'
+import myArtical from '@/components/myArtical'
 import artical_write from '@/components/artical_write'
 Vue.use(Router)
 
@@ -30,6 +31,9 @@ export default new Router({
         }, {
             path: "artical_write/:userid",
             component: artical_write
+        }, {
+            path: "myArtical",
+            component: myArtical
         }]
     }]
 })

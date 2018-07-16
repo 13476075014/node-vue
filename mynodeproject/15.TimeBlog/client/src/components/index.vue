@@ -23,6 +23,11 @@
 								  	<h4 style="margin:0;padding-left:5px;">我的:</h4>
 								    <el-dropdown-item><i class="fa fa-user"></i>个人信息</el-dropdown-item>
 								    <!-- <el-dropdown-item><i class="fa fa-heart" @click="love_cli"></i>收藏</el-dropdown-item> -->
+								    <el-dropdown-item>
+                      <p @click="toMyartical">
+                        <i class="fa fa-heart"></i>我的文章
+                      </p>
+                    </el-dropdown-item>
 								    <!-- <el-dropdown-item>螺蛳粉</el-dropdown-item>
 								    <el-dropdown-item disabled>双皮奶</el-dropdown-item>
 								    <el-dropdown-item divided>蚵仔煎</el-dropdown-item> -->
@@ -53,7 +58,7 @@
         <div class="content">
 
             <ul class="breadcrumb">
-                <li><a href="#/backIndex/">首页</a></li>
+                <li><a href="#/index/content">首页</a></li>
                 <li>{{pageTitle}}</li>
             </ul>
             <router-view></router-view>
@@ -66,7 +71,10 @@
 <script>
     var pageTitleObj = {
         index:"网站首页",
-        artical_write:"创建文章"
+        content:"文章列表",
+        artical_write:"创建文章",
+        artical_detail:"文章详情",
+        myArtical:"我的文章列表"
     };
 
     export default {
@@ -115,7 +123,16 @@
             },
       			love_cli(){
 
-      			},
+            },
+            toMyartical(){
+              var _this = this;
+                 var author = _this.$cookies.get("user");
+                  if(author != null && author != undefined){
+                    this.$router.push("/index/myArtical");
+                  }else{
+                    _this.$message({message:"请先登录",type:"error"})
+                  };
+            },
             focusFn(){  //搜索框获取焦点，添加class
                 this.search_box_fouce = true;
             },

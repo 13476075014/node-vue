@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto');
+var path = require('path');
+var config = require("config-lite")(__dirname);
 var fs = require("fs");
+var formidable = require('formidable');
 const ModelUser = require('../models/user')
 const checkLogin = require('../middlewares/check').checkLogin
 var slide = require('../public/javascripts/slide.js');
@@ -9,27 +12,55 @@ var slide = require('../public/javascripts/slide.js');
 /*注册 */
 router.post('/signup', function(req, res, next) { //注册用户接口
     var md5 = crypto.createHash('md5');
-    var user = req.body.user;
-    var password = md5.update(req.body.user.password).digest('base64');
-    user.password = password;
-    try {
-        ModelUser.create(user).then(function(result) {
-            // user = result.ops[0] //这里是获取到mongodb赋值后的user表，包含_id
-            //delete user.password //删除密码这样的敏感信息
-            // req.session.user = user //把别的信息存在session中
-            res.send({ state: 1, msg: "成功" });
-        }).catch(function(e) {
-            //fs.unlink(req.files.avatar.path);
-            // 用户名被占用则跳回注册页，而不是错误页
-            if (e.message.match('duplicate key')) {
-                res.send({ state: -2, msg: "用户名已经被占用" });
-            } else {
-                res.send({ state: -1, msg: e.message });
+    var form = new formidable.IncomingForm();
+    form.uploadDir = "./public/images";
+    form.parse(req, function(err, fields, files) {
+        var password = fields.password;
+        password = md5.update(password).digest('base64');
+        var name = fields.name;
+        var gender = fields.gender;
+        var genderJson = { "男": "m", "女": "f", "保密": "x" };
+        gender = genderJson[gender];
+        var avatar = files.avatar.path.split(path.sep).pop();
+        var description = fields.description;
+
+        var oldpath = files.avatar.path;
+        var extname = files.avatar.name;
+        var newpath = "./public/images/" + extname;
+        //改名和存储
+        fs.rename(oldpath, newpath, function(err) {
+            avatar = newpath.replace("./public", "http://" + config.url);
+            var user = {
+                name: name,
+                password: password,
+                gender: gender,
+                avatar: avatar,
+                description: description
+            };
+            try {
+                ModelUser.create(user).then(function(result) {
+                    res.send({ state: 1, msg: "成功" });
+                }).catch(function(e) {
+                    fs.unlink(newpath);
+                    // 用户名被占用则跳回注册页，而不是错误页
+                    if (e.message.match('duplicate key')) {
+                        res.send({ state: -2, msg: "用户名已经被占用" });
+                    } else {
+                        res.send({ state: -1, msg: e.message });
+                    }
+                })
+            } catch (ex) {
+                res.send({ state: -1, msg: ex.message });
             }
         })
-    } catch (ex) {
-        res.send({ state: -1, msg: ex.message });
-    }
+    })
+
+
+    /*var user = req.body.user;
+    var password = md5.update(req.body.user.password).digest('base64');
+    user.password = password;*/
+
+
 });
 
 

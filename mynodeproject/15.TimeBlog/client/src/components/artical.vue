@@ -1,5 +1,6 @@
 <template>
-    <div class="articals">
+    <div class="articals" style="position:relative;">
+      <slot></slot>
       <ul>
         <li v-for="(item,index) in artical" :key="index">
           <router-link :to="'/index/artical_detail/' + item._id">
@@ -7,7 +8,7 @@
             <p>
               <el-row>
                 <el-col :span="2">
-                    <img class="avatar" src="../assets/logo.png" alt="">
+                    <img class="avatar" :src="item.author.avatar" alt="">
                 </el-col>
                 <el-col :span="22">
                     <p :class="{content:true,tohide:tohide}" v-html="item.content">
@@ -50,10 +51,10 @@ export default{
 <style scoped>
 a{text-decoration: none;}
 ul{list-style: none;margin:0;padding:10px;}
-ul li{background:rgb(223,223,223);padding:10px;margin-bottom:10px;}
+ul li{background:rgb(223,223,223);padding:10px;margin-bottom:10px;border-radius: 7px;}
 ul li h1{font-size:20px;margin:0;}
-ul li .avatar{width: 100%;display: block;padding:10px;height:70px;border:1px solid rgb(223,223,223);box-sizing: border-box}
-ul li p.content{text-align: left;padding-left:15px;color:rgb(118,118,118);box-sizing: border-box;margin:0;line-height: 23px;}
+ul li .avatar{width: 100%;display: block;height:70px;box-sizing: border-box}
+ul li p.content{text-align: left;padding-left:15px;color:rgb(118,118,118);box-sizing: border-box;margin:0!important;line-height: 23px;}
 ul li p.tohide{height:70px;overflow: hidden;}
 </style>
 

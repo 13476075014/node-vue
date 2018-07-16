@@ -24,12 +24,11 @@ export default({
   methods:{
     getdata(){ //获取到时间由新到旧的文章
       var _this = this;
-      _this.$reqs.post("/artical/getByAuthor").then(function(result){
-        var arr = result.data.msg;
-        _this.articaldata = arr;
-        console.log(result)
-        //_this.comment_data = result.data.data.comments;
-      })
+      var author = _this.$cookies.get("user");
+         _this.$reqs.post("/artical/getByAuthor",{author:author}).then(function(result){
+          var arr = result.data.msg;
+          _this.articaldata = arr;
+    })
     }
   },
   components:{

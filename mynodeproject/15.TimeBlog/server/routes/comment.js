@@ -30,8 +30,16 @@ router.post("/getComments", checkLogin, function(req, res, next) {
     //#endregion
 
 
-//#region
-//#endregion
+//#region 通过评价id来删除评价
+router.post("/deleteById", checkLogin, function(req, res, next) {
+        var Id = req.body.Id;
+        CommentModel.delCommentById(Id).then(function(result) {
+            res.send({ state: 1, msg: result })
+        }).catch(function(ex) {
+            res.send({ state: -4, msg: ex.message });
+        })
+    })
+    //#endregion
 
 
 //#region

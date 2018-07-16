@@ -2,6 +2,7 @@
 
 module.exports = {
     port: 3000, //端口号
+    url: "localhost:3000",
     session: { //session配置
         secret: 'chunchun', //设置 session 签名
         name: 'chunchun',

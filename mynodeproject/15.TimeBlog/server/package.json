@@ -12,6 +12,7 @@
         "crypto": "^1.0.1",
         "debug": "~2.6.9",
         "express": "~4.15.5",
+        "express-formidable": "^1.0.0",
         "express-session": "^1.15.6",
         "formidable": "^1.2.1",
         "gt3-sdk": "^2.0.0",
