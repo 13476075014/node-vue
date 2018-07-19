@@ -6,7 +6,7 @@
       <!-- <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button> -->
     </div>
     <div v-for="(o,index2) in comment_data" :key="index2" class="text item comment_inner">
-        <img src="../../assets/logo.png" alt="">
+        <img :src="o.author.avatar" alt="">
         <p>
           <span class="author">
            {{o.author.name}}
@@ -90,7 +90,7 @@
 
 
 <style scoped>
-.comment{padding:10px;box-sizing: border-box;}
+.comment{padding:10px;box-sizing: border-box;padding-bottom:80px;}
 .comment .comment_inner{padding:20px 0 20px 80px;position:relative;margin:20px 0;position:relative;}
 .comment .comment_inner:hover{background:lightblue;}
 .comment_inner>img{width:60px;height:60px;position:absolute;left:5px;top:20px;}

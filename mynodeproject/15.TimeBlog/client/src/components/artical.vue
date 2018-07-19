@@ -50,7 +50,7 @@ export default{
 
 <style scoped>
 a{text-decoration: none;}
-ul{list-style: none;margin:0;padding:10px;}
+ul{list-style: none;margin:0;padding:10px 60px 10px;}
 ul li{background:rgb(223,223,223);padding:10px;margin-bottom:10px;border-radius: 7px;}
 ul li h1{font-size:20px;margin:0;}
 ul li .avatar{width: 100%;display: block;height:70px;box-sizing: border-box}

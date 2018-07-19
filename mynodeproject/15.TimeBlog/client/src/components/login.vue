@@ -2,7 +2,7 @@
 	<div class="backlogin">
 		<div id="can"></div>
         <div class="login_box">
-            <div class="title">后台登录</div>
+            <div class="title">登录</div>
             <div>
                 <input class="myinput username" type="text" placeholder="手机号/用户名" v-model="username" />
             </div>

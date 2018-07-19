@@ -13,4 +13,6 @@ module.exports = {
         saveUninitialized: true
     },
     mongodb: "mongodb://localhost:27017/Timeblog" //mongo的连接地址配置
+        //mongodb: "mongodb://myUserAdmin:abc123@localhost:27017/Timeblog" //mongo的连接地址配置
+        //mongodb: "mongodb://10.203.1.87:27017/Timeblog" //mongo的连接地址配置
 }

@@ -17,7 +17,7 @@
                 </div>
                 <el-dropdown>
 								  <span class="el-dropdown-link">
-								    <img style="width:40px;border-radius: 40px;height:40px;margin-top:10px;" src="../assets/logo.png" alt="" />
+								    <img style="width:40px;border-radius: 40px;height:40px;margin-top:10px;"  :src="avatar" alt="" />
 								  </span>
 								  <el-dropdown-menu slot="dropdown" style="width:200px;" class="el_dropmenu">
 								  	<h4 style="margin:0;padding-left:5px;">我的:</h4>
@@ -47,9 +47,9 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/backIndex/upload">
+                    <router-link to="/">
                         <i class="fa el-icon-upload" aria-hidden="true"></i>
-                        <span>upload的学习</span>
+                        <span>登录</span>
                     </router-link>
                 </li>
             </ul>
@@ -85,14 +85,17 @@
               search_box_fouce:false,
               showExit:false,
               showlogin:"",
+              avatar:"",//头像
               pageTitle: pageTitleObj[(this.$route.path.split("/"))[2]]|| "网站首页"
         }
       },
       created(){
           if(this.$cookies.get("user") != null){
             this.showlogin = false;
+            this.avatar = this.$cookies.get("userAvatar");
           }else{
             this.showlogin = true;
+            this.avatar = require("../assets/logo.png");
           }
       },
       methods:{
@@ -259,7 +262,7 @@
         border:5px solid transparent;
         border-right-color: #000;
     }
-    .sidenav .router-link-active:after{
+    .sidenav .router-link-exact-active:after{
         content: "";
         position: absolute;
         left: -16px;
@@ -269,7 +272,7 @@
         border-radius: 3px;
         background: #566a80;
     }
-    .sidenav .router-link-active{
+    .sidenav .router-link-exact-active{
         opacity: 1;
         background: #f0f2f5;
     }

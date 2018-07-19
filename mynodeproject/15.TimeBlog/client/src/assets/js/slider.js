@@ -1,7 +1,4 @@
 var slis = function(th) {
-
-
-
     var handler = function(captchaObj) {
         captchaObj.appendTo('#captcha');
         captchaObj.onReady(function() {
@@ -14,6 +11,7 @@ var slis = function(th) {
                 }
                 $.ajax({
                     url: 'http://localhost:3000/users/login', //验证的地址
+                    // url: 'http://47.96.65.156:3000/users/login', //验证的地址
                     type: 'POST',
                     dataType: 'json',
                     xhrFields: { //这里一定要加上这个，否则的话，跨域保存session将失效；
@@ -29,7 +27,8 @@ var slis = function(th) {
                     success: function(data) {
                         var redata = data
                         if (redata.state > 0) { //登录成功
-                            th.$cookies.set("user", redata.data._id)
+                            th.$cookies.set("user", redata.data._id);
+                            th.$cookies.set("userAvatar", redata.data.avatar);
                             th.$router.push({ path: '/index/content' }); //跳到博客首页
                         } else if (redata.state < 0) {
                             alert(redata.msg);
@@ -43,7 +42,8 @@ var slis = function(th) {
 
 
     $.ajax({
-        url: "http://10.203.1.87:3000/users/gt/register-slide?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        url: "http://localhost:3000/users/gt/register-slide?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        //url: "http://47.96.65.156:3000/users/gt/register-slide?t=" + (new Date()).getTime(), // 加随机数防止缓存
         type: "get",
         dataType: "json",
         success: function(data) {

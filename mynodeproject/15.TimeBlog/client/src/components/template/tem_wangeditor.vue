@@ -5,9 +5,9 @@
 		<div id="myWangEditor" ref="myWangEditor" style="margin-bottom:10px;">
 
 		</div>
-		<el-button type="primary" @click="getHtml">获取html</el-button>
-		<el-button type="info" @click="getText">获取text</el-button>
-    <el-button @click="closeDialoge">取 消</el-button>
+		<el-button type="primary" @click="getHtml">确定提交</el-button>
+		<!-- <el-button type="info" @click="getText">获取text</el-button>
+    <el-button @click="closeDialoge">取 消</el-button> -->
 	</div>
 </template>
 

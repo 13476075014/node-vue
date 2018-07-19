@@ -12,6 +12,7 @@ Vue.config.productionTip = false
 
 
 axios.defaults.withCredentials = true; //跨域保存session有用
+//axios.defaults.baseURL = "http://47.96.65.156:3000";
 axios.defaults.baseURL = "http://localhost:3000";
 Vue.prototype.$reqs = axios;
 

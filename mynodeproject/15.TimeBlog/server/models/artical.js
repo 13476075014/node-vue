@@ -27,7 +27,6 @@ Artical.plugin('addCommentsCount', {
 
 
 
-
 //给post添加一个方法，把其content字段从markdown转换成html
 Artical.plugin('contentToHtml', {
     afterFind: function(posts) {
@@ -74,6 +73,35 @@ module.exports = {
             .addCommentsCount()
             .exec()
     },
+
+    // 通过作者获取该文章的总数
+    getArticalCount: function getCommentsCount(id) {
+        const query = {}
+        if (id) {
+            query.author = id
+        };
+        return Artical.count(query).exec()
+    },
+
+    //通过页数和每页要展示的数据条数来得到page的数据
+    getPage: function getPage(author, row, page) {
+        const query = {}
+        if (author) {
+            query.author = author
+        };
+        const toskip = (page - 1) * row;
+        return Artical
+            .find(query)
+            .populate({ path: 'author', model: 'User' })
+            .sort({ _id: -1 })
+            .limit(row)
+            .skip(toskip)
+            .addCreateAt()
+            .addCommentsCount()
+            .exec()
+
+    },
+
 
     // 通过文章 id 给 pv 加 1
     incPv: function incPv(postId) {

@@ -8,6 +8,25 @@ const ArticalModel = require('../models/Artical')
 const CommentModel = require('../models/comments')
 const checkLogin = require('../middlewares/check').checkLogin
 
+
+//#region 0.按照传过来的 author row page来获取page分页的数据
+router.post("/getArticalPage", function(req, res, next) {
+        var author = req.body.author; //需要查哪个作者的id，不传的话就是获取所有用户的文章
+        var row = req.body.row;
+        var page = req.body.page;
+        Promise.all([
+                ArticalModel.getPage(author, row, page),
+                ArticalModel.getArticalCount(author)
+            ])
+            .then(function(result) {
+                res.send({ state: 1, msg: result })
+            }).catch(function(ex) {
+                res.status = 400;
+                res.send({ state: -4, msg: ex.message })
+            })
+    })
+    //#endregion
+
 //1. /posts所有用户或者特定用户的文章页面 ,不果不传参就是获取所有的文章
 //eg: GET /posts?author=***
 router.post('/getByAuthor', function(req, res, next) {
