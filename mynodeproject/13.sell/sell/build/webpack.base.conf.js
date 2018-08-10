@@ -18,19 +18,28 @@ module.exports = {
         path: config.build.assetsRoot,
         filename: '[name].js',
         publicPath: process.env.NODE_ENV === 'production' ?
-            config.build.assetsPublicPath :
-            config.dev.assetsPublicPath
+            config.build.assetsPublicPath : config.dev.assetsPublicPath
     },
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        extensions: ['.js', '.vue', '.json', '.styl'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': resolve('src'),
         }
     },
     module: {
-        rules: [
+        rules: [{ //使用stylus来编译后缀名为.styl的样式文件，需要安装stylus ，style-loader，css-loader，stylus-loader
+                test: /\.styl$/,
+                use: [{
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader"
+                }, {
+                    loader: "stylus-loader"
+                }],
+                include: []
 
+            },
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',

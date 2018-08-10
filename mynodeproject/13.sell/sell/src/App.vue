@@ -1,25 +1,27 @@
+
+
 <template>
   <div id="app" class="app">
-    <v_header :seller="seller">
-
-    </v_header>
+    <v_header :seller="seller"></v_header>
     <div class="tab">
-    <router-link :to='{"path":"/goods"}' style="width:33%;">
-        <div class="tab-item">商品</div>
-    </router-link>
-
-    <router-link :to='{path:"/ratings"}' style="width:33%;">
-        <div class="tab-item">评价</div>
-    </router-link>
-
-    <router-link :to='{path:"/seller"}' style="width:33%;">
-        <div class="tab-item">商标</div>
-    </router-link>
-
+      <div class="tab-item">
+        <router-link :to='{"path":"/goods"}'>
+          商品
+        </router-link>
+      </div>
+      <div class="tab-item">
+        <router-link :to='{path:"/ratings"}'>
+          评价
+        </router-link>
+      </div>
+      <div class="tab-item">
+        <router-link :to='{path:"/seller"}'>
+          商家
+        </router-link>
+      </div>
     </div>
 
-
-    <router-view/>
+    <router-view :seller="seller" />
   </div>
 </template>
 
@@ -48,17 +50,35 @@ export default {
 }
 </script>
 
-<style>
-body{margin:0;}
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 
-}
 
-.app .tab{background:white;display: flex;width:100%;height:40px;width:100%;line-height: 40px;}
-.app .tab .tab-item{flex:1;text-align: center;}
+<style lang="stylus" scoped>
+
+/*@import "./common/stylus/mixin"*/
+
+#app
+  font-family: 'Avenir', Helvetica, Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  text-align: center
+  color: #2c3e50
+  .tab
+    background:white
+    display: flex
+    width:100%
+    height:40px
+    width:100%
+    line-height: 40px
+    .tab-item
+      flex:1
+      text-align: center
+      & > a
+        display block
+        font-size 14px
+        color rgb(77,85,93)
+        &.router-link-active
+          color rgb(240,20,20)
+
+
+
 </style>

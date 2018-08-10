@@ -9,15 +9,14 @@ export default {
     name:"",
     data(){
         return {
-            
+
         }
     }
 }
 </script>
 
 
-<style>
+<style lang="stylus">
 
 </style>
-
 

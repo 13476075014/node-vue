@@ -1,0 +1,40 @@
+1.vue-cli项目安装使用stylus步骤:
+安装步骤基于使用vue-cli创建的项目。
+
+	1.1.创建完成一个初始项目后，通过 npm install stylus -D命令，在项目内安装stylus。（注意：命令结尾 -D 即是 --save-dev 的简写形式）
+
+	1.2.需要安装loader，通过 npm install stylus-loader css-loader style-loader --save-dev  命令。
+
+	1.3.找到 webpack.base.conf.js 文件，并在其中的rules中写入配置：
+
+	{
+
+	  test:/\.styl$/,
+
+ 	 loader:'style-loader!css-loader!stylus-loader'
+
+	}
+
+	1.4.在组件内部的style标签中，加入 lang="stylus" 即可。 <style lang="stylus"><style>
+	就可以使用stylus了
+
+
+2.vue的router-link当前被选中展示的link,会添加一个router-link-active的class名称，可以设置这个来区别别的没有点击的链接；
+
+
+3.当去给data中的一个字段如 json类型的 foods 在事件中添加一个其之前没有的属性count和值的时候，这个时候页面不会重新渲染的解决办法？
+	错误示范： this.foods.count = 0; 这样是没有变化的；
+	正确方法： 01.先引入vue ,import Vue from 'vue'
+		   02.然后改变值  Vue.set(this.foods,'count',0)  这样页面就可以再渲染；
+
+4.在用了better-scroll插件后，在pc端会触发两次点击事件的解决办法？
+	someMethos(event){
+		if(!event._constructed){ //这个属性是better-scroll派发的专属属性
+			return //进到这里就说明是pc自带的点击
+		}else{ 
+			....  }
+
+5.vue可以在  <router-view></router-view> 上通过属性传值
+			
+
+
