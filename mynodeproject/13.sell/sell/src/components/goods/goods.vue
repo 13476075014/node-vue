@@ -17,11 +17,11 @@
           <li v-for="(item,index) in goods" :ref="'li_food_list_' + index" class="food-list" :key="index">
             <h1 class="title">{{item.name}}</h1>
             <ul>
-              <li v-for="(food,index2) in item.foods" :key="index2" class="food-item">
+              <li v-for="(food,index2) in item.foods" :key="index2" class="food-item"  @click="showFoodDetail(food)">
                 <div class="icon">
                   <img :src="food.icon" alt="">
                 </div>
-                <div class="content" @click="showFoodDetail(food)">
+                <div class="content">
                   <h2 class="name">{{food.name}}</h2>
                   <p class="desc">{{food.description}}</p>
                   <div class="extra">
@@ -211,8 +211,8 @@ export default {
                    let inner = els.getElementsByClassName('inner')[0];
                   //inner.style.webkitTransform = 'translate3d(0,0,0)';
                   //inner.style.transform = 'translate3d(0,0,0)';
-                  Velocity(els,{translate3d:"translate3d(0,0,0)"},{duration:600});
-                  Velocity(inner,{translate3d:"translate3d(0,0,0)"},{duration:600,complete:function(){
+                  Velocity(els,{transform:"translate3d(0,0,0)"},{duration:600});
+                  Velocity(inner,{transform:"translate3d(0,0,0)"},{duration:600,complete:function(){
                         done();
                       }
                      });
@@ -394,7 +394,7 @@ export default {
         height 16px
         border-radius 100%
         background rgb(0,160,220)
-        transition all 0.6s cubic-bezier(0.49,-0.29,0.75,0.41)
+        transition all 0.6s linear
         transform translate3d(0,0,0)
 
 </style>

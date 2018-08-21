@@ -174,6 +174,7 @@
 
 
 <style scoped>
+	.wrapper{overflow: hidden;}
 	.bottom{position:absolute;bottom:0;left:0;width:100%;text-align: center;z-index:1;}
 	.top{position:absolute;top:0;left:0;width:100%;text-align: center;z-index:1;}
 </style>

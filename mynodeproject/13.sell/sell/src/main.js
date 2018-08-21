@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'
 import Ele from 'element-ui/lib/theme-chalk/index.css'
 
 require("./assets/css/icon_style.css");
+require("./assets/css/main.css");
 
 //import mini from '@/common/stylus/mixin.styl'  //这里如果直接引入styl文件，会在页面中失效不能用，好像是在这里引入会被直接变异成css，不能在别的模板中引用一些函数啥的
 

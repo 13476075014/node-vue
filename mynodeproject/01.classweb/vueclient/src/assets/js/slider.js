@@ -13,7 +13,7 @@ var handler = function (captchaObj) {
                 return alert('请完成验证');
             }
             $.ajax({
-                url: 'http://10.203.1.87:3000/users/login', //验证的地址
+                url: 'http://10.202.2.112:3000/users/login', //验证的地址
                 type: 'POST',
                 dataType: 'json',
                 xhrFields:{ //这里一定要加上这个，否则的话，跨域保存session将失效；
@@ -47,7 +47,7 @@ var handler = function (captchaObj) {
 
 
     $.ajax({
-        url: "http://10.203.1.87:3000/users/gt/register-slide?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        url: "http://10.202.2.112:3000/users/gt/register-slide?t=" + (new Date()).getTime(), // 加随机数防止缓存
         type: "get",
         dataType: "json",
         success: function (data) {

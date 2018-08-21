@@ -1,6 +1,8 @@
 <template>
   <div class="star" :class="starType">
     <span v-for="(item,index) in itemClasslass" class="star-item" :key="index" :class="item"></span>
+
+    <slot></slot>
   </div>
 </template>
 

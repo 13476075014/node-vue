@@ -11,7 +11,7 @@
 <script>
 	import wangEditor from 'wangeditor';
 	
-	export default({
+	export default{
 		name:"MyWangEditor",
 		data(){
 			return {
@@ -95,7 +95,7 @@
 				}
 			}
 		
-	})
+	}
 </script>
 	
 <style scoped>

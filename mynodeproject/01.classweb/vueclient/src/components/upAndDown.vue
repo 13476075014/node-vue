@@ -10,7 +10,7 @@
           :pulldown="pulldown"
           :pullup="pullup"
           @pulldown="loadData" style="height:450px;background:red;">
-    <ul class="content" style="background:yellow;position:relative;z-index:4;">
+    <ul class="content" style="margin-top:0;background:yellow;position:relative;z-index:4;">
       <li v-for="(item,index) in data">{{index}}:{{item}}</li>
     </ul>
     <div class="loading-wrapper"></div>

@@ -67,7 +67,7 @@
 	//引进来table和分页
 	import myPage from "../myPager.vue";
 	
-	 export default({
+	 export default{
 	 	data:function(){
 	 		var cheack = function(rule,value,callback){
 	 					if(!value){
@@ -241,7 +241,7 @@
 	 		}
 	 		
 	 	}
-	 })
+	 }
 	 
 	 
 	 

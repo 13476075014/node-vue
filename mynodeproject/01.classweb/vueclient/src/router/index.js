@@ -15,6 +15,8 @@ import email from '@/components/email'
 import swiper from '@/components/swiper'
 import upanddown from '@/components/upAndDown'
 import myueditor from '@/components/myueditor'
+import useBall from '@/components/useBall'
+
 
 
 //三级页面
@@ -70,6 +72,9 @@ export default new Router({
             },{
                path: 'my',           //测试的
                component: my
+            },{
+               path: 'useBall',           //测试的
+               component: useBall
             },{
                path: 'swiper',           //测试的
                component: swiper

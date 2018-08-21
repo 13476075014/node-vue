@@ -244,7 +244,7 @@ import Vue from 'vue'
           width calc(100% + 36px)
           height 1px
           position absolute
-          left 0
+          left -18px
           bottom 0
           background rgba(7,17,27,0.1)
       .ratingContent

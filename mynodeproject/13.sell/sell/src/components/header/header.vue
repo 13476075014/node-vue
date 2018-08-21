@@ -65,9 +65,9 @@
             </div>
             <!-- 优惠信息 -->
             <div class="sell-message">
-              <div class="line"></div>
+              <div class="line_bottom"></div>
               <div class="text">优惠信息</div>
-              <div class="line"></div>
+              <div class="line_bottom"></div>
             </div>
             <div class="infomation">
                 <ul v-if="seller.supports">
@@ -82,9 +82,9 @@
 
             <!-- 商家信息 -->
             <div class="sell-message merchant-message">
-              <div class="line"></div>
+              <div class="line_bottom"></div>
               <div class="text">商家公告</div>
-              <div class="line"></div>
+              <div class="line_bottom"></div>
             </div>
             <div class="blletin" style="text-align:left;width:70%;margin:0 auto;font-weight:300;line-height:24px;font-size:12px;">
               {{seller.bulletin}}
@@ -289,7 +289,7 @@ export default {
           width 80%
           margin 28px auto 24px auto
           display flex
-          .line
+          .line_bottom
             flex 1
             position relative
             top -6px

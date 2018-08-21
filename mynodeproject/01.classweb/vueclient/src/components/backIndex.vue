@@ -82,19 +82,19 @@
                 </li>
                 <li>
                     <router-link to="/backIndex/email">
-                        <i class="fa el-icon-bell" aria-hidden="true"></i>
+                        <i class="fa el-icon-printer" aria-hidden="true"></i>
                         <span>邮箱的验证方法</span>
                     </router-link>
                 </li>
                 <li>
                     <router-link to="/backIndex/swiper">
-                        <i class="fa el-icon-bell" aria-hidden="true"></i>
+                        <i class="fa el-icon-edit" aria-hidden="true"></i>
                         <span>swiper的用法</span>
                     </router-link>
                 </li>
                 <li>
                     <router-link to="/backIndex/upanddown">
-                        <i class="fa el-icon-bell" aria-hidden="true"></i>
+                        <i class="fa el-icon-service" aria-hidden="true"></i>
                         <span>vue结合better-scroll来实现上拉加载下拉刷新</span>
                     </router-link>
                 </li>
@@ -102,6 +102,12 @@
                     <router-link to="/backIndex/myueditor">
                         <i class="fa el-icon-phone" aria-hidden="true"></i>
                         <span>Ueditor的使用</span>
+                    </router-link>
+                </li>  
+                 <li>
+                    <router-link to="/backIndex/useBall">
+                        <i class="fa el-icon-news" aria-hidden="true"></i>
+                        <span>小球飞入</span>
                     </router-link>
                 </li>  
             </ul>
