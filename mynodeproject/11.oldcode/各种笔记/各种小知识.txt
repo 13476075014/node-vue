@@ -39,4 +39,9 @@
 
 11.给图片加上模糊的效果的话就可以用css的filter属性
 	.background{filter:blur(10px) }
+
+12.jquery通过serializeArray()方法获取到form表单中要提交的字段，并转换成json的格式：
+	例如： var params = $("#Repair_Form").serializeArray();
+
+	serialize()，是把form重要提交的字段和其数值变成了字符串格式
 	

@@ -4,10 +4,20 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve(dir) {
+function resolve (dir) {
     return path.join(__dirname, '..', dir)
 }
 
+const createLintingRule = () => ({
+    test: /\.(js|vue)$/,
+    loader: 'eslint-loader',
+    enforce: 'pre',
+    include: [resolve('src'), resolve('test')],
+    options: {
+        formatter: require('eslint-friendly-formatter'),
+        emitWarning: !config.dev.showEslintErrorsInOverlay
+    }
+})
 
 module.exports = {
     context: path.resolve(__dirname, '../'),
@@ -17,29 +27,32 @@ module.exports = {
     output: {
         path: config.build.assetsRoot,
         filename: '[name].js',
-        publicPath: process.env.NODE_ENV === 'production' ?
-            config.build.assetsPublicPath : config.dev.assetsPublicPath
+        publicPath: process.env.NODE_ENV === 'production'
+            ? config.build.assetsPublicPath : config.dev.assetsPublicPath
     },
     resolve: {
         extensions: ['.js', '.vue', '.json', '.styl'],
         alias: {
+            // 配置一些常使用的地址，来在引入的时候可以简写
             'vue$': 'vue/dist/vue.esm.js',
             '@': resolve('src'),
-            '_common': resolve('src/common')
+            '_common': resolve('src/common'),
+            '_api': resolve('src/api')
         }
     },
     module: {
-        rules: [{ //使用stylus来编译后缀名为.styl的样式文件，需要安装stylus ，style-loader，css-loader，stylus-loader
+        rules: [
+            ...(config.dev.useEslint ? [createLintingRule()] : []),
+            {
                 test: /\.styl$/,
                 use: [{
-                    loader: "style-loader"
+                    loader: 'style-loader'
                 }, {
-                    loader: "css-loader"
+                    loader: 'css-loader'
                 }, {
-                    loader: "stylus-loader"
+                    loader: 'stylus-loader'
                 }],
                 include: []
-
             },
             {
                 test: /\.vue$/,
