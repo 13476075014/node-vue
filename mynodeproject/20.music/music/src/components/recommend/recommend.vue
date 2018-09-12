@@ -18,7 +18,8 @@
               <ul>
                 <li v-for="(item,index) in discList" class="item" :key="index">
                   <div class="icon">
-                    <img alt="" :src="item.imgurl">
+                    <!-- 下面使用的vue-lazyload这个插件的v-lazy的指令来代替src让图片延时加载 -->
+                    <img alt="" v-lazy="item.imgurl">
                   </div>
                   <div class="text">
                     <h2 class="name" v-html="item.creator.name"></h2>

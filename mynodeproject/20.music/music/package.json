@@ -19,7 +19,9 @@
     "fastclick": "^1.0.6",
     "jsonp": "^0.2.1",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-lazyload": "^1.2.6",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

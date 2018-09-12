@@ -27,6 +27,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // these devServer options should be customized in /config/index.js
     devServer: {
         before (app) {
+            // 获取推荐的轮播图数据
             app.get('/api/getRecommend', function (req, res) {
                 const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
                 axios.get(url, {
@@ -44,11 +45,49 @@ const devWebpackConfig = merge(baseWebpackConfig, {
                 })
             })
 
+            // 获取推荐的歌曲数据
             app.get('/api/getDiscList', function (req, res) {
                 const url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
                 axios.get(url, {
                     headers: {
                         referer: 'https://y.qq.com/'
+                    },
+                    params: req.query
+                }).then((response) => {
+                    res.json(response.data)
+                }).catch((e) => {
+                    res.json({
+                        ERR_OK: 1,
+                        data: e
+                    })
+                })
+            })
+
+            // 获取歌手页面的歌手信息数据
+            app.get('/api/getSingerList', function (req, res) {
+                    const url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg'
+                    axios.get(url, {
+                        headers: {
+                            referer: 'https://c.y.qq.com/',
+                            host: 'c.y.qq.com'
+                        },
+                        params: req.query
+                    }).then((response) => {
+                        res.json(response.data)
+                    }).catch((e) => {
+                        res.json({
+                            ERR_OK: 1,
+                            data: e
+                        })
+                    })
+                })
+                // 歌手页面的详情页面。获取歌手的详细信息数据
+            app.get('/api/getSingerDetail', function (req, res) {
+                const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?'
+                axios.get(url, {
+                    headers: {
+                        referer: 'https://c.y.qq.com/',
+                        host: 'c.y.qq.com'
                     },
                     params: req.query
                 }).then((response) => {

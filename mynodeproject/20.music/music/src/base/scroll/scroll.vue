@@ -11,7 +11,17 @@
 
   export default{
     props:{
+      top:{
+        type:String,
+        default:function () {
+          return '0px'
+        }
+      },
       probeType:{// 监听哪种滚动方式，快速，慢速等等
+      /* 默认值 0 ：不派发scroll事件；
+                1：会非实时，就是在屏幕滑动超过一定时间后，派发scroll事件；
+                2：会在屏幕滑动的过程中实时派发scroll事件；
+                3：不仅在屏幕滑动的时候会实时的派发滚动事件，而且在momentnum滚动动画运行过程中实时派发scroll事件 */
         type:Number,
         default:1
       },
@@ -22,6 +32,10 @@
       data:{// 里面的数据，需要init的
         type:Array,
         default:null
+      },
+      listenScroll:{// 要不要监听滚动事件
+        type:Boolean,
+        default:false
       }
 
     },
@@ -37,6 +51,12 @@
           probeType:this.probeType,
           click:this.click
         })
+        if (this.listenScroll) {
+          let _this = this
+          _this.scroll.on('scroll', (pos) => {
+            _this.$emit('scroll', pos)
+          })
+        }
       },
       enable () {
         this.scroll && this.scroll.enable()
@@ -46,11 +66,20 @@
       },
       refresh () { // 刷新数据
         this.scroll && this.scroll.refresh()
+      },
+      scrollTo () {
+        this.scroll && this.scrollTo.apply(this.scroll, arguments)
+      },
+      scrollToElement () {
+        this.scroll && this.scroll.scrollToElement.apply(this.scroll.arguments)
       }
     },
     watch:{
       data () { // 如果数据有变化的时候重新刷新scroll,重新计算高度之类的
         this.refresh()
+      },
+      top () { // 动态改变scroll的高度的时候，也让scroll刷新
+         this.refresh()
       }
     }
 

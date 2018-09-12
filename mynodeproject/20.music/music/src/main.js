@@ -3,12 +3,13 @@
 /* eslint-disable */ //这样禁止eslint监测这个文件
 import 'babel-polyfill'
 import fastclick from 'fastclick'
-//import _runtime from 'babel-runtime'
 import '_common/stylus/index.styl'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import VueLazyLoad from 'vue-lazyload'
+import store from './store'
 
 
 
@@ -16,10 +17,17 @@ fastclick.attach(document.body) //处理页面dom点击的延时问题
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
-new Vue({
-    el: '#app',
-    router,
-    components: { App },
-    template: '<App/>'
+Vue.use(VueLazyLoad, {
+    loading: require('_common/image/default.png')
 })
+
+
+/* eslint-disable no-new */
+const el = new Vue({
+        el: '#app',
+        router,
+        store,
+        components: { App },
+        template: '<App/>'
+    })
+    //console.log(el)

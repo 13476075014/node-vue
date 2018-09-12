@@ -4,7 +4,8 @@ export const commonPramas = {
     inCharset: 'utf-8',
     outCharset: 'utf-8',
     notice: 0,
-    format: 'jsonp'
+    format: 'jsonp',
+    hostUin: 0
 }
 
 // 这个是用jsonp获取 qq音乐数据时候的指定的回调函数名的配置
