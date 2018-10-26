@@ -3,7 +3,10 @@
 <template>
   <div class="songList">
     <ul>
-      <li v-for="(song,index) in songs" :key="index" class="item">
+      <li v-for="(song,index) in songs" @click="selectItem(song,index)" :key="index" class="item">
+        <div class="rank" v-show="rank">
+          <span :class="getRankCls(index)">{{getRankText(index)}}</span>
+        </div>
         <div class="content">
           <h2 class="name">{{song.name}}</h2>
           <p class="desc">{{getDesc(song)}}</p>
@@ -14,6 +17,7 @@
 </template>
 
 <script>
+
   export default{
     props:{
       songs:{
@@ -21,11 +25,30 @@
         default:function () {
           return []
         }
+      },
+      rank:{
+        type:Boolean,
+        default:false
       }
     },
     methods:{
       getDesc (song) {
         return `${song.singer} . ${song.album}`
+      },
+      selectItem (song, index) {
+          this.$emit('select', song, index)
+      },
+      getRankCls (index) { // 在排行页面要用到
+        if (index <= 2) {
+          return `icon icon${index}`
+        } else {
+          return 'text'
+        }
+      },
+      getRankText (index) { // 在排行页面要用到
+        if (index > 2) {
+          return index + 1
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
-    <div class="recommend">
-      <scroll :data="discList" v-if="discList.length >0" class="recommend-content">
+    <div class="recommend" ref="recommend">
+      <scroll :data="discList" v-if="discList.length >0" class="recommend-content" ref="recScroll">
         <div>
           <!-- 为了防止slider组件里面在没有数据的时候就被加载，导致里面一些dom没有就执行了方法，所以用下面的v-if的方法，来保证执行这个组件的时候是有数据的 -->
           <div class="slider-wrapper" v-if="recommends.length > 0">
@@ -16,7 +16,7 @@
           <div class="recommend-list">
             <h1 class="list-title">热门歌单推荐</h1>
               <ul>
-                <li v-for="(item,index) in discList" class="item" :key="index">
+                <li v-for="(item,index) in discList" class="item" :key="index" @click="selectItem(item)">
                   <div class="icon">
                     <!-- 下面使用的vue-lazyload这个插件的v-lazy的指令来代替src让图片延时加载 -->
                     <img alt="" v-lazy="item.imgurl">
@@ -31,6 +31,10 @@
           </div>
         </div>
       </scroll>
+
+      <router-view>
+
+      </router-view>
     </div>
 </template>
 
@@ -41,8 +45,11 @@ import {getRecommend, getDiscList} from '_api/recommend.js'
 import {ERR_OK} from '_api/config'
 import Slider from '@/base/slider/slider'
 import scroll from '@/base/scroll/scroll'
+import {playlistMixin} from '_common/js/mixin'
+import {mapMutations} from 'vuex'
 
 export default{
+  mixins:[playlistMixin],
   data () {
     return {
       recommends:[],
@@ -82,7 +89,24 @@ export default{
       }).catch((e) => {
           console.log(e)
       })
-    }
+    },
+     handlePlaylist (playlist) { // 通过mixin处理如果底部有小音乐播放器，被遮住的问题
+        const bottom = playlist.length > 0 ? '60px' : ''
+        this.$refs.recommend.style.bottom = bottom
+        if(this.discList.length > 0){
+           console.log(this.$refs.recScroll)
+          this.$refs.recScroll.refresh() // 刷新scroll组件
+        }
+      },
+      selectItem(item){ // 展开推荐详情
+        this.$router.push({
+          path: `/recommend/${item.dissid}` // 跳转路由
+        })
+        this.setDisc(item) // 改变vuex中disc的值
+      },
+      ...mapMutations({
+        setDisc:'SET_DISC'
+      })
   },
   components:{
     Slider,

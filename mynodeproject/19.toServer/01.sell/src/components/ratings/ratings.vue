@@ -86,6 +86,7 @@
 <script>
 import star from '../star/star'
 import BScroll from 'better-scroll'
+import {ratings,seller} from '@/common/js/builddata.js'
 
 export default {
     name:"",
@@ -103,11 +104,26 @@ export default {
     methods:{
       rating_init(){
         var _this = this;
-        this.$reqs.get("/api/seller").then(function(data){
+        _this.seller = seller.data;
+
+        /*this.$reqs.get("/api/seller").then(function(data){
           //console.log(data);
           _this.seller = data.data.data.data;
-        });
-        this.$reqs.get("/api/ratings").then(function(result){
+        });*/
+
+        var originTime = ratings.data;
+         originTime.forEach( (item,index) => {
+              originTime[index].rateTime = _this.convertTime(originTime[index].rateTime)
+          });
+          _this.ratings = originTime;
+          _this.saveAllRatings = originTime;
+
+          _this.$nextTick(function(){//初始化better-scroll
+            _this.ratingBS = new BScroll(_this.$refs.ratingWapper,{
+              click:true
+            })
+           })
+        /*this.$reqs.get("/api/ratings").then(function(result){
           var originTime = result.data.data.data;
          // _this.ratings =
           originTime.forEach( (item,index) => {
@@ -122,7 +138,7 @@ export default {
             })
             //console.log(_this.ratingBS)
           })
-        })
+        })*/
 
       },
       convertTime(cellval){//转换时间格式

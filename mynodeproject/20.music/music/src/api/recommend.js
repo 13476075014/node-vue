@@ -43,3 +43,25 @@ export function getDiscList () {
         return Promise.resolve(res.data)
     })
 }
+
+// 获取推荐页面的点开详情的信息
+export function getSongList (dissid) {
+    //  const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
+    const url = '/api/getSongList'
+    const data = Object.assign({}, commonPramas, {
+            platform: 'yqq',
+            hostUin: 0,
+            type: 1,
+            json: 1,
+            onlysong: 0,
+            needNewCode: 0,
+            gtk: 67232076,
+            disstid: dissid
+        })
+        // return jsonp(url, data, options)
+    return Axios.get(url, {
+        params: data
+    }).then(function (res) {
+        return Promise.resolve(res.data)
+    })
+}

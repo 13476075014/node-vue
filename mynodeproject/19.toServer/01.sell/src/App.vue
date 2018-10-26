@@ -27,6 +27,7 @@
 
 <script>
 import v_header from "./components/header/header.vue"
+import {seller} from '@/common/js/builddata.js'
 
 export default {
   name: 'App',
@@ -37,12 +38,13 @@ export default {
   },
   created() {
     var _this = this;
-    this.$reqs.get('/api/seller').then( (result) => {
+    _this.seller = seller.data;
+    /*this.$reqs.get('/api/seller').then( (result) => {
         _this.seller = result.data.data.data;
         //console.log( _this.seller)
     }).catch(function(ex){
       console.log(ex)
-    })
+    })*/
   },
   components:{
     v_header

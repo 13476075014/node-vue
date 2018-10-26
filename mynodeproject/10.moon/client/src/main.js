@@ -35,7 +35,7 @@ Vue.use(VueCookies)
 new Vue({
     el: '#app',
     router,
-    store,
+    //store,
     components: { App },
     template: '<App/>'
 })

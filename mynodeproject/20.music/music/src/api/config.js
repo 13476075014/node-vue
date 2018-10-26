@@ -1,6 +1,6 @@
 // 这个文件是公用的获取接口时候的公用的一些参数和参数值
 export const commonPramas = {
-    g_tk: 5381,
+    g_tk: 67232076,
     inCharset: 'utf-8',
     outCharset: 'utf-8',
     notice: 0,

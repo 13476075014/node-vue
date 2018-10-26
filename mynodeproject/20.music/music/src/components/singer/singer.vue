@@ -1,9 +1,10 @@
 <template>
-    <div class="singer">
+    <div class="singer" ref="singer">
       <listView
       :data="singerList"
       @selectItem="selectSinger"
-      v-if="singerList.length
+      v-if="singerList.length"
+      ref="listView"
       > 0"></listView>
       <router-view></router-view>
     </div>
@@ -15,11 +16,13 @@ import {ERR_OK} from '@/api/config.js'
 import SingerClass from '_common/js/singer_Class'
 import listView from '@/base/listView/listView'
 import {mapMutations} from 'vuex'
+import {playlistMixin} from '_common/js/mixin'
 
 const HOT_NAME = '热门'
 const HOT_SINGER_LEN = 10
 
 export default{
+  mixins:[playlistMixin],
   data () {
     return {
       singerList:[]
@@ -86,6 +89,13 @@ export default{
       this.$router.push({path:`/singer/${singer.id}`})
       this.setSinger(singer) // 用的vuex的方法，通过...这样的语法糖，让这些方法直接可以这样使用
     },
+     handlePlaylist (playlist) { // 通过mixin处理如果底部有小音乐播放器，被遮住的问题
+        const bottom = playlist.length > 0 ? '60px' : ''
+        if (this.singerList.length > 0) {
+          this.$refs.singer.style.bottom = bottom
+          this.$refs.listView.refresh() // 刷新scroll组件
+        }
+      },
     ...mapMutations({
       setSinger:'SET_SINGER'
     })},
@@ -99,9 +109,12 @@ export default{
 </script>
 
 <style scoped lang="stylus">
+@import "~_common/stylus/variable"
+
   .singer
     position fixed
     top 88px
     bottom 0
     width 100%
+    background $color-background
 </style>

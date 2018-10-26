@@ -24,17 +24,24 @@ import {addClass} from '_common/js/dom.js'
     data () {
       return {
         dots:[],
-        currentPageIndex:0 // 当前第几页
+        currentPageIndex:0 // 当前第几页\
       }
     },
     mounted () {
       // setTimeout(() => {
-        this._setSliderWidth()
+        this._setSliderWidth(false)
         this._initDots()
         this._initSlider()
         if (this.autoPlay) {
           this._play()
         }
+        const _this = this
+        window.addEventListener('resize', () => {
+          if (!this.slider) {
+            return false
+          }
+          _this._setSliderWidth(true)
+        })
 
       // }, 10)// 这里写20毫秒是因为，浏览器去渲染完成的时间最少是17毫秒一般,但我这里写了会出现页面闪动一下
     },
@@ -49,11 +56,11 @@ import {addClass} from '_common/js/dom.js'
       },
       interval:{// 自动轮播的间隔
         type:Number,
-        default:1000
+        default:4000
       }
     },
     methods:{
-      _setSliderWidth () { // 设置轮播里面的宽度，来正常能滚动
+      _setSliderWidth (isresize) { // 设置轮播里面的宽度，来正常能滚动
         const childGroup = this.$refs.sliderGroup.children // 这里获得的是一个object类型
         var groupWidth = 0
         const sliderWidth = this.$refs.slider.clientWidth
@@ -65,8 +72,9 @@ import {addClass} from '_common/js/dom.js'
           // 3.给总的group的宽度都加上一个sliderWidth
           groupWidth += sliderWidth
         }
-        if (this.loop) { // 如果开启了无缝循环就需要额外加两个item，所以宽度再加两个
-        groupWidth += 2 * sliderWidth
+        if (this.loop && !isresize) { // 如果开启了无缝循环就需要额外加两个item，所以宽度再加两个
+                                        // 如果是在窗口宽度改变调用的这个函数，就已经是有加的两个dom了不需要在额外加上两个宽度，在循环的时候就已经加上了相当于
+          groupWidth += 2 * sliderWidth
         }
         this.$refs.sliderGroup.style.width = groupWidth + 'px'
       },
@@ -104,6 +112,16 @@ import {addClass} from '_common/js/dom.js'
           // 下面这个是新版本的写法，更方便点
           this.slider.next()
         }, this.interval)
+      }
+    },
+    computed:{
+      winWidth () {
+        return window.innerWidth
+      }
+    },
+    watch:{
+      winWidth (neww, oldw) {
+        alert(neww)
       }
     }
   }

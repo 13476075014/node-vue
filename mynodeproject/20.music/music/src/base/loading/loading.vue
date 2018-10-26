@@ -20,6 +20,9 @@
   .loading
     width: 100%
     text-align: center
+    display flex
+    align-items center
+    justify-content center
     .desc
       line-height: 20px
       font-size: $font-size-small

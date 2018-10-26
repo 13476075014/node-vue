@@ -99,6 +99,148 @@ const devWebpackConfig = merge(baseWebpackConfig, {
                     })
                 })
             })
+
+            // 获取歌曲的vkey
+            app.get('/api/getSongVkey', function (req, res) {
+                const url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg?'
+                axios.get(url, {
+                    headers: {
+                        referer: 'https://c.y.qq.com/',
+                        host: 'c.y.qq.com'
+                    },
+                    params: req.query
+                }).then((response) => {
+                    res.json(response.data)
+                }).catch((e) => {
+                    res.json({
+                        ERR_OK: 1,
+                        data: e
+                    })
+                })
+            })
+
+            // 获取歌曲的歌词接口
+            app.get('/api/getLyric', function (req, res) {
+                const url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg'
+                axios.get(url, {
+                    headers: {
+                        referer: 'https://c.y.qq.com/',
+                        host: 'c.y.qq.com'
+                    },
+                    params: req.query
+                }).then((response) => {
+                    var ret = response.data
+                    if (typeof ret === 'string') {
+                        // 这里返回的数据是一个字符串格式的回调函数，要处理一下再返回
+                        var reg = /^\w+\(({[^()]+})\)$/ // 匹配任意字符开头的一个或多个，两个括号，里面一个双括号，里面非括号的一个或多个字符
+                        var matches = ret.match(reg) // 得到data里面匹配正则的部分
+                        if (matches) {
+                            ret = JSON.parse(matches[1]) // matches
+                        }
+                    }
+                    res.json(ret)
+                }).catch((e) => {
+                    res.json({
+                        ERR_OK: 1,
+                        data: e
+                    })
+                })
+            })
+
+            // 推荐页面点击列表获取的推荐歌单信息
+            app.get('/api/getSongList', function (req, res) {
+                const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
+                axios.get(url, {
+                    headers: {
+                        referer: 'https://c.y.qq.com/',
+                        host: 'c.y.qq.com'
+                    },
+                    params: req.query
+                }).then((response) => {
+                    res.json(response.data)
+                }).catch((e) => {
+                    res.json({
+                        ERR_OK: 1,
+                        data: e
+                    })
+                })
+            })
+
+            // 推荐页面点击列表获取的推荐歌单信息
+            app.get('/api/getTopList', function (req, res) {
+                const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg'
+                axios.get(url, {
+                    headers: {
+                        referer: 'https://c.y.qq.com/',
+                        host: 'c.y.qq.com'
+                    },
+                    params: req.query
+                }).then((response) => {
+                    res.json(response.data)
+                }).catch((e) => {
+                    res.json({
+                        ERR_OK: 1,
+                        data: e
+                    })
+                })
+            })
+
+            // 推荐页面点击列表的点击详情的歌曲列表页面
+            app.get('/api/getTopListDetail', function (req, res) {
+                const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg'
+                axios.get(url, {
+                    headers: {
+                        referer: 'https://c.y.qq.com/',
+                        host: 'c.y.qq.com'
+                    },
+                    params: req.query
+                }).then((response) => {
+                    res.json(response.data)
+                }).catch((e) => {
+                    res.json({
+                        ERR_OK: 1,
+                        data: e
+                    })
+                })
+            })
+
+            // 搜索页面获取热搜数据的接口
+            app.get('/api/getHotKey', function (req, res) {
+                const url = 'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg'
+                axios.get(url, {
+                    headers: {
+                        referer: 'https://c.y.qq.com/',
+                        host: 'c.y.qq.com'
+                    },
+                    params: req.query
+                }).then((response) => {
+                    res.json(response.data)
+                }).catch((e) => {
+                    res.json({
+                        ERR_OK: 1,
+                        data: e
+                    })
+                })
+            })
+
+            //  搜索的接口
+            app.get('/api/getSearchData', function (req, res) {
+                const url = 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp'
+                axios.get(url, {
+                    headers: {
+                        referer: 'https://c.y.qq.com/',
+                        host: 'c.y.qq.com'
+                    },
+                    params: req.query
+                }).then((response) => {
+                    res.json(response.data)
+                }).catch((e) => {
+                    res.json({
+                        ERR_OK: 1,
+                        data: e
+                    })
+                })
+            })
         },
         clientLogLevel: 'warning',
         historyApiFallback: {

@@ -1,5 +1,6 @@
 <template>
   <div class="singer_detail">
+    <loading id="load" v-if="!isload"></loading>
     <musicList
       v-if="songs.length>0"
      :songs="songs"
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import loading from '@/base/loading/loading'
 import {mapGetters} from 'vuex'
 import {getSingerDetail} from '@/api/singer.js'
 import {ERR_OK} from '@/api/config.js'
@@ -20,6 +22,7 @@ import musicList from '@/base/music-list/music-list'
 export default{
   data () {
     return {
+      isload:false,
       songs:[]
     }
   },
@@ -44,29 +47,46 @@ export default{
       }
         getSingerDetail(this.singer.id).then(response => {
           if (response.code === ERR_OK) {
-            this.songs = this._normalizeSongs(response.data.list)
-            console.log(this.songs)
+          this._normalizeSongs(response.data.list)
+             // console.log(this.songs)
           }
         })
     },
     _normalizeSongs (list) { // 把数据处理一下，便于使用
+    const _this = this
       let ret = []
       list.forEach((item, index) => {
           let {musicData} = item
           if (musicData.songid && musicData.albummid) {
-            // 把封装好的构造函数在这里传参处理好后，直接push给ret
             ret.push(createSong(musicData))
+            ret[index].getVkeys().then(res => {
+            })
+              if (index == list.length - 1) {
+                _this.songs = ret
+                _this.isload = true
+              }
+
+           // getVkey(musicData.songmid).then(res => { // 得到vkey来拼接歌曲播放地址
+              // musicData.url = `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a?vkey=${res.data.items[0].vkey}&fromtag=66`
+              // 把封装好的构造函数在这里传参处理好后，直接push给ret
+            // })
           }
       })
-      return ret
     }
   },
   components:{
-    musicList
+    musicList,
+    loading
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-
+#load
+  height 100vh
+  position fixed
+  top 0
+  left 0
+  background rgba(0,0,0,0.8)
+  z-index 99999
 </style>

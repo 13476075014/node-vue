@@ -1,8 +1,8 @@
-<!-- 这个是一个公用的列表组件 -->
+<!-- 这个是一个公用的列表组件  歌手列表，推荐列表等-->
 <template>
-  <scroll ref="listview" class="listView" v-if="data.length>0" :data="data">
+  <scroll :listenScroll="listenScroll" @scroll="scroll" :probeType="probeType" ref="listview" class="listView" v-if="data.length>0" :data="data">
     <ul>
-      <li v-for="(group,index) in data" class="list-group" :key="index">
+      <li v-for="(group,index) in data" class="list-group" ref="listGroup" :key="index">
         <h2 class="list-group-title">
           {{group.title}}
         </h2>
@@ -16,21 +16,26 @@
     </ul>
     <div class="list-shortcut">
       <ul>
-        <li class="item" v-for="(item,index) in shortcutList" :key="index">
+        <li class="item" @click="shortcutListSelect(index)" v-for="(item,index) in shortcutList" :class="{'current':currentIndex == index}" :key="index">
           {{item}}
         </li>
       </ul>
+    </div>
+    <div class="loading-container" v-show="!data.length">
+      <loading></loading>
     </div>
   </scroll>
 </template>
 
 <script>
 import Scroll from '@/base/scroll/scroll'
+import loading from '@/base/loading/loading'
 
 export default{
   data () {
     return {
-
+      currentIndex:0,
+      allListHeight:[]
     }
   },
   props:{
@@ -39,17 +44,61 @@ export default{
       default: function () {
         return []
       }
+    },
+    probeType:{
+      type:Number,
+      default:3
+    },
+    listenScroll:{
+      type:Boolean,
+      default:true
     }
   },
   created () {
    // console.log(this.shortcutList)
   },
+  mounted () {
+    this.computedHeight()
+  },
   components:{
-    Scroll
+    Scroll,
+    loading
   },
   methods:{
-    selectItem (item) {
+    selectItem (item) { // 选中歌曲播放事件
       this.$emit('selectItem', item)
+    },
+    scroll (pos) { // scroll事件
+       const _this = this
+       this.allListHeight.forEach((item, index) => {
+        if (-pos.y < _this.allListHeight[0]) {
+          _this.currentIndex = 0
+          return false
+        }
+        if (-pos.y > item && -pos.y < _this.allListHeight[index + 1]) {
+          _this.currentIndex = index + 1
+        }
+      })
+      // this.$emit('scroll', pos)
+    },
+    computedHeight () { // 计算和保存每个组列表的高度
+      const _this = this
+      const listGroup = this.$refs.listGroup
+      let singerListHeight = 0
+      this.$nextTick(function () {
+        listGroup.forEach(item => {
+        singerListHeight += parseInt(item.clientHeight)
+        _this.allListHeight.push(singerListHeight)
+      })
+      // console.log(_this.allListHeight)
+      })
+    },
+    shortcutListSelect (index) {
+      this.currentIndex = index
+      this.$refs.listview.scrollToElement(this.$refs.listGroup[index])
+    },
+    refresh () {
+      this.$refs.listview.refresh()
     }
   },
   computed:{
@@ -59,6 +108,11 @@ export default{
       return this.data.map((group) => {
         return group.title.substr(0, 1)
       })
+    }
+  },
+  watch:{
+    data (newdata) {
+        this.computedHeight()
     }
   }
 }

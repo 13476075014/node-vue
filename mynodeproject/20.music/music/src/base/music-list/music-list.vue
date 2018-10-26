@@ -1,4 +1,4 @@
-<!-- 这个是歌手详情页的模板 -->
+<!-- 这个是歌手详情页的模板 , 推荐点开的详情页-->
 
 <template>
   <div class="music-list">
@@ -8,7 +8,7 @@
     <h1 class="title" v-html="title"></h1>
     <div class="bg-image" :style="bgStyle" ref="bgImage">
       <div class="play-wrapper">
-        <div class="play" v-show="songs.length>0" ref="playBtn">
+        <div class="play" v-show="songs.length>0" ref="playBtn" @click="playRandomList">
           <i class="icon-play"></i>
           <span class="text">随机播放全部</span>
         </div>
@@ -16,14 +16,26 @@
       <div class="filter"></div>
     </div>
     <div class="bg-layer" ref="bglayer"></div>
-    <scroll :top="scrollTop" :listenScroll="listenScroll"  @scroll="myscroll"  :probeType="probeType" v-if="songs.length>0" :data="songs" class="list" ref="list">
+    <scroll
+      :top="scrollTop"
+      :listenScroll="listenScroll"
+      @scroll="myscroll"
+      :probeType="probeType"
+      v-if="songs.length>0"
+      :data="songs"
+      class="list"
+      ref="list">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
-      </div>
-      <div class="loading-container" v-show="!songs.length">
-        <loading></loading>
+        <song-list
+          :songs="songs"
+          :rank="rank"
+          @select="selectItem">
+        </song-list>
       </div>
     </scroll>
+    <div class="loading-container" v-show="!songs.length>0">
+      <loading></loading>
+    </div>
   </div>
 </template>
 
@@ -31,8 +43,11 @@
 import loading from '@/base/loading/loading'
 import scroll from '@/base/scroll/scroll'
 import songList from '@/base/song-list/song-list'
+import {mapActions} from 'vuex'
+import {playlistMixin} from '_common/js/mixin'
 
   export default{
+    mixins:[playlistMixin],
     data:function () {
       return {
         scrollTop:'0px',
@@ -55,6 +70,10 @@ import songList from '@/base/song-list/song-list'
       title:{ // 歌曲标题
         type:String,
         default:''
+      },
+      rank:{
+        type:Boolean,
+        default:false
       }
     },
     computed:{
@@ -85,14 +104,33 @@ import songList from '@/base/song-list/song-list'
            // this.$refs.bgImage.style.filter = 'blur(2px)'
          }
       },
-      back () {
+      back () { // 返回按钮事件
         this.$router.back()
-      }
+      },
+      selectItem (song, index) {
+          this.selectPlay({
+            song:this.songs,
+            index:index
+          }) // 调用在action中定义的方法，来重定义全局数据
+      },
+      playRandomList () {
+        this.randomPlay({list:this.songs})
+      },
+      handlePlaylist (playlist) { // 通过mixin处理如果底部有小音乐播放器，被遮住的问题
+        const bottom = playlist.length > 0 ? '60px' : ''
+        if (this.songs.length > 0) {
+           this.$refs.list.$el.style.bottom = bottom
+           this.$refs.list.refresh() // 刷新scroll组件
+        }
+      },
+      ...mapActions(['selectPlay', 'randomPlay'])
     },
     mounted () {
-      this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
-      this.scrollTop = `${this.$refs.bgImage.clientHeight}px`
-      this.maxscroll = parseInt(this.scrollTop) - this.REMAIN_HEIGHT
+      if (this.songs.length > 0) {
+         this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
+        this.scrollTop = `${this.$refs.bgImage.clientHeight}px`
+        this.maxscroll = parseInt(this.scrollTop) - this.REMAIN_HEIGHT
+      }
     },
     components:{
       scroll,
@@ -185,9 +223,9 @@ import songList from '@/base/song-list/song-list'
       background: $color-background
       .song-list-wrapper
         padding: 20px 30px
-      .loading-container
-        position: absolute
-        width: 100%
-        top: 50%
-        transform: translateY(-50%)
+    .loading-container
+      position: absolute
+      width: 100%
+      top: 50%
+      transform: translateY(-50%)
 </style>

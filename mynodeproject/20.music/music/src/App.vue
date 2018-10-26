@@ -7,18 +7,21 @@
     <keep-alive>
       <router-view/>
     </keep-alive>
+    <player></player>
   </div>
 </template>
 
 <script>
 import MHeader from '@/components/m-header/m-header'
 import Tab from '@/components/tab/tab'
+import player from '@/components/player/player'
 
 export default {
   name: 'App',
   components:{
     MHeader:MHeader,
-    Tab:Tab
+    Tab:Tab,
+    player
   }
 }
 </script>
@@ -27,6 +30,7 @@ export default {
 @import "./common/stylus/variable"
 
 #app
+  min-height 100vh
   color $color-theme
   background $color-background
 </style>

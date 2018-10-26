@@ -69,7 +69,7 @@ import BScroll from 'better-scroll'
 import shopCar from '../shopCar/shopCar'
 import cartControl from '../cartControl/cartControl'
 import food from '../food/food'
-
+import {goods} from '@/common/js/builddata.js'
 
 export default {
     name:"goods",
@@ -101,7 +101,12 @@ export default {
     },
     created(){
       var _this = this;
-      this.$reqs.get("/api/goods").then(result => {
+       _this.goods = goods.data;
+      _this.$nextTick(() => {//dom要渲染完再调用betterscroll
+          _this._calculateHeight()
+          _this._initScroll();
+      })
+      /*this.$reqs.get("/api/goods").then(result => {
         if(result.status == 200){
           _this.goods = result.data.data.data;
           _this.$nextTick(() => {//dom要渲染完再调用betterscroll
@@ -111,7 +116,7 @@ export default {
 
         }
         //console.log(_this.goods);
-      })
+      })*/
     },
     methods:{
       _initScroll(){//滚动的方法

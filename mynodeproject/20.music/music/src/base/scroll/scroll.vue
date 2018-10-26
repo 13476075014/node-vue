@@ -36,6 +36,14 @@
       listenScroll:{// 要不要监听滚动事件
         type:Boolean,
         default:false
+      },
+      pullup:{ // 上拉刷新
+        type:Boolean,
+        default:false
+      },
+      beforeScroll:{
+        type:Boolean,
+        default:false
       }
 
     },
@@ -57,6 +65,18 @@
             _this.$emit('scroll', pos)
           })
         }
+        if (this.pullup) { // 如果开启上拉加载
+          this.scroll.on('scrollEnd', () => {
+            if (this.scroll.y <= this.scroll.maxScrollY + 50) { // 在块滚到底部的时候去触发加载事件
+              this.$emit('scrollToEnd')
+            }
+          })
+        }
+        if (this.beforeScroll) {
+          this.scroll.on('beforeScrollStart', () => {
+            this.$emit('beforeScroll')
+          })
+        }
       },
       enable () {
         this.scroll && this.scroll.enable()
@@ -68,10 +88,10 @@
         this.scroll && this.scroll.refresh()
       },
       scrollTo () {
-        this.scroll && this.scrollTo.apply(this.scroll, arguments)
+        this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
       },
       scrollToElement () {
-        this.scroll && this.scroll.scrollToElement.apply(this.scroll.arguments)
+        this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
       }
     },
     watch:{

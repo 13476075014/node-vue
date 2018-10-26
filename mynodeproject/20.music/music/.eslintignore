@@ -1,5 +1,6 @@
 /build/
 /config/
 /dist/
-**/*.js
+# **/*.js
+**/*.json
 /test/unit/coverage/
