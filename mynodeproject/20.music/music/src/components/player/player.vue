@@ -92,7 +92,7 @@
           <i class="icon-mini" :class="miniIcon"></i>
         </progressCircle>
       </div>
-      <div class="control" @click="show">
+      <div class="control" @click.stop="show">
         <i class="icon-playlist"></i>
       </div>
     </div>
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from 'vuex'
+import {mapMutations} from 'vuex'
 import {playMode} from '_common/js/config'
 import {shuffle} from '_common/js/util'
 import progressBar from '@/base/progress-bar/progress-bar'
@@ -115,9 +115,11 @@ import Lyric from 'lyric-parser' // 歌词解析的插件
 import Scroll from '@/base/scroll/scroll'
 import {prefixStyle} from '_common/js/dom'
 import Playlist from '@/components/playList/playList'
+import {playerMixin} from '_common/js/mixin'
 const mytransform = prefixStyle('transform')
 
   export default{
+    mixins:[playerMixin],
     data () {
       return {
         songReady:false, // 控制是否可以切换歌曲
@@ -147,21 +149,9 @@ const mytransform = prefixStyle('transform')
       miniIcon () { // 动态展示播放模式的图标
         return this.playing ? 'icon-pause-mini' : 'icon-play-mini'
       },
-      iconMode () {
-        return this.mode === playMode.sequence ? 'icon-sequence' : this.mode === playMode.loop ? 'icon-loop' : 'icon-random'
-      },
       percent () { // 当前播放的进度百分比
         return this.currentTime / this.currentSong.duration
-      },
-      ...mapGetters([
-        'fullScreen',
-        'playList',
-        'currentSong',
-        'currentIndex',
-        'playing',
-        'sequenceList',
-        'mode'
-      ])
+      }
     },
     methods:{
       back () {
@@ -354,16 +344,15 @@ const mytransform = prefixStyle('transform')
         this.$refs.playList.show()
       },
       ...mapMutations({
-        setFullScreen:'SET_FULL_SCREEN', // 重命名更改屏幕是否全屏的vuex的mutations的方法
-        setPlayState:'SET_PLAYING_STATE',
-        setCurrentIndex:'SET_CURRENT_INDEX', // 改变vuex的currentindex的值
-        setPlayMode:'SET_PLAY_MODE', // 改变播放的模式
-        setPlayList:'SET_PLAYLIST' // 改变播放的列表
+        setFullScreen:'SET_FULL_SCREEN' // 重命名更改屏幕是否全屏的vuex的mutations的方法
       })
     },
     watch:{
       currentSong (newsong, oldsong) {
-         if (this.currentSong.length > 0 && newsong.id == oldsong.id) { // 在切换歌曲播放模式的时候，current送的index是有变化的，所以会触发这个watch,为了不让其触发，加上这个条件看当前歌曲有没有变
+        if (!newsong) {
+          return false
+        }
+         if (oldsong && newsong.id == oldsong.id) { // 在切换歌曲播放模式的时候，current送的index是有变化的，所以会触发这个watch,为了不让其触发，加上这个条件看当前歌曲有没有变
           return false
         }
         if (this.currentLyric) { // 切换歌的时候让其先暂停
@@ -377,12 +366,18 @@ const mytransform = prefixStyle('transform')
         })
       },
       playing (newplaying) { // 监听playing状态来决定是要播放还是要暂停
+      if (!this.currentSong) {
+          return false
+        }
         this.$nextTick(() => {
           const audio = this.$refs.audio
           newplaying ? audio.play() : audio.pause()
         })
       },
       currentTime (newtime) {
+        if (!this.currentSong) {
+          return false
+        }
         if (newtime >= this.currentSong.duration) {
           // this.next()
           // this.$refs.audio.play()

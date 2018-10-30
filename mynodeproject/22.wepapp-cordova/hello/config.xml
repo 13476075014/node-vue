@@ -23,5 +23,8 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <engine name="android" spec="~7.1.1" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-battery-status" spec="^2.0.2" />
+    <engine name="browser" spec="^5.0.4" />
+    <engine name="android" spec="^7.1.1" />
 </widget>

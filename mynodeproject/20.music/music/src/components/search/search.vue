@@ -1,8 +1,10 @@
 <template>
     <div class="search">
+      <!-- 头部搜索框部分 -->
       <div class="search-box-wrapper">
         <search-box ref="searchBox" @query="onQueryChange"></search-box>
       </div>
+      <!-- 热门搜索框部分 -->
       <div ref="shortcutWrapper" class="shortcut-wrapper" v-show="!query">
         <scroll class="shortcut" ref="shortcutScroll" :data="shortcur">
           <div>
@@ -30,6 +32,7 @@
           </div>
         </scroll>
       </div>
+      <!-- 搜索结果部分 -->
       <div class="search-result" ref="searchResult" v-show="query">
         <suggest :query="query" ref="suggest" @beforeScroll="beforeScroll" @select="saveSearch"></suggest>
       </div>

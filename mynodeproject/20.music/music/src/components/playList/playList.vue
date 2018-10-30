@@ -5,29 +5,29 @@
       <div class="list-wrapper" @click.stop>
         <div class="list-header">
           <h1 class="title">
-            <i class="icon"></i>
-            <span class="text"></span>
-            <span class="clear">
+            <i class="icon" :class="iconMode" @click="changeMode"></i> <!-- 调换播放模式 -->
+            <span class="text">{{modeText}}</span>
+            <span class="clear" @click="showConfirm"> <!-- 清空播放列表 -->
               <i class="icon-clear"></i>
             </span>
           </h1>
         </div>
         <scroll ref="listContentScroll" class="list-content" :data="sequenceList">
-          <ul>
-            <li class="item" @click="selectItem(item,index)" v-for="(item,index) in sequenceList" :key="index">
+          <transition-group name="list" tag="ul">
+            <li class="item" ref="listItem" @click="selectItem(item,index)" v-for="(item,index) in sequenceList" :key="index">
               <i class="current" :class="getCurrentIcon(item)"></i>
               <span class="text">{{item.name}}</span>
               <span class="like">
                 <i class="icon-not-favorite"></i>
               </span>
-              <span class="delete">
+              <span class="delete" @click.stop="deleteOne(item)">
                 <i class="icon-delete"></i>
               </span>
             </li>
-          </ul>
+          </transition-group>
         </scroll>
         <div class="list-operate">
-          <div class="add">
+          <div class="add" @click.stop="addSong">
             <i class="icon-add"></i>
             <span class="text">添加歌曲到队列</span>
           </div>
@@ -36,18 +36,28 @@
           <span>关闭</span>
         </div>
       </div>
+    <!-- 弹出层组件 -->
+    <confirm @confirm="confirmClear" @cancel="cancelConfirm" :showFlag="showFlag" ref="confirm" title="是否清空播放列表？" confirmBtnText="清空"></confirm>
+    <!-- 添加歌曲页面 -->
+    <add-song ref="addSong"></add-song>
     </div>
   </transition>
 </template>
 
 <script>
-import {mapGetters, mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 import Scroll from '@/base/scroll/scroll'
+import {playMode} from '_common/js/config'
+import Confirm from '@/base/confirm/confirm'
+import {playerMixin} from '_common/js/mixin'
+import AddSong from '@/components/add-song/add-song'
 
   export default{
+    mixins:[playerMixin],
     data () {
       return {
-        playlistShowFlag:false
+        playlistShowFlag:false,
+        showFlag:false // 是否展示确认弹出框
       }
     },
     methods:{
@@ -55,6 +65,7 @@ import Scroll from '@/base/scroll/scroll'
         this.playlistShowFlag = true
         setTimeout(() => { // 在show之前data已经变化了那时的refresh没有意义，因为是display:none的，在show之后的dom都展示完之后，在进行refresh操作，让scroll重新计算高度
           this.$refs.listContentScroll.refresh()
+          this.scrollToCurrent(this.currentSong)
         }, 20)
       },
       hide () {
@@ -66,18 +77,60 @@ import Scroll from '@/base/scroll/scroll'
         }
         return ''
       },
-      selectItem (item, index) {
-        this.setCurrentIndex
+      selectItem (item, index) { // 换歌
+        if (this.mode == playMode.random) {
+          index = this.playList.findIndex(item2 => {
+            return item2.id === item.id
+          })
+        }
+        this.setCurrentIndex(index)
+        this.setPlayingState(true)
       },
-      ...mapMutations({
-        'setCurrentIndex':'SET_CURRENT_INDEX'
-      })
+      scrollToCurrent (currentSong) {
+        const index = this.sequenceList.findIndex((item) => {
+          return item.id === currentSong.id
+        })
+        const lis = this.$refs.listItem
+        this.$refs.listContentScroll.scrollToElement(lis[index], 300)
+      },
+      deleteOne (item) {
+        this.deleteSong(item)
+        if (!this.playList.length) {
+          this.hide()
+        }
+      },
+      showConfirm () {
+        this.showFlag = true
+      },
+      confirmClear () { // 点击确认清空按钮
+        this.clearSongList()
+        this.showFlag = false
+      },
+      cancelConfirm () {
+        this.showFlag = false
+      },
+      addSong () {
+        this.$refs.addSong.show()
+      },
+      ...mapActions(['deleteSong', 'clearSongList'])
     },
     computed:{
-      ...mapGetters(['sequenceList', 'currentSong'])
+      modeText () {
+         return this.mode === playMode.sequence ? '顺序播放' : this.mode === playMode.random ? '随机播放' : '单曲循环'
+      }
+    },
+    watch:{
+      currentSong (newSong, oldSong) {
+        if (!this.playlistShowFlag || newSong.id === oldSong.id || !newSong) {
+          return false
+        }
+        this.scrollToCurrent(newSong)
+      }
     },
     components:{
-      Scroll
+      Scroll,
+      Confirm,
+      AddSong
     }
   }
 </script>
@@ -138,7 +191,7 @@ import Scroll from '@/base/scroll/scroll'
           padding: 0 30px 0 20px
           overflow: hidden
           &.list-enter-active, &.list-leave-active
-            transition: all 0.1s
+            transition: all 0.2s
           &.list-enter, &.list-leave-to
             height: 0
           .current
