@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapMutations, mapActions} from 'vuex'
 import {playMode} from '_common/js/config'
 import {shuffle} from '_common/js/util'
 import progressBar from '@/base/progress-bar/progress-bar'
@@ -168,6 +168,7 @@ const mytransform = prefixStyle('transform')
       },
       canplay () {
         this.songReady = true
+        this.savePlayHistory(this.currentSong) // 个去准备好了以后就把这首歌放到vuex的播放历史里面
       },
       audioError () {
         this.songReady = false
@@ -345,7 +346,8 @@ const mytransform = prefixStyle('transform')
       },
       ...mapMutations({
         setFullScreen:'SET_FULL_SCREEN' // 重命名更改屏幕是否全屏的vuex的mutations的方法
-      })
+      }),
+      ...mapActions(['savePlayHistory'])
     },
     watch:{
       currentSong (newsong, oldsong) {

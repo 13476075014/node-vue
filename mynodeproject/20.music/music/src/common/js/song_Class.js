@@ -44,13 +44,11 @@ export default class Song {
     }
 }
 
-export
-
-function createSong (musicData) {
+export function createSong (musicData, double) {
     return new Song({
         id: musicData.songid,
         mid: musicData.songmid,
-        singer: filterSinger(musicData.singer),
+        singer: filterSinger(musicData.singer, double),
         name: musicData.songname,
         album: musicData.albumname,
         duration: musicData.interval,
@@ -65,7 +63,10 @@ function createSong (musicData) {
 // http://dl.stream.qqmusic.qq.com/C100004dsKoM1grCjU.m4a?vkey=DF12255C1548EE6ADC632C2056D3955A449F72EAC25F66E1345C69E99854F3B264C988C3C750B4A3436E9462AED1C408D9813405102C6923&fromtag=66
 
 // 工厂函数，直接用上面的类来处理一个固定格式的对象
-function filterSinger (singer) {
+function filterSinger (singer, double) {
+    if (double == 'yes') {
+        return singer
+    }
     let ret = []
     if (!singer) {
         return ''

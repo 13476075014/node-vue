@@ -52,7 +52,7 @@ const TYPE_SINGER = 'singer'
         type:String,
         default:''
       },
-      showSinger:{
+      showSinger:{ // 在搜索歌曲的时候是否展示歌手
         type:Boolean,
         default:true
       }
@@ -93,7 +93,7 @@ const TYPE_SINGER = 'singer'
       },
       checkMore (data) { // 判断当前歌曲条数是否是所有的了和更改hasMore是否为真
         const song = data.song
-        if (!song.list.length || (song.curnum + song.curpage * this.perpage) > song.toltalnum) {
+        if (!song.list.length || (song.curnum + song.curpage * this.perpage) > song.totalnum) {
           this.hasMore = false
         }
       },
@@ -131,15 +131,16 @@ const TYPE_SINGER = 'singer'
         }
       },
       selectItem (item) {
+        console.log(item)
         if (item.type == TYPE_SINGER) { // 如果是一个歌手列
             const singer = new Singer({
               id:item.singermid,
               name:item.singername
             })
+            this.singer = this.setSinger(singer) // 改变vuex
             this.$router.push({
               path:`/search/${singer.id}`
             })
-            this.singer = this.setSinger(singer) // 改变vuex
         } else {
           item.getVkeys().then(() => { // 先获取歌曲地址，再加入播放列表
              this.InsertSong(item) // 调用vuex的insertsong来插入歌曲

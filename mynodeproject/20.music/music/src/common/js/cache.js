@@ -3,6 +3,8 @@ import storage from 'good-storage'
 
 const SEARCH_KEY = '__search__' // 存储的search对象
 const SEARCH_KEY_LENGTH = 15 // 存储search的最大长度
+const PLAY_KEY = '__play__' // 存储的play对象，是播放过的歌曲
+const PLAY_KEY_LENGTH = 200 // 存储play的最大长度
 
 // 1.arr插入新值的方法
 function insertArray (arr, val, compare, maxlen) {
@@ -29,6 +31,7 @@ export function saveSearch (query) {
 
 // 3.得到搜索历史记录
 export function loadSearch () {
+    console.log(storage.get(SEARCH_KEY, []))
     return storage.get(SEARCH_KEY, [])
 }
 
@@ -45,12 +48,40 @@ function deleteArray (arr, compare) {
 export function deleteSearch (query) {
     let searches = storage.get(SEARCH_KEY, [])
     deleteArray(searches, (item) => { return item === query })
-    console.log(searches)
     storage.set(SEARCH_KEY, searches)
+    return searches
 }
 
 // 6.清除所有的搜索历史记录的localstorage和其vuex数据
 export function clearSearch () {
     storage.remove(SEARCH_KEY)
+    return []
+}
+
+// 增加一首播放歌曲的历史记录
+export function savePlay (play) {
+    let plays = storage.get(PLAY_KEY, [])
+    insertArray(plays, play, (item) => { return item.id === play.id }, PLAY_KEY_LENGTH)
+    storage.set(PLAY_KEY, plays) // 新值存到storage中，这里的storage方法用的封装的插件npm安装的good-storage
+    return plays
+}
+
+// 读取歌曲的播放历史记录
+export function loadPlay () {
+    const plays = storage.get(PLAY_KEY, [])
+    return plays
+}
+
+// 5.删除一条搜索历史记录
+export function deletePlay (play) {
+    let plays = storage.get(PLAY_KEY, [])
+    deleteArray(plays, (item) => { return item === play })
+    storage.set(PLAY_KEY, plays)
+    return plays
+}
+
+// 6.清除所有的搜索历史记录的localstorage和其vuex数据
+export function clearPlay () {
+    storage.remove(PLAY_KEY)
     return []
 }

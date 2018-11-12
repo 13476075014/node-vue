@@ -42,13 +42,13 @@ export default{
   },
   methods:{
     _getSingerDetail () {
+       console.log(this.singer)
       if (!this.singer.id) {
         this.$router.push('/singer')
       }
         getSingerDetail(this.singer.id).then(response => {
           if (response.code === ERR_OK) {
           this._normalizeSongs(response.data.list)
-             // console.log(this.songs)
           }
         })
     },

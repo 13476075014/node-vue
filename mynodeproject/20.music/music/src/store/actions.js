@@ -1,7 +1,7 @@
 import * as types from './mutation-type'
 import { playMode } from '_common/js/config'
 import { shuffle } from '_common/js/util' // 引入打乱数组的方法函数
-import { saveSearch, deleteSearch, clearSearch } from '_common/js/cache'
+import { saveSearch, deleteSearch, clearSearch, savePlay } from '_common/js/cache'
 
 function findIndex (arr, id) {
     return arr.findIndex(function (item) { // es6的语法，得到符合条件的数组下标
@@ -58,7 +58,7 @@ export const InsertSong = function ({ commit, state }, song) {
 
     // 修改sequenceList的部分
     let currentSIndex = findIndex(sequenceList, currentSong) + 1 // 需要插入的位置
-    let fsIndex = findIndex(sequenceList, song) // 看这个歌曲是否已经存在歌曲列表里面
+    let fsIndex = findIndex(sequenceList, song.id) // 看这个歌曲是否已经存在歌曲列表里面
     sequenceList.splice(currentSIndex, 0, song)
     if (fsIndex > -1) { // 存在这个歌曲了
         if (currentSIndex > fsIndex) { // 插入的这个歌曲在之前存在歌曲的后面
@@ -122,4 +122,9 @@ export const clearSongList = function ({ commit, state }) {
     commit(types.SET_SEQUENCE_LIST, [])
     commit(types.SET_CURRENT_INDEX, -1)
     commit(types.SET_PLAYING_STATE, false)
+}
+
+// 保存播放歌曲
+export const savePlayHistory = function ({ commit, state }, list) {
+    commit(types.SET_PLAYHISTORY, savePlay(list))
 }

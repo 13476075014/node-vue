@@ -1,6 +1,6 @@
 // 用这个对象混入到vue中，初始化需要影响的所有组件的一些内容
 
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { playMode } from '_common/js/config'
 import { shuffle } from '_common/js/util'
 
@@ -67,5 +67,39 @@ export const playerMixin = {
             'sequenceList',
             'mode'
         ])
+    }
+}
+
+// 在search 和 song-add页面搜索输入框的公用部分用mixin抽出来
+export const searchMixin = {
+    data () {
+        return {
+            query: ''
+        }
+    },
+    computed: {
+
+    },
+    methods: {
+        beforeScroll () { // 开始滚动的监听事件让input失去焦点
+            this.$refs.searchBox.blur() // 让滚动的时候让input失去焦点，让键盘下去
+        },
+        saveSearch () {
+            this.saveSearchHistory(this.query) // 保存历史记录进vuex和localstorage
+            this.showTip()
+        },
+        addQuery (k) { // 开始输入的时候来改变query
+            this.$refs.searchBox.setQuery(k)
+        },
+        onQueryChange (newq) { // query开始改变的时候
+            this.query = newq
+        },
+        deleteOneSH (item) { // 删除搜索历史中的一条
+            this.deleteSearchHistory(item)
+        },
+        selectSearchHistory (item) { // 选择搜索历史中的一条
+            this.addQuery(item)
+        },
+        ...mapActions(['saveSearchHistory', 'deleteSearchHistory'])
     }
 }

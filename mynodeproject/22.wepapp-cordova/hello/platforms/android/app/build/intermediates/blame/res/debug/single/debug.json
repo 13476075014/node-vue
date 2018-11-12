@@ -20,16 +20,8 @@
         "source": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\src\\main\\res\\drawable-port-mdpi\\screen.png"
     },
     {
-        "merged": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xxxhdpi_screen.png.flat",
-        "source": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\src\\main\\res\\drawable-port-xxxhdpi\\screen.png"
-    },
-    {
         "merged": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_icon.png.flat",
         "source": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\src\\main\\res\\mipmap-hdpi\\icon.png"
-    },
-    {
-        "merged": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xxhdpi_screen.png.flat",
-        "source": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\src\\main\\res\\drawable-port-xxhdpi\\screen.png"
     },
     {
         "merged": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-hdpi_screen.png.flat",
@@ -46,10 +38,6 @@
     {
         "merged": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-ldpi_screen.png.flat",
         "source": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\src\\main\\res\\drawable-land-ldpi\\screen.png"
-    },
-    {
-        "merged": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-xxxhdpi_screen.png.flat",
-        "source": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\src\\main\\res\\drawable-land-xxxhdpi\\screen.png"
     },
     {
         "merged": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml_camera_provider_paths.xml.flat",
@@ -74,9 +62,5 @@
     {
         "merged": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xhdpi_screen.png.flat",
         "source": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\src\\main\\res\\drawable-port-xhdpi\\screen.png"
-    },
-    {
-        "merged": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-xxhdpi_screen.png.flat",
-        "source": "E:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\src\\main\\res\\drawable-land-xxhdpi\\screen.png"
     }
 ]

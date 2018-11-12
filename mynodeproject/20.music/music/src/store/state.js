@@ -1,6 +1,6 @@
 // vuex 的state数据
 import { playMode } from '_common/js/config'
-import { loadSearch } from '_common/js/cache'
+import { loadSearch, loadPlay } from '_common/js/cache'
 
 const state = {
     singer: [], // 歌手页面的公用数据
@@ -12,7 +12,8 @@ const state = {
     currentIndex: -1, // 当前播放歌曲
     disc: {}, // 推荐页面点开的详情信息
     topList: {}, // 排行页面的点击详情页需要的数据
-    searchHistory: loadSearch() // 搜索的历史记录数据,初始值是从本地localstorage读取的
+    searchHistory: loadSearch(), // 搜索的历史记录数据,初始值是从本地localstorage读取的
+    playHistory: loadPlay() // 存储播放过的歌曲
 }
 
 export default state

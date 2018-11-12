@@ -24,6 +24,8 @@
         }
       }
     },
+    mounted () {
+    },
     methods:{
       selectItem (item) {
         this.$emit('selectSearchHistory', item)

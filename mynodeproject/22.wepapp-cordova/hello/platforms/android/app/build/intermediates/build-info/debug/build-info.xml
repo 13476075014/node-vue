@@ -6,23 +6,26 @@
     density="420dpi"
     format="10"
     plugin-version="3.0.1"
-    timestamp="1540865856483"
+    timestamp="1541397656251"
     token="-8443947034835635017"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="226" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="239" />
+        duration="2940" />
     <task
         name="verifier"
-        duration="278" />
+        duration="2142" />
 
+    <artifact
+        location="E:\mynodeproject\22.wepapp-cordova\hello\platforms\android\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+        type="SPLIT" />
     <artifact
         location="E:\mynodeproject\22.wepapp-cordova\hello\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
         type="SPLIT" />
@@ -59,8 +62,11 @@
 
     <build
         build-mode="FULL"
-        timestamp="1540865856483"
+        timestamp="1541397656251"
         verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="E:\mynodeproject\22.wepapp-cordova\hello\platforms\android\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+            type="SPLIT" />
         <artifact
             location="E:\mynodeproject\22.wepapp-cordova\hello\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />

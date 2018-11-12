@@ -38,7 +38,7 @@
       </div>
       <confirm
         ref="confirm"
-        :showFlag="showFlag"
+        :showFlag="showFlagConfirm"
         :title="confirmText"
         @cancel="cancel"
         @confirm="confirm"
@@ -57,16 +57,15 @@
   import SearchList from '@/base/search-list/search-list'
   import Confirm from '@/base/confirm/confirm'
   import Scroll from '@/base/scroll/scroll'
-  import {playlistMixin} from '_common/js/mixin'
+  import {playlistMixin, searchMixin} from '_common/js/mixin'
 
   export default{
-    mixins:[playlistMixin],
+    mixins:[playlistMixin, searchMixin],
     data () {
       return {
         hotKey:[],
-        query:'',
-        confirmText:'是否清空所有搜索历史',
-        showFlag:false // 是否展示弹出提示框
+        confirmText: '是否清空所有搜索历史',
+        showFlagConfirm: false // 是否展示弹出提示框
       }
     },
     created () {
@@ -80,9 +79,6 @@
         this.$refs.searchResult.style.bottom = bottom
         this.$refs.suggest.refresh()
       },
-      beforeScroll () { // 开始滚动的监听事件
-        this.$refs.searchBox.blur() // 让滚动的时候让input失去焦点，让键盘下去
-      },
       getHotKey () {
         getHotKey().then(res => {
           if (res.code == ERR_OK) { // 请求成功
@@ -92,35 +88,20 @@
 
         })
       },
-      addQuery (k) {
-        this.$refs.searchBox.setQuery(k)
-      },
-      onQueryChange (newq) {
-        this.query = newq
-      },
-      saveSearch () {
-        this.saveSearchHistory(this.query) // 保存历史记录进vuex和localstorage
-      },
-      selectSearchHistory (item) { // 选择搜索历史中的一条
-        this.addQuery(item)
-      },
-      deleteOneSH (item) { // 删除搜索历史中的一条
-        this.deleteSearchHistory(item)
-      },
       showConfirm () { // 确人提示框
-        this.showFlag = true
+        this.showFlagConfirm = true
       },
-      cancel () { // 确认框的取消按钮点击事件
-        this.showFlag = false
-      },
+        cancel () { // 确认框的取消按钮点击事件
+            this.showFlagConfirm = false
+        },
       confirm () { // 确认框的确认点击事件
-        this.showFlag = false
+        this.showFlagConfirm = false
         this.clearSearchHistory() // 执行清空的事件
       },
       clearSearchHistory () {
         this.clearSearchHistory()
       },
-      ...mapActions(['saveSearchHistory', 'deleteSearchHistory', 'clearSearchHistory'])
+      ...mapActions(['clearSearchHistory'])
     },
     computed:{
       shortcur () {

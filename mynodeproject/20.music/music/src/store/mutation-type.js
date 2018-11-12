@@ -17,3 +17,5 @@ export const SET_DISC = 'SET_DISC' // 推荐点开详情数据
 export const SET_TOPLIST = 'SET_TOPLIST' // 推荐歌曲列表
 
 export const SET_SEARCHHISTORY = 'SET_SEARCHHISTORY'
+
+export const SET_PLAYHISTORY = 'SET_PLAYHISTORY' // 播放历史记录

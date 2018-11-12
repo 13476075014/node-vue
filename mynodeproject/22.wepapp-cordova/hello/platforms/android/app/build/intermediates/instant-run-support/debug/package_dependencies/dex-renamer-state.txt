@@ -1,0 +1,4 @@
+#Mon Nov 05 14:01:41 CST 2018
+base.0=E\:\\mynodeproject\\22.wepapp-cordova\\hello\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\29
+path.0=classes.dex
+renamed.0=classes.dex

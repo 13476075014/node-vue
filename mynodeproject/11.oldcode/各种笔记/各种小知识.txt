@@ -44,4 +44,6 @@
 	例如： var params = $("#Repair_Form").serializeArray();
 
 	serialize()，是把form重要提交的字段和其数值变成了字符串格式
+
+13.让select的字体向右靠，普通的text-align没有用，需要设置direction: rtl;这个属性就右边了。
 	

@@ -15,6 +15,9 @@
     },
     "cordova-plugin-battery-status": {
       "PACKAGE_NAME": "com.example.hello"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.example.hello"
     }
   },
   "dependent_plugins": {}

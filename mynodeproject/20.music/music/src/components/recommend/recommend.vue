@@ -31,7 +31,7 @@
           </div>
         </div>
       </scroll>
-
+      <loading class="loading" v-if="showLoading"></loading>
       <router-view>
 
       </router-view>
@@ -47,13 +47,15 @@ import Slider from '@/base/slider/slider'
 import scroll from '@/base/scroll/scroll'
 import {playlistMixin} from '_common/js/mixin'
 import {mapMutations} from 'vuex'
+import Loading from '@/base/loading/loading'
 
 export default{
   mixins:[playlistMixin],
   data () {
     return {
       recommends:[],
-      discList:[]
+      discList:[],
+      showLoading:true
     }
   },
   created () {
@@ -80,6 +82,7 @@ export default{
         function MusicJsonCallback (data) {//因为后台返回的是一个字符串类型的回调函数，所以写一个同名函数，在eval后会调用这个函数。
           if (ERR_OK === data.code) {
             _this.discList =data.data.list
+            _this.showLoading = false
           } else {
             console.log('内部错误')
           }
@@ -110,7 +113,8 @@ export default{
   },
   components:{
     Slider,
-    scroll
+    scroll,
+    Loading
   }
 }
 </script>
@@ -125,6 +129,12 @@ export default{
   top 88px
   bottom 0
   background $color-background
+  .loading
+    position fixed
+    top 0
+    bottom 0
+    left 0
+    background $color-background
   .recommend-content
     height: 100%
     overflow: hidden
