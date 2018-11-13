@@ -131,7 +131,6 @@ const TYPE_SINGER = 'singer'
         }
       },
       selectItem (item) {
-        console.log(item)
         if (item.type == TYPE_SINGER) { // 如果是一个歌手列
             const singer = new Singer({
               id:item.singermid,

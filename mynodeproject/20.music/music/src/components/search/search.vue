@@ -98,6 +98,9 @@
         this.showFlagConfirm = false
         this.clearSearchHistory() // 执行清空的事件
       },
+      saveSearch () {
+        this.saveSearchHistory(this.query) // 保存历史记录进vuex和localstorage
+        },
       clearSearchHistory () {
         this.clearSearchHistory()
       },

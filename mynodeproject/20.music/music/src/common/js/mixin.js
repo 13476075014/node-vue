@@ -84,10 +84,6 @@ export const searchMixin = {
         beforeScroll () { // 开始滚动的监听事件让input失去焦点
             this.$refs.searchBox.blur() // 让滚动的时候让input失去焦点，让键盘下去
         },
-        saveSearch () {
-            this.saveSearchHistory(this.query) // 保存历史记录进vuex和localstorage
-            this.showTip()
-        },
         addQuery (k) { // 开始输入的时候来改变query
             this.$refs.searchBox.setQuery(k)
         },

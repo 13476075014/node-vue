@@ -102,6 +102,10 @@
       switchItem (index) { // tab组件的高亮切换
         this.currentIndex = index
       },
+      saveSearch () {
+            this.saveSearchHistory(this.query) // 保存历史记录进vuex和localstorage
+            this.showTip()
+        },
       selectSong (song, index) {
         if (index != 0) {
           const newsong = new Song(song)

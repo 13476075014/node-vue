@@ -84,7 +84,7 @@ import AddSong from '@/components/add-song/add-song'
           })
         }
         this.setCurrentIndex(index)
-        this.setPlayingState(true)
+        this.setPlayState(true)
       },
       scrollToCurrent (currentSong) {
         const index = this.sequenceList.findIndex((item) => {
