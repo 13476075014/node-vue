@@ -11,7 +11,7 @@
   import LayerHtml from './layerExample.vue'
 
   export default{
-    name:"example",
+    name:"liuselectdate",
     props:{
       options:{
         type:Object,

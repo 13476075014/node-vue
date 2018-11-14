@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
-import liuselectdate from 'liuselectdate'
+import Liuselectdate from 'liuselectdate'
 
-Vue.use(liuselectdate)
+Vue.use(Liuselectdate)
 
 new Vue({
-  el: '#app',
-  render: h => h(App)
+    el: '#app',
+    render: h => h(App)
 })

@@ -1,13 +1,13 @@
-import example from './example.vue'
+import liuselectdate from './example.vue'
 
-const liuselectdate = {
+const liuselect = {
     install(Vue, options) {
-        Vue.component(example.name, example)
+        Vue.component(liuselectdate.name, liuselectdate)
     }
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
-    window.liuselectdate = liuselectdate
-    Vue.use(liuselectdate)
+    window.liuselect = liuselect
+    Vue.use(liuselect)
 }
-export default liuselectdate
+export default liuselect
