@@ -14,7 +14,7 @@ export default {
 
     }
   },
-  component:{
+  components:{
     example
   }
 }
