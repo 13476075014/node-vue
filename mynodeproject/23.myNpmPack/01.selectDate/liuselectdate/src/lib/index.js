@@ -11,3 +11,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     Vue.use(liuselect)
 }
 export default liuselect
+
+export {
+    liuselectdate
+}

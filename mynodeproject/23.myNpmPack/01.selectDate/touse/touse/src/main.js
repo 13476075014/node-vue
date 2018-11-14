@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import Liuselectdate from 'liuselectdate'
 
-Vue.use(Liuselectdate)
+//Vue.use(Liuselectdate)
 
 new Vue({
     el: '#app',
