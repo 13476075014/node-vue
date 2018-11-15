@@ -2,7 +2,7 @@
   <transition name="layer">
     <div id="wrapper" v-if="showLay">
       <div class="layerExample" id="outTip">
-        <div class="title">选择日期</div>
+        <div class="title">{{title}}</div>
         <div class="close" @click="close">
           <i class="iconfont  icon-LC_icon_close_circle_line"></i>
         </div>
@@ -31,8 +31,9 @@
         filltime:[{hour:'07',miu:'30'}],
         fillday:[{day:"13",month:"11"}], // 填充天的数据
         hour:this.options.hour || 7, // 填充时间是从几点开始
-        startDay:this.options.startDay || new Date, // 开始的日期
+        startDay:this.options.startDay || new Date(), // 开始的日期
         maxLength:this.options.maxLength || 6, // 共渲染几天
+        title:this.options.title || "请选择日期",
         dayActive:-1,  // 改变天active的class在那个元素上
         disableMax:9,
         origindisableMax:9,
@@ -71,7 +72,15 @@
          this.timeActive = index;
       },
       submit(){
+         if(!this.$refs.ul_day_li[this.dayActive]){
+           alert("请选择日期");
+            return false;
+         };
         var month = this.$refs.ul_day_li[this.dayActive].innerHTML;
+        if(!this.$refs.ul_time_li[this.timeActive]){
+           alert("请选择时间");
+            return false;
+         };
         var time = this.$refs.ul_time_li[this.timeActive].innerHTML;
         var year = this.startDay.getFullYear();
         var da =year + " " + month + " " + time;
@@ -123,6 +132,7 @@
 </script>
 
 <style>
+
 @import "~/src/css/iconfont.css" ;
 
 .layer-enter-active,.layer-leave-active{

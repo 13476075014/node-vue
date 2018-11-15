@@ -1,1 +1,7 @@
-liuselectdate : 是我的而第一个尝试发布到npm上的插件源码
+liuselectdate-before : 这个是这个插件最开始开发的代码，还没有涉及到更改package.json等配置文件；
+
+
+liuselectdate : 是我的而第一个尝试发布到npm上的插件源码,这个是配置已经更改成发布的代码；
+
+
+touse ：是如何使用这个插件的示例项目；
