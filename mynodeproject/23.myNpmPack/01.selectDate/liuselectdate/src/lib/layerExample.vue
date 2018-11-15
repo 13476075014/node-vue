@@ -71,7 +71,15 @@
          this.timeActive = index;
       },
       submit(){
+        if(!this.$refs.ul_day_li[this.dayActive]){
+           alert("请选择日期");
+            return false;
+         };
         var month = this.$refs.ul_day_li[this.dayActive].innerHTML;
+        if(!this.$refs.ul_time_li[this.timeActive]){
+           alert("请选择时间");
+            return false;
+         };
         var time = this.$refs.ul_time_li[this.timeActive].innerHTML;
         var year = this.startDay.getFullYear();
         var da =year + " " + month + " " + time;
