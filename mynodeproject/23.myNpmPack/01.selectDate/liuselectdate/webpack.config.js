@@ -8,7 +8,10 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
         //filename: 'build.js'
-        filename: 'liuselectdate.js'
+        filename: 'liuselectdate.js',
+        library: 'liuselectdate', // 这个必须要写，是指以库的形式输出这个插件
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     },
     module: {
         rules: [{

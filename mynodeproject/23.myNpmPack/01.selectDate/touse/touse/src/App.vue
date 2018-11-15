@@ -11,7 +11,7 @@
         3.直接到组件在需要用的地方使用：
           <liuselectdate></liuselectdate>
      -->
-     <!-- <liuselectdate :option="option"></liuselectdate> -->
+     <liu-selectdate :option="option"></liu-selectdate>
   </div>
 </template>
 
@@ -20,8 +20,10 @@ export default {
   name: 'app',
   data () {
     return {
-
+      option:{}
     }
+  },
+  components:{
   }
 }
 </script>

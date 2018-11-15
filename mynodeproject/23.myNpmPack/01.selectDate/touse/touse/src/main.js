@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-import vuePayPop from "vue-pay-pop"
+//import vuePayPop from "vue-pay-pop"
 //Vue.use(vuePayPop)
-//import Liuselectdate from 'liuselectdate@1.0.5'
+//console.log(vuePayPop)
+import liuselect from 'liuselectdate'
+Vue.use(liuselect)
+console.log(liuselect)
 
-//Vue.use(Liuselectdate)
-console.log(vuePayPop)
+
 new Vue({
     el: '#app',
     render: h => h(App)
