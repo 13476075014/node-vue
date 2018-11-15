@@ -1,10 +1,11 @@
 {
     "name": "liuselectdate",
     "description": "A Vue.js project",
-    "version": "1.0.5",
+    "version": "1.0.7",
     "author": "liuchunchun <1137088752@qq.com>",
     "license": "MIT",
     "private": false,
+    "main": "dist/liuselectdate.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/13476075014/node-vue/tree/master/mynodeproject/23.myNpmPack/01.selectDate/liuselectdate"

@@ -11,7 +11,7 @@
         3.直接到组件在需要用的地方使用：
           <liuselectdate></liuselectdate>
      -->
-     <liuselectdate :option="option"></liuselectdate>
+     <!-- <liuselectdate :option="option"></liuselectdate> -->
   </div>
 </template>
 
