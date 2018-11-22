@@ -20,7 +20,7 @@ export const playlistMixin = { // 在有播放底部栏的时候，需要重新�
         }
     },
     methods: {
-        handlePlaylist () {
+        handlePlaylist (playList) {
 
         }
     }
@@ -47,12 +47,33 @@ export const playerMixin = {
             })
             this.setCurrentIndex(index)
         },
+        getFavoriteIcon (currentSong) { // 计算当前歌曲是否被收藏，返回clas名
+            return this.isFavorite(currentSong) ? 'icon-favorite' : 'icon-not-favorite'
+        },
+        toggleFavorite (currentSong) { // 点击收藏图标的事件
+            if (this.isFavorite(currentSong)) {
+                this.deleteFavoriteList(currentSong)
+            } else {
+                this.saveFavoriteList(currentSong)
+            }
+        },
+        isFavorite (song) {
+            const index = this.favoriteList.findIndex((item) => {
+                return item.id === song.id
+            })
+            if (index < 0) {
+                return false
+            } else {
+                return true
+            }
+        },
         ...mapMutations({
             setPlayState: 'SET_PLAYING_STATE',
             setCurrentIndex: 'SET_CURRENT_INDEX', // 改变vuex的currentindex的值
             setPlayMode: 'SET_PLAY_MODE', // 改变播放的模式
             setPlayList: 'SET_PLAYLIST' // 改变播放的列表
-        })
+        }),
+        ...mapActions(['saveFavoriteList', 'deleteFavoriteList'])
     },
     computed: {
         iconMode () { // 播放模式的图标
@@ -65,7 +86,8 @@ export const playerMixin = {
             'currentIndex',
             'playing',
             'sequenceList',
-            'mode'
+            'mode',
+            'favoriteList'
         ])
     }
 }

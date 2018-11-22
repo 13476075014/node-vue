@@ -5,6 +5,8 @@ const SEARCH_KEY = '__search__' // 存储的search对象
 const SEARCH_KEY_LENGTH = 15 // 存储search的最大长度
 const PLAY_KEY = '__play__' // 存储的play对象，是播放过的歌曲
 const PLAY_KEY_LENGTH = 200 // 存储play的最大长度
+const FAVORITE_KEY = '_favorite_' // 存储favoriteList的localstorage名
+const FAVORITE_MAX_LENGTH = 200 // 存储favoriteList的最大个数
 
 // 1.arr插入新值的方法
 function insertArray (arr, val, compare, maxlen) {
@@ -58,7 +60,7 @@ export function clearSearch () {
     return []
 }
 
-// 增加一首播放歌曲的历史记录
+// 7增加一首播放歌曲的历史记录
 export function savePlay (play) {
     let plays = storage.get(PLAY_KEY, [])
     insertArray(plays, play, (item) => { return item.id === play.id }, PLAY_KEY_LENGTH)
@@ -72,7 +74,7 @@ export function loadPlay () {
     return plays
 }
 
-// 5.删除一条搜索历史记录
+// 8.删除一条搜索历史记录
 export function deletePlay (play) {
     let plays = storage.get(PLAY_KEY, [])
     deleteArray(plays, (item) => { return item === play })
@@ -80,8 +82,34 @@ export function deletePlay (play) {
     return plays
 }
 
-// 6.清除所有的搜索历史记录的localstorage和其vuex数据
+// 9.清除所有的搜索历史记录的localstorage和其vuex数据
 export function clearPlay () {
     storage.remove(PLAY_KEY)
     return []
+}
+
+// 10.保存收藏歌曲favoriteList
+export function saveFavorite (song) {
+    var favorite = storage.get(FAVORITE_KEY, [])
+    insertArray(favorite, song, (item) => {
+        return song.id === item.id
+    }, FAVORITE_MAX_LENGTH)
+    storage.set(FAVORITE_KEY, favorite)
+    return favorite
+}
+
+// 11.删除一个收藏歌曲
+export function deleteFavorite (song) {
+    var favorite = storage.get(FAVORITE_KEY, [])
+    deleteArray(favorite, (item) => {
+        return song.id === item.id
+    })
+    storage.set(FAVORITE_KEY, favorite)
+    return favorite
+}
+
+// 12.初始加载的收藏歌曲
+export function loadFavorite () {
+    var favorite = storage.get(FAVORITE_KEY, [])
+    return favorite
 }

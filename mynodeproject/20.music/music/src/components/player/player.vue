@@ -69,7 +69,7 @@
             <i class="icon-next" @click="next"></i>
           </div>
           <div class="icon i-right">
-            <i class="icon icon-not-favorite" ></i>
+            <i class="icon" @click.stop="toggleFavorite(currentSong)" :class="getFavoriteIcon(currentSong)"></i>
           </div>
 
         </div>
@@ -102,6 +102,11 @@
     <playlist ref="playList"></playlist>
 
     <audio ref="audio" @ended="end" @timeupdate="updateTime" @canplay="canplay" @error="audioError" :src="currentSong.url"></audio>
+
+    <!-- 一些提示 -->
+    <top-tip ref="topTip">
+      <p class="topTipInner">歌曲异常，将跳过</p>
+    </top-tip>
   </div>
 </template>
 
@@ -116,6 +121,7 @@ import Scroll from '@/base/scroll/scroll'
 import {prefixStyle} from '_common/js/dom'
 import Playlist from '@/components/playList/playList'
 import {playerMixin} from '_common/js/mixin'
+import TopTip from '@/base/top-tip/top-tip'
 const mytransform = prefixStyle('transform')
 
   export default{
@@ -171,6 +177,9 @@ const mytransform = prefixStyle('transform')
         this.savePlayHistory(this.currentSong) // 个去准备好了以后就把这首歌放到vuex的播放历史里面
       },
       audioError () {
+        this.songReady = true
+        this.$refs.topTip.show()
+        this.next()
         this.songReady = false
       },
       changeMode () { // 改变当前播放模式后，改变播放列表等
@@ -390,7 +399,8 @@ const mytransform = prefixStyle('transform')
       progressBar,
       progressCircle,
       Scroll,
-      Playlist
+      Playlist,
+      TopTip
     }
   }
 </script>
@@ -629,6 +639,10 @@ const mytransform = prefixStyle('transform')
           position: absolute
           left: 0
           top: 0
+
+  .topTipInner
+    text-align center
+    line-height 40px
 
   @keyframes rotate
     0%

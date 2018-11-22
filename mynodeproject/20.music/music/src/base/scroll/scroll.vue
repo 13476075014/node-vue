@@ -37,7 +37,7 @@
         type:Boolean,
         default:false
       },
-      pullup:{ // 上拉刷新
+      pullup:{ // 上拉加载
         type:Boolean,
         default:false
       },

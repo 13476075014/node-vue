@@ -10,7 +10,7 @@
             </div>
             <ul class="songlist">
               <li class="song" v-for="(song,index2) in item.songList" :key="index2">
-                <span>{{index + 1}}</span>
+                <span>{{index2 + 1}}</span>
                 <span>{{song.songname}} - {{song.singername}}</span>
               </li>
             </ul>

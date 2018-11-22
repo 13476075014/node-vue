@@ -63,14 +63,6 @@
   import SearchList from '@/base/search-list/search-list'
   import {searchMixin} from '_common/js/mixin'
   import TopTip from '@/base/top-tip/top-tip'
- /* import {ERR_OK} from '@/api/config'
-  import {getHotKey} from '@/api/search'
-  import Suggest from '@/components/suggest/suggest'
-  import {mapActions, mapGetters} from 'vuex'
-  import SearchList from '@/base/search-list/search-list'
-  import Confirm from '@/base/confirm/confirm'
-  import Scroll from '@/base/scroll/scroll'
-  import {playlistMixin} from '_common/js/mixin' */
 
   export default{
     mixins:[searchMixin],

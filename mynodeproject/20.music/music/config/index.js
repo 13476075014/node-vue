@@ -9,8 +9,8 @@ module.exports = {
 
         // Paths
         assetsSubDirectory: 'static',
-        assetsPublicPath: '/',
-        proxyTable: {},
+        assetsPublicPath: '/', // 设置静态资源的地址，如果静态资源是线上的可以用线上静态资源的地址
+        proxyTable: {}, // 代理跨域
 
         // Various Dev Server settings
         host: '10.202.2.112', // can be overwritten by process.env.HOST

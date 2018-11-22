@@ -19,3 +19,5 @@ export const SET_TOPLIST = 'SET_TOPLIST' // 推荐歌曲列表
 export const SET_SEARCHHISTORY = 'SET_SEARCHHISTORY'
 
 export const SET_PLAYHISTORY = 'SET_PLAYHISTORY' // 播放历史记录
+
+export const SET_FAVORITE_LIST = 'SET_FAVORITE_LIST'

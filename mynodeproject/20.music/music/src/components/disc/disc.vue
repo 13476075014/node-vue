@@ -56,7 +56,10 @@ export default{
       let ret = []
       list.forEach((item) => {
         if(item.songid && item.albumid){
-          ret.push(createSong(item))
+          var song = createSong(item)
+          song.getVkeys().then(() => {
+            ret.push(song)
+          })
         }
       })
       return ret

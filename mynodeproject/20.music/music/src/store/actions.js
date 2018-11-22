@@ -1,7 +1,7 @@
 import * as types from './mutation-type'
 import { playMode } from '_common/js/config'
 import { shuffle } from '_common/js/util' // 引入打乱数组的方法函数
-import { saveSearch, deleteSearch, clearSearch, savePlay } from '_common/js/cache'
+import { saveSearch, deleteSearch, clearSearch, savePlay, saveFavorite, deleteFavorite } from '_common/js/cache'
 
 function findIndex (arr, id) {
     return arr.findIndex(function (item) { // es6的语法，得到符合条件的数组下标
@@ -127,4 +127,13 @@ export const clearSongList = function ({ commit, state }) {
 // 保存播放歌曲
 export const savePlayHistory = function ({ commit, state }, list) {
     commit(types.SET_PLAYHISTORY, savePlay(list))
+}
+
+// 个人收藏歌曲
+export const saveFavoriteList = function ({ commit, state }, song) {
+        commit(types.SET_FAVORITE_LIST, saveFavorite(song))
+    }
+    // 删除个人收藏歌曲
+export const deleteFavoriteList = function ({ commit, state }, song) {
+    commit(types.SET_FAVORITE_LIST, deleteFavorite(song))
 }

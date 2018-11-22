@@ -88,3 +88,25 @@ export function getVkey (songmid) {
 //         return Promise.resolve(response.data)
 //     })
 // }
+
+// 2018.11.16原来的获取歌曲的地址和vkey现在获取不到播放的地址
+// 新拉的接口
+export const getNewVey = function (songmid) {
+    const url3 = '/api/getSongVkey'
+    const data3 = Object.assign({}, commonPramas, {
+        g_tk: '510614530',
+        'hostUin': '0',
+        'format': 'json',
+        'inCharset': 'utf8',
+        'notice': '0',
+        'platform': 'yqq',
+        'needNewCode': '0',
+        'cid': '205361747',
+        'songmid': songmid,
+        'filename': 'C100' + songmid + '.m4a',
+        'guid': '1674273789'
+    })
+    return Axios.get(url3, { params: data3 }).then(response => {
+        return Promise.resolve(response.data)
+    })
+}

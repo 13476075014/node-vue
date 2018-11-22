@@ -23,7 +23,8 @@ export default class Song {
         }
         return getVkey(this.mid).then(res => {
             this.vkey = res.data.items[0].vkey
-            this.url = `http://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&fromtag=66`
+                // this.url = `http://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&fromtag=66` // 这是原来的拼接方式，后来不可以用了
+            this.url = `http://183.192.163.152/amobile.music.tc.qq.com/${this.filename}?guid=4547511582&vkey=${this.vkey}&fromtag=66`
             return Promise.resolve(this.vkey)
         })
     }
