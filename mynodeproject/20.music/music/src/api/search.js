@@ -1,6 +1,8 @@
 /* 搜索页面的数据拉取 */
-import { commonPramas } from '@/api/config'
+import { commonPramas, axiosdefault } from '@/api/config'
 import Axios from 'axios'
+Axios.defaults.withCredentials = axiosdefault ? axiosdefault.withCredentials : ''
+Axios.defaults.baseURL = axiosdefault ? axiosdefault.baseURL : ''
 
 // 1.热门搜索的推荐搜索接口
 export function getHotKey () {

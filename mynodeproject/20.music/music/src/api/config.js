@@ -12,6 +12,11 @@ export const commonPramas = {
 export const options = {
     param: 'jsonCallback'
 }
+const dev = 'development' // 这里改变现在是要在什么环境请求数据
+export const axiosdefault = dev === 'development' ? '' : {
+    'withCredentials': true,
+    'baseURL': 'http://10.202.2.112:9000'
+}
 
 // 这个是没有错误的话返回的字段
 export const ERR_OK = 0

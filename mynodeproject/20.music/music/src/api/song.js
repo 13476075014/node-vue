@@ -1,5 +1,7 @@
-import { commonPramas } from './config.js'
-import axios from 'axios'
+import { commonPramas, axiosdefault } from './config.js'
+import Axios from 'axios'
+Axios.defaults.withCredentials = axiosdefault ? axiosdefault.withCredentials : ''
+Axios.defaults.baseURL = axiosdefault ? axiosdefault.baseURL : ''
 
 export function getLyric (mid) {
     const url = '/api/getLyric'
@@ -13,7 +15,7 @@ export function getLyric (mid) {
         format: 'json'
     })
 
-    return axios.get(url, { params: data }).then(res => {
+    return Axios.get(url, { params: data }).then(res => {
         return Promise.resolve(res.data)
     })
 }

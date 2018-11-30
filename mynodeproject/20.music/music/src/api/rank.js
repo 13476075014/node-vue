@@ -1,6 +1,8 @@
 /* 排行榜的数据抓取 */
-import { commonPramas } from '@/api/config'
+import { commonPramas, axiosdefault } from '@/api/config'
 import axios from 'axios'
+axios.defaults.withCredentials = axiosdefault ? axiosdefault.withCredentials : ''
+axios.defaults.baseURL = axiosdefault ? axiosdefault.baseURL : ''
 
 export function getTopList () {
     // const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg'

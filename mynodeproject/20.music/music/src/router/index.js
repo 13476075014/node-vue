@@ -14,10 +14,11 @@ import userCenter from '@/components/user-center/user-center' */
 
 // 优化上面的组件异步懒加载
 const Recommend = (resolve) => { // 这个是vue提供的结合webpack的import('..')语法实现
-    import('@/components/recommend/recommend').then((recommend) => {
-        resolve(recommend)
-    })
-}
+        import('@/components/recommend/recommend').then((recommend) => {
+            resolve(recommend)
+        })
+    } // 也可以写成  const Recommend = ( ) => import('@/components/recommend/recommend')
+
 const Singer = (resolve) => { // 这个是vue提供的结合webpack的import('..')语法实现
     import('@/components/singer/singer').then((recommend) => {
         resolve(recommend)

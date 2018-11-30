@@ -6,7 +6,10 @@
           <div class="slider-wrapper" v-if="recommends.length > 0">
             <slider>
               <div class="sliderinner" v-for="(item,index) in recommends" :key="index">
-                <a :href="item.linkUrl">
+                <!-- <a :href="item.linkUrl">
+                  <img :src="item.picUrl" alt="">
+                </a> -->
+                <a href="#">
                   <img :src="item.picUrl" alt="">
                 </a>
               </div>

@@ -1,8 +1,17 @@
 // 这个js是项目完成后，build之后，用来用node启动项目的文件
 var express = require('express')
-var config = require('./config/index')
+    // var config = require('./config/index')
 const axios = require('axios')
 var app = express()
+
+app.all('*', function (req, res, next) {
+        res.header('Access-Control-Allow-Origin', 'http://10.202.2.112:8000') // 为了跨域保持session，所以指定地址，不能用*
+        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+        res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+        res.header('Access-Control-Allow-Headers', 'Content-Type')
+        res.header('Access-Control-Allow-Credentials', true) // 是否允许发送cookie
+        next()
+    })
     // 获取推荐的轮播图数据
 app.get('/api/getRecommend', function (req, res) {
     const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'

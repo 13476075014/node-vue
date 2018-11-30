@@ -1,7 +1,10 @@
 // import { commonPramas,options} from './config.js'
-import { commonPramas } from './config.js'
+import { commonPramas, axiosdefault } from './config.js'
 // import jsonp from '_common/js/jsonp.js'
 import Axios from 'axios'
+
+Axios.defaults.withCredentials = axiosdefault ? axiosdefault.withCredentials : ''
+Axios.defaults.baseURL = axiosdefault ? axiosdefault.baseURL : ''
 
 // 获取这些歌手信息在QQ音乐上，没有referer限制就直接用jsonp来实现了
 export function getSingerList () {

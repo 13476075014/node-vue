@@ -7,7 +7,7 @@ import '_common/stylus/index.styl'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import axios from 'axios'
+//import axios from 'axios'
 import VueLazyLoad from 'vue-lazyload'
 import store from './store'
 
@@ -16,6 +16,9 @@ import store from './store'
 fastclick.attach(document.body) //处理页面dom点击的延时问题
 
 Vue.config.productionTip = false
+
+//axios.defaults.withCredentials = true // 打包要用到
+//axios.defaults.baseURL = "http://10.202.2.112:9000" // 打包要用到
 
 Vue.use(VueLazyLoad, {
     loading: require('_common/image/default.png')

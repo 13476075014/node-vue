@@ -1,7 +1,11 @@
 // 这个文件是利用前面进一步封装的jsonp来跨域抓取网上QQ音乐的真实的数据
 // import { commonPramas, options } from './config.js'
-import { commonPramas } from './config.js'
+import { commonPramas, axiosdefault } from './config.js'
 import Axios from 'axios'
+
+Axios.defaults.withCredentials = axiosdefault ? axiosdefault.withCredentials : ''
+Axios.defaults.baseURL = axiosdefault ? axiosdefault.baseURL : ''
+
 // import jsonp from '_common/js/jsonp.js'
 
 // 拉取QQ音乐的首页的轮播图的数据，之前是用的jsonp的方法跨域本地请求，但是由于后面这个QQ网页在请求这个接口的时候，给了一个referer的限制，所以获取不到，后面通过用Axios和在webpack.dev.conf.js中模拟本地接口请求和referer设置，请求得到
