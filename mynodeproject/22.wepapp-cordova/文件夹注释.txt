@@ -1,0 +1,8 @@
+01.hello : 是学习cordova的第一个测试项目 ，里面的index.html是有关于相机，电池等插件的使用方法；里面的vue-index是自己写的vue外卖项目的打包文件，改成index也可以被打包出来。
+
+02.one: 是自己尝试把自己写的音乐项目打包成android的app,yuan-index是最开始的index文件，现在的index是自己打包的音乐项目入口html
+
+
+03.vue-cordova-plugin: 是如何在vue脚手架项目中使用cordova插件的项目，vue是源码，cordova是打包成app的代码
+
+

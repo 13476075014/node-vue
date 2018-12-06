@@ -1,0 +1,4 @@
+#Tue Dec 04 15:15:35 CST 2018
+base.0=E\:\\mynodeproject\\22.wepapp-cordova\\03.vue-cordova-plugin\\cordova\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\5
+path.0=classes.dex
+renamed.0=classes.dex

@@ -1,0 +1,21 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "chunchun.com.haha"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "chunchun.com.haha"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "chunchun.com.haha"
+    }
+  },
+  "dependent_plugins": {}
+}
