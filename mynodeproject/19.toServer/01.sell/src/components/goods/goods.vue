@@ -216,8 +216,8 @@ export default {
                    let inner = els.getElementsByClassName('inner')[0];
                   //inner.style.webkitTransform = 'translate3d(0,0,0)';
                   //inner.style.transform = 'translate3d(0,0,0)';
-                  Velocity(els,{translate3d:"translate3d(0,0,0)"},{duration:600});
-                  Velocity(inner,{translate3d:"translate3d(0,0,0)"},{duration:600,complete:function(){
+                   Velocity(els,{transform:"translate3d(0,0,0)"},{duration:600});
+                  Velocity(inner,{transform:"translate3d(0,0,0)"},{duration:600,complete:function(){
                         done();
                       }
                      });

@@ -5,7 +5,7 @@ const axios = require('axios')
 var app = express()
 
 app.all('*', function (req, res, next) {
-        res.header('Access-Control-Allow-Origin', 'http://10.202.2.112:8000') // 为了跨域保持session，所以指定地址，不能用*
+        res.header('Access-Control-Allow-Origin', '*') // 为了跨域保持session，所以指定地址，不能用*
         res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
         res.header('Access-Control-Allow-Headers', 'X-Requested-With')
         res.header('Access-Control-Allow-Headers', 'Content-Type')
