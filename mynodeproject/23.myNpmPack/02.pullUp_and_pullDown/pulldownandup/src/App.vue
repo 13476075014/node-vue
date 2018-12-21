@@ -18,7 +18,8 @@
 <script>
 //import Pull from '@/lib/pulldownandup'
 //import Pull from '@/lib/gw_pulldown'
-import Pull from '@/lib/pulldownAndUP2'
+//import Pull from '@/lib/pulldownAndUP2'
+import Pull from '@/lib/base/base_scroll'
 
 export default {
   name: 'app',
@@ -30,7 +31,8 @@ export default {
       items:[1,2,3,4,5,6],
       pullDownRefreshObj:{
         threshold:90,
-        stop:50
+        stop:50,
+        txt:"hh"
       }
     }
   },
@@ -38,10 +40,8 @@ export default {
     onPullingDown(){//下拉刷新
       setTimeout(() => {
         if(Math.random() < 0.5) { // 模拟还有数据
-        console.log("1")
-            this.items = this.items.push(1)
+            this.items.push(1)
         }else{ //模拟没有数据
-        console.log("2")
             this.$refs.scroll.forceUpdate()
         }
       },2000)
@@ -61,6 +61,7 @@ export default {
   bottom 0
   left 0
   right 0
+  background red
   .inner
     height 100%
 </style>

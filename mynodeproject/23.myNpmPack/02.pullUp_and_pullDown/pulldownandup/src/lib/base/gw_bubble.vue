@@ -68,7 +68,7 @@
           y: this.headCenter.y + this.distance //下拉高度
         }
         const tailPointL = {
-          x: tailCenter.x - tailRadius, // 
+          x: tailCenter.x - tailRadius, //
           y: tailCenter.y
         }
         const controlPointL = {
@@ -115,7 +115,8 @@
       }
     },
     watch: {
-      y() {
+      y(newy) {
+        console.log(newy)
         this._draw()
       }
     }

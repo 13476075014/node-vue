@@ -23,6 +23,7 @@
         </html>
         `)
         }).catch(err => {
+            res.writeHead({ 'Content-Type': 'text/html;charset=utf-8' })
             res.status(500).end('错误')
         })
     })

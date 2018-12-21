@@ -6,3 +6,4 @@
 03.vue-cordova-plugin: 是如何在vue脚手架项目中使用cordova插件的项目，vue是源码，cordova是打包成app的代码
 
 
+04.是仿的京东金融的app

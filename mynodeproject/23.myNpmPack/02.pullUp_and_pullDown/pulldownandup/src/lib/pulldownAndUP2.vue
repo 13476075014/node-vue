@@ -140,7 +140,7 @@
 
           this.scroll.on('scroll',(pos) => {
             if(this.beforePullDown){
-              this.bubbleY = Math.max(0,pos.y + this.pullDownInitTop)
+              this.bubbleY = Math.max(0,pos.y)
             }else{
               this.bubbleY = 0
             }
@@ -233,5 +233,7 @@
         position absolute
         left 0
         width 100%
+      .scroll_slot
+        background rgb(212,212,212)
 
 </style>
