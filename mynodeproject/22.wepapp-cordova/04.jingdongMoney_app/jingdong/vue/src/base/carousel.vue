@@ -1,7 +1,8 @@
 <template>
-  <el-carousel :interval="4000" type="card">
-    <el-carousel-item style="height:auto!important;" v-for="(item,index) in result" :key="index">
-      <img :src="item.src" alt="刷新看看">
+  <el-carousel ref="carouselOut" class="carouselOut" :interval="4000" type="card">
+    <el-carousel-item v-for="(item,index) in result" :key="index">
+      <img v-if="index == 0" @load="hh"  ref="img" :src="item.src" alt="刷新看看">
+      <img v-if="index != 0"  ref="img" :src="item.src" alt="刷新看看">
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -13,6 +14,26 @@ export default{
     return {
       result: [{'src': require('../assets/imgs/bg1.png')}, {'src': require('../assets/imgs/bg2.jpg')}, {'src': require('../assets/imgs/bg1.png')}]
     }
+  },
+  mounted () {
+    window.addEventListener('resize', () => {
+      this.resizeHeight()
+    })
+  },
+  methods: {
+    resizeHeight () { // 窗口变化的时候重新计算轮播图高度
+      const imgHeight = this.$refs.img[0].height
+      this.$refs.carouselOut.$el.style.height = `${imgHeight + 20}px`
+    },
+    hh () {
+      this.resizeHeight()
+    }
+  },
+  computed: {
+
+  },
+  watch: {
+
   }
 }
 

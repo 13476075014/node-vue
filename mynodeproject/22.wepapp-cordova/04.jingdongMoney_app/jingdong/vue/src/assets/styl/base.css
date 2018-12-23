@@ -45,11 +45,15 @@
     line-height: 45px;
 }
 
+#index .el-carousel {
+    overflow: hidden;
+}
+
 .el-menu--collapse .el-menu .el-submenu,
 .el-menu--popup {
     min-width: 120px;
 }
 
 .el-carousel__container {
-    height: 75px;
+    height: calc(100% - 20px);
 }

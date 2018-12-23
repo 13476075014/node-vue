@@ -21,18 +21,20 @@ export default context => {
             }
 
             Promise.all(matchedComponents.map(component => {
-                    if (component.asyncData) { // 如果有预取的数据在服务器端进行预取
-                        return component.asyncData({
-                            store,
-                            route: router.currentRoute
-                        })
-                    }
-                })).then(() => {
-                    // 把异步完成的vuex的state的值，赋值给整个对外暴露函数的参数
-                    context.state = store.state
-                })
+                if (component.asyncData) { // 如果有预取的数据在服务器端进行预取
+                    return component.asyncData({
+                        store,
+                        route: router.currentRoute
+                    })
+                }
+            })).then(() => {
+                // 把异步完成的vuex的state的值，赋值给整个对外暴露函数的参数
+                context.state = store.state
+
                 //成功就对外暴露vue的实例app
-            resolve(app)
+                resolve(app)
+            }).catch(reject)
+
         }, reject)
     })
 

@@ -4,11 +4,13 @@
     <img ref="showImg" src="">
     <camera @onSuccess="onSuccess" ref="camera" :options="options"></camera>
     <router-view/>
+    <scan></scan>
   </div>
 </template>
 
 <script>
 import Camera from '@/base/cordova-plugin-camera'
+import Scan from '@/base/cordova-plugin-saoyisao'
 
 export default {
   name: 'App',
@@ -31,7 +33,8 @@ export default {
     }
   },
   components: {
-    Camera
+    Camera,
+    Scan
   }
 }
 </script>

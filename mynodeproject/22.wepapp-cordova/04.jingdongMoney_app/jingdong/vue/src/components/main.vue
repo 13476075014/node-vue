@@ -31,8 +31,10 @@
       </div>
     </my-head>
     <div class="content">
-      <carousel></carousel>
-      <sudoku></sudoku>
+      <pull>
+        <carousel></carousel>
+        <sudoku></sudoku>
+      </pull>
     </div>
   <my-bottom></my-bottom>
   <router-view></router-view>
@@ -45,6 +47,7 @@ import myHead from '@/base/head'
 import Carousel from '@/base/carousel'
 import Sudoku from '@/base/sudoku'
 import MyBottom from '@/base/bottom'
+import pull from '@/base/scrollupAndDown' // 上拉加载，下拉刷新的组件
 
 export default {
   data () {
@@ -70,7 +73,8 @@ export default {
     myHead,
     Carousel,
     Sudoku,
-    MyBottom
+    MyBottom,
+    pull
   }
 }
 </script>

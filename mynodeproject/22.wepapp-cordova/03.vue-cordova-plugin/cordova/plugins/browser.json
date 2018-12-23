@@ -15,6 +15,9 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "chunchun.com.haha"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "PACKAGE_NAME": "chunchun.com.haha"
     }
   },
   "dependent_plugins": {}

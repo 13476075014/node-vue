@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Main from '@/components/main'
 import Login from '@/components/login'
 import User from '@/components/user'
+import pull from '@/base/scrollupAndDown'
 
 Vue.use(Router)
 
@@ -19,6 +20,9 @@ export default new Router({
   }, {
     path: '/login',
     component: Login
+  }, {
+    path: '/pull',
+    component: pull
   }, {
     path: '*',
     redirect: 'index'
