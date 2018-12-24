@@ -1,6 +1,6 @@
 # music
 
-> A vue project about music
+> A vue project about music2
 
 ## Build Setup
 

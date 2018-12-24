@@ -1,0 +1,74 @@
+#app {
+    min-height: 100vh;
+}
+
+.login .el-form-item__content {
+    margin-left: 0!important;
+}
+
+.login .el-input__inner {
+    border: none;
+    background: none;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    color: white;
+    padding-left: 30px;
+}
+
+.login .el-input__inner {
+    border-radius: 0;
+}
+
+.login .el-form-item.is-success .el-input__validateIcon {
+    color: rgb(255, 217, 74);
+}
+
+.login .el-form-item.is-success .el-input__inner {
+    border-color: white;
+}
+
+#index .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
+    border-bottom: none;
+}
+
+#index .el-menu--horizontal>.el-submenu .el-submenu__title,
+#index .el-menu.el-menu--horizontal {
+    border-bottom: none;
+}
+
+#index .el-submenu__icon-arrow {
+    display: none;
+}
+
+#index .el-menu--horizontal>.el-submenu {
+    float: right;
+}
+
+#index .el-submenu__title {
+    padding-right: 0;
+}
+
+#index .el-menu--horizontal>.el-submenu .el-submenu__title {
+    height: 45px;
+    line-height: 45px;
+}
+
+#index .el-carousel {
+    overflow: hidden;
+}
+
+.carouselOut .el-carousel__indicators {
+    bottom: 15px;
+}
+
+.carouselOut .el-carousel__button {
+    background: #ffd94a;
+}
+
+.el-menu--collapse .el-menu .el-submenu,
+.el-menu--popup {
+    min-width: 120px;
+}
+
+.el-carousel__container {
+    height: calc(100% - 20px);
+}
