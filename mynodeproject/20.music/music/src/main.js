@@ -9,7 +9,7 @@ import App from './App'
 import router from './router'
 //import axios from 'axios'
 import VueLazyLoad from 'vue-lazyload'
-import store from './store'
+import store from './store/index'
 
 
 

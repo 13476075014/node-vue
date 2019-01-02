@@ -1,5 +1,5 @@
 <template>
-  <div class="simple-scroll-demo">
+  <div class="simple-scroll-demo" :class="{'hasradius':hasradius}">
     <div class="scroll-list-wrap">
       <scroll ref="scroll"
               :data="items"
@@ -29,9 +29,8 @@ export default {
       scrollbar: false, // 滚动条
       scrollbarFade: true,
       pullDownRefresh: true, // 下拉刷新配置
-      pullDownRefreshThreshold: 90, // 下拉刷新离顶部多少触发
+      pullDownRefreshThreshold: 70, // 下拉刷新离顶部多少触发
       pullDownRefreshStop: 50, // 下拉刷新停留在哪里多久
-      pullUpLoad: true,
       pullUpLoadThreshold: 0,
       pullUpLoadMoreTxt: '加载成功',
       pullUpLoadNoMoreTxt: '没有更多数据了',
@@ -41,8 +40,21 @@ export default {
       scrollToTime: 700,
       scrollToEasing: 'bounce',
       scrollToEasingOptions: ['bounce', 'swipe', 'swipeBounce'],
-      items: [],
       itemIndex: 0
+    }
+  },
+  props: {
+    items: {
+      type: Array,
+      default: () => { return [] }
+    },
+    hasradius: {
+      type: Boolean,
+      default: false
+    },
+    pullUpLoad: {
+      type: Boolean,
+      default: true
     }
   },
   created () {
@@ -101,16 +113,20 @@ export default {
       this.$refs.scroll.scrollTo(this.scrollToX, this.scrollToY, this.scrollToTime, ease[this.scrollToEasing])
     },
     onPullingDown () {
+      this.$emit('onPullingDown')
       // 模拟更新数据
-      setTimeout(() => {
-        if (Math.random() > 0.5) {
-          // 如果有新数据
-          this.items.unshift('第几' + +new Date())
-        } else {
-          // 如果没有新数据
-          this.$refs.scroll.forceUpdate()
-        }
-      }, 2000)
+      // setTimeout(() => {
+      //   if (Math.random() > 0.5) {
+      //     // 如果有新数据
+      //     this.items.unshift('第几' + +new Date())
+      //   } else {
+      //     // 如果没有新数据
+      //     this.$refs.scroll.forceUpdate()
+      //   }
+      // }, 1500)
+    },
+    forceUpdate () {
+      this.$refs.scroll.forceUpdate()
     },
     onPullingUp () {
       // 更新数据
@@ -142,20 +158,17 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~@/assets/styl/mixin.styl"
     .simple-scroll-demo
-      position: absolute
-      left: 40px
-      top: 160px
-      right: 40px
-      bottom: 120px
-      // background rgb(242,242,242)
-      background url('../assets/imgs/bg12.jpg') left no-repeat
-      background-size corver
-      border-radius 10px
+      width 100%
+      height 100%
       @media screen and (min-width: 42rem)
         flex: 0 0 23rem
       @media screen and (max-width: 42rem)
         flex: 0 0 100%
         /*margin-bottom: 1rem*/
+      &.hasradius
+        .scroll-list-wrap
+          background rgba(0,0,0,0.2)
+          border-radius 10px
       .scroll-list-wrap
         position relative
         @media screen and (min-width: 42rem)
@@ -167,6 +180,6 @@ export default {
         border: none
         transform: rotate(0deg)
         overflow: hidden
-        background rgba(0,0,0,0.2)
-        border-radius 10px
+        height 100%
+
 </style>

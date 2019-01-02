@@ -12,7 +12,7 @@
 export default{
   data () {
     return {
-      result: [{'src': require('../assets/imgs/bar1.jpg')}, {'src': require('../assets/imgs/bar1.jpg')}, {'src': require('../assets/imgs/bar1.jpg')}]
+      result: [{'src': require('../assets/imgs/bg3.jpg')}, {'src': require('../assets/imgs/bg3.jpg')}, {'src': require('../assets/imgs/bg3.jpg')}]
     }
   },
   mounted () {

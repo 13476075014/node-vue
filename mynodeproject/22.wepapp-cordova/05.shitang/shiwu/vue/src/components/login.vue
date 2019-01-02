@@ -1,6 +1,9 @@
 <template>
 <transition name="slide">
   <div v-if="show" class="login">
+    <div v-if="showLoad" ref="loading" class="loading_out">
+      <loading class="loading"></loading>
+    </div>
     <div class="bg"></div>
     <div class="content">
       <div class="top">
@@ -16,7 +19,7 @@
         </el-form-item>
         <el-form-item class="passOut" prop="pass">
           <i class="iconfont">&#xe63b;</i>
-          <el-input placeholder="密码" class="pass defaultInput" type="password" v-model="ruleForm2.pass" autocomplete="off">
+          <el-input placeholder="密码" class="pass defaultInput" type="password" v-model="ruleForm2.pass">
           </el-input>
         </el-form-item>
         <el-form-item>
@@ -41,6 +44,8 @@
 </template>
 
 <script>
+import Loading from '@/base/loading'
+import {mapMutations} from 'vuex'
 
 export default {
   data () {
@@ -65,9 +70,10 @@ export default {
     return {
       show: false,
       canUse: false,
+      showLoad: false,
       ruleForm2: {
-        pass: '',
-        user: ''
+        pass: '123321',
+        user: 'Sundar'
       },
       rules2: {
         pass: [
@@ -80,6 +86,9 @@ export default {
     }
   },
   created () {
+    if (this.ruleForm2.user && this.ruleForm2.pass) {
+      this.canUse = true
+    }
     setTimeout(() => {
       this.show = true
     }, 20)
@@ -88,7 +97,31 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) { // 验证成功
-          this.$router.push('/')
+          this.showLoad = true
+          this.$axios({
+            method: 'post',
+            url: 'api/AppLogin/Login',
+            data: {
+              'Account': this.ruleForm2.user,
+              'Password': this.ruleForm2.pass
+            }
+          }).then(res => {
+            // console.log(res)
+            if (res.data.Code === 1) { // 验证成功
+              this.setUserToken(res.data.Data)
+              setTimeout(() => { // 为了有登录请求的样式，这里做个延时
+                this.showLoad = false
+                this.$router.push('/index')
+              }, 1000)
+            } else {
+              this.$alert(res.Message, {customClass: 'myConfirm'})
+            }
+          }).catch(res => {
+            this.showLoad = false
+            this.$alert('请求出错！！', {
+              customClass: 'myConfirm'
+            })
+          })
         } else {
           console.log('error submit!!')
           return false
@@ -98,10 +131,21 @@ export default {
     resetForm (formName) {
       this.canUse = false
       this.$refs[formName].resetFields()
-    }
+    },
+    ...mapMutations({
+      'setUserToken': 'SET_USER_TOKEN'
+    })
   },
   components: {
-
+    Loading
+  },
+  watch: {
+    'ruleForm2.pass' (val) {
+      // console.log(val)
+      if (val.pass && val.user) {
+        this.canUse = true
+      }
+    }
   }
 }
 </script>
@@ -110,10 +154,19 @@ export default {
 @import '~@/assets/styl/mixin'
 
 .slide-enter-active
-  transition all linear .5s
+  transition all linear .2s
 .slide-enter,.slide-leave-to
   opacity 0
 .login
+  .loading_out
+    position fixed
+    top 0
+    bottom 0
+    z-index 999
+    background rgba(255,255,255,0.7)
+    width 100%
+    .loading
+      height 100%
   .bg
     width 100%
     position fixed
@@ -121,7 +174,7 @@ export default {
     top 0
     height 100vh
     z-index -1
-    background url('../assets/imgs/bg9.jpg') center no-repeat
+    background url('~@/assets/imgs/bg9.jpg') center no-repeat
     background-size cover
     filter blur(4px)
   .content

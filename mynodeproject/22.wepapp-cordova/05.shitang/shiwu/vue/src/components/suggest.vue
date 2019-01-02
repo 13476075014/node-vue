@@ -17,6 +17,7 @@ export default {
     }
   },
   created () {
+    this.$emit('changtab', '2')
     setTimeout(() => {
       this.show = true
     }, 20)
@@ -28,7 +29,7 @@ export default {
 @import '../assets/styl/mixin'
 
 .leftIn-enter-active
-  transition all linear .5s
+  transition all linear .2s
 .leftIn-enter,.leftIn-leave-to
   transform translateX(100%)
 .suggest

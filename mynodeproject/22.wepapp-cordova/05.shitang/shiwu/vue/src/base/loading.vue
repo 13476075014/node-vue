@@ -11,6 +11,14 @@ export default {
       type: String,
       default: '正在载入...'
     }
+  },
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+
   }
 }
 </script>
@@ -25,5 +33,5 @@ export default {
     .desc
       line-height: 20px
       font-size: 20px
-      color: black
+      color: rgb(88,88,88)
 </style>

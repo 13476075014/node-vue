@@ -116,7 +116,7 @@ export default {
   },
   watch: {
     y (newy) {
-      console.log(newy)
+      // console.log(newy)
       this._draw()
     }
   }

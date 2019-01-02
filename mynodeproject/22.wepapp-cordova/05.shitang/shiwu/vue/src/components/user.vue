@@ -1,25 +1,15 @@
 <template>
   <transition name="leftIn">
     <div class="user" v-if="show">
-      <div class="head">
-        <i @click="goBack" class="el-icon-arrow-left"></i>
-      </div>
       <div class="top">
         <div class="topbg">
 
         </div>
         <div class="card">
           <div class="inner">
-            <div class="left">
-              <div class="img">
-              </div>
-              <div class="desc">
-                  <p>chunchun</p>
-                  <p>至尊会员</p>
-              </div>
-            </div>
-            <div class="right">
-              <el-button type="warning" size="mini" round>警告按钮</el-button>
+            <div>
+              <img src="../assets/imgs/bg7.jpg" alt="">
+              <p>达酱</p>
             </div>
           </div>
         </div>
@@ -29,15 +19,43 @@
           <li>
             <div class="left">
               <div class="fl">
-              </div>
-              <div class="fl">
                 我的消息
               </div>
             </div>
             <div class="right">
-              哈哈哈
+              <i class="el-icon-arrow-right"></i>
             </div>
-
+          </li>
+          <li>
+            <div class="left">
+              <div class="fl">
+                我的建议
+              </div>
+            </div>
+            <div class="right">
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <div class="left">
+              <div class="fl">
+                我的点评
+              </div>
+            </div>
+            <div class="right">
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+           <li>
+            <div class="left">
+              <div class="fl">
+                联系方式
+              </div>
+            </div>
+            <div class="right">
+              <span>13476075014</span>
+              <!-- <i class="el-icon-arrow-right"></i> -->
+            </div>
           </li>
         </ul>
       </div>
@@ -53,14 +71,12 @@ export default {
     }
   },
   created () {
+    this.$emit('changtab', '3')
     setTimeout(() => {
       this.show = true
     }, 20)
   },
   methods: {
-    goBack () {
-      this.$router.back()
-    }
   }
 }
 </script>
@@ -69,7 +85,7 @@ export default {
 @import '../assets/styl/mixin'
 
 .leftIn-enter-active
-  transition all linear .5s
+  transition all linear .2s
 .leftIn-enter,.leftIn-leave-to
   transform translateX(100%)
 .user
@@ -81,43 +97,34 @@ export default {
   z-index 99
   background rgb(244,244,244)
   color $color-text-l
-  .head
-    line-height 30px
-    position fixed
-    top 0
-    left 0
-    width 100%
-    color white
-    padding-left 15px
-    z-index 3
   .top
     position relative
     .topbg
-      background #C30000
+      background $color-text-yellow
       height 80px;
     .card
       position absolute
       width 100%
-      top 60px
-      padding 10px
+      top 30px
+      padding 10px 30px
       .inner
         padding 10px 15px
         background white
         display flex
         align-items center
-        justify-content space-between
-        .left
-          overflow hidden
-          .img
-            float left
-            img
-              width 50px
-          .desc
-            float left
-            line-height 25px
-            margin-left 10px
+        justify-content center
+        border-radius 7px
+        div
+          text-align center
+          color $color-text-ll
+          font-size 14px
+          img
+            width 60px
+            height 60px
+            border-radius 100%
+            margin-bottom 5px
   .coontent
-    padding-top 80px
+    padding-top 70px
     ul
       background white
       margin-top 10px
@@ -135,4 +142,8 @@ export default {
               margin-right 10px
               width 25px
               vertical-align middle
+        .right
+          span
+            color $color-text-ll
+            font-size 12px
 </style>

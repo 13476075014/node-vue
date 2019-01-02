@@ -30,6 +30,7 @@ export default {
   },
   methods: {
     goBack () {
+      this.$emit('back')
       this.$router.back()
     }
   }
