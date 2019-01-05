@@ -29,7 +29,7 @@ export default {
 
     }
   },
-  created () { // http://localhost:55145//Images/Productimg/2018122817263406209998880.jpeg
+  created () {
     setTimeout(() => {
       this.show = true
     }, 20)
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     init () {
-      const arr = [{src: 'http://localhost:55145/' + this.$route.params.img}]
+      const arr = [{src: 'http://212.64.74.12/' + this.$route.params.img}]
       this.results = arr
       if (!this.results.length > 0) {
         this.showNoResult = true

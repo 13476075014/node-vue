@@ -8,7 +8,8 @@ import '@/assets/icon/iconfont.css'
 import elementui from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/styl/base.styl'
-import '@/assets/styl/base.css'
+import '@/assets/styl/resetElement.styl'
+import Jquery from 'jquery'
 import VueLazyLoad from 'vue-lazyload'
 import Axios from 'axios'
 import qs from 'qs'
@@ -16,13 +17,18 @@ import qs from 'qs'
 Vue.config.productionTip = false
 
 // Axios.defaults.withCredentials = true
-Axios.defaults.baseURL = 'http://localhost:60986/'
+// Axios.defaults.baseURL = 'http://10.202.2.112:60986/'
+// Axios.defaults.baseURL = 'http://212.64.74.12:8060/'
+Axios.defaults.baseURL = 'http://chenxiaoming.canteen.sundar.top:8060/'
 Axios.interceptors.request.use(function (config) {
-  config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-  if (config.method === 'post') {
-    config.data = qs.stringify({
-      ...config.data
-    })
+  console.log(config)
+  if (!config.url.match('isformdata=0')) {
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    if (config.method === 'post') {
+      config.data = qs.stringify({
+        ...config.data
+      })
+    }
   }
   return config
 }, function (error) {
@@ -36,6 +42,7 @@ Vue.use(VueLazyLoad, {
 })
 
 Vue.prototype.$axios = Axios
+Vue.prototype.$jquery = Jquery
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

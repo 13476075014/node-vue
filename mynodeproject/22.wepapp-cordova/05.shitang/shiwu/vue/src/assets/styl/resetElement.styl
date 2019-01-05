@@ -1,0 +1,97 @@
+#app
+  min-height 100vh
+
+/*登录页*/
+.login
+  .loginform
+    .el-form-item__content
+      margin-left 0!important
+    .el-input__inner
+      border none
+      background none
+      border-bottom 1px solid rgb(222, 222, 222)
+      color white
+      padding-left 30px
+    .el-input__inner
+      border-radius 0
+    .el-form-item.is-success
+      .el-input__validateIcon
+        color rgb(255, 217, 74)
+    .el-form-item.is-success
+      .el-input__inner
+        border-color white
+  .signupForm
+    .el-input__inner
+      height 30px
+      line-height 30px
+    .el-form-item__content
+      line-height 30px
+    .el-form-item__label
+      line-height 30px
+
+/*首页*/
+#index
+  .el-menu--horizontal>.el-submenu.is-active
+    .el-submenu__title
+      border-bottom none
+  .el-menu--horizontal>.el-submenu .el-submenu__title,.el-menu.el-menu--horizontal
+    border-bottom none
+  .el-submenu__icon-arrow
+    display none
+  .el-menu--horizontal>.el-submenu
+    float right
+  .el-submenu__title
+    padding-right 0
+  .el-menu--horizontal>.el-submenu
+    .el-submenu__title
+      height 45px
+      line-height 45px
+  .el-carousel
+    overflow hidden
+
+/*轮播图*/
+.carouselOut
+  .el-carousel__indicators
+    bottom 15px
+  .el-carousel__button
+    background #ffd94a
+  .el-carousel__container
+    height calc(100% - 20px)
+
+.el-menu--collapse
+  .el-menu
+    .el-submenu
+      min-width 120px
+.el-menu--popup
+  min-width 120px
+
+
+/* 弹框的修改 */
+.el-form-item
+  margin-bottom 20px
+
+.myConfirm
+  width 220px
+
+.el-dialog
+  width 80%!important
+
+.el-dialog__body
+  padding 5px 10px
+
+.dialog-footer
+  &.text-center
+    text-align center
+    width 100%
+    display block
+
+/*消息框的最小宽度适应手机的大小*/
+.el-message
+  min-width 280px
+  max-width 280px
+
+
+/*建议页面*/
+.formSuggest
+  .el-form-item__content
+    text-align left

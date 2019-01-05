@@ -19,7 +19,7 @@ export default {
   },
   data () {
     return {
-      result: [{text: '首页', icon: '&#xe691;', path: '/'}, {text: '点评', icon: '&#xe621;', path: '/rate'}, {text: '建议', icon: '&#xe62c;', path: '/suggest'}, {text: '我的', icon: '&#xe63d;', path: '/user'}]
+      result: [{text: '首页', icon: '&#xe691;', path: '/'}, {text: '点评', icon: '&#xe621;', path: '/allrate'}, {text: '建议', icon: '&#xe62c;', path: '/suggest'}, {text: '我的', icon: '&#xe63d;', path: '/user'}]
     }
   },
   methods: {

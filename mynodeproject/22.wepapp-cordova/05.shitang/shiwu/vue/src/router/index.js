@@ -16,8 +16,10 @@ const Main = () =>
     import('@/components/main')
 const Login = () =>
     import('@/components/login')
-const Rate = () =>
-    import('@/components/rate')
+const MyRate = () =>
+    import('@/components/myrate')
+const AllRate = () =>
+    import('@/components/allrate')
 const User = () =>
     import('@/components/user')
 const Suggest = () =>
@@ -41,8 +43,11 @@ export default new Router({
       path: 'user',
       component: User
     }, {
-      path: 'rate',
-      component: Rate
+      path: 'myrate',
+      component: MyRate
+    }, {
+      path: 'allrate',
+      component: AllRate
     }, {
       path: 'suggest',
       component: Suggest

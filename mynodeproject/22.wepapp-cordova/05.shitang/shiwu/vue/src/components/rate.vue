@@ -13,26 +13,26 @@
       </div>
     </div>
     <div class="content">
-      <pull :items="items" class="pull">
+      <pull @onPullingDown="onPullingDown" :pullUpLoad="pullUpLoad" :items="items" class="pull">
         <ul>
-          <li @click="selectRate(item)" v-for="(item,index) in 6" :key="index">
+          <li @click="selectRate(item)" v-for="(item,index) in items" :key="index">
             <div class="date">
-              2018-01-22
+              {{item.CreateTime.substring(0,10)}}
             </div>
             <div class="main">
               <div class="avatar">
                 <p><img src="../assets/imgs/bar1.jpg" alt=""></p>
-                <p class="text">张三</p>
+                <p class="text">{{item.UserID}}</p>
               </div>
               <div class="desc">
                 <div class="block">
                   <el-rate
                     class="star"
                     disabled
-                    v-model="items[index]">
+                    v-model="item['Star']">
                   </el-rate>
                 </div>
-                <p class="text">饿哦说或或或或或或或或或或或或</p>
+                <p class="text">{{item.ContentMsg}}</p>
               </div>
             </div>
           </li>
@@ -45,41 +45,70 @@
 
 <script>
 import pull from '@/base/scrollupAndDown'
-import {mapState} from 'vuex'
 
 export default {
+  props: {
+    url: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       show: {
         type: Boolean,
         default: false
       },
-      items: [1, 2, 3, 4, 5, 6],
-      val: 3.5
+      items: [],
+      pullUpLoad: false
     }
   },
   created () {
-    this.$emit('changtab', '1')
+    this.init()
     setTimeout(() => {
       this.show = true
     }, 20)
   },
+  activated () { // 每次进来都会调用这个
+    if (this.$route.params.refresh === 0) { // 设置的让强制刷新页面
+      this.init()
+    }
+  },
   methods: {
     selectRate (item) {
-      this.$confirm('哈哈哈哈哈哈哈哈哈', '详细评论', {
+      this.$alert(item.ContentMsg, '详细评论', {
         confirmButtonText: '确定',
-        type: 'warning',
         customClass: 'myConfirm'
       })
     },
     init () { // 获取初始值
-      this.$axios.get(`api/APPProduct/GetMyCommentProductList?CanteenToken=${this.userToken}`).then(res => {
-
+      this.$axios.get(this.url).then(res => {
+        // console.log(res)
+        console.log(this.url)
+        if (res.data.Code === 1) {
+          this.items = res.data.Data
+        } else {
+          console.log(res)
+        }
+      }).catch(res => {
+        const me = res.response.data.Message
+        const str = 'Token'
+        if (me.match(str)) { // 如果是token不正确，就转到登录页面
+          this.$message({message: '登录过期，请重新登录，即将跳转到登录页面！！', duration: 2200})
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 2000)
+        }
       })
+    },
+    onPullingDown () { // 下拉刷新
+      setTimeout(() => {
+        this.init()
+      }, 1000)
     }
   },
   computed: {
-    ...mapState(['userToken'])
+
   },
   components: {
     pull
@@ -105,7 +134,7 @@ export default {
   color $color-text-l
   text-align center
   .top
-    padding 40px 0
+    padding 30px 0
     background url('../assets/imgs/bg14.jpg') center no-repeat
     background-size cover
     .inner
@@ -133,10 +162,12 @@ export default {
         color rgb(188,188,188)
   .content
     position absolute
-    top 130px
+    top 110px
     bottom 0px
     width 100%
     .pull
+      ul
+        padding-bottom 30px
       li
         width 90%
         margin 0 auto
@@ -167,6 +198,7 @@ export default {
               border-radius 100%
               border 1px solid $color-text-yellow
           .desc
+            flex 1
             text-align left
             padding-left 50px
             .text

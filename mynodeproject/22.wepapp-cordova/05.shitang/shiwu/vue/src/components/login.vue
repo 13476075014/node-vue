@@ -10,9 +10,9 @@
         <div class="img">
           <img src="../assets/imgs/bar1.jpg" alt="">
         </div>
-        <p>校园食堂</p>
+        <p>智慧食堂</p>
       </div>
-      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm loginform">
         <el-form-item style="" label="" prop="user">
           <i class="iconfont">&#xe63d;</i>
           <el-input placeholder="用户名" class="user defaultInput" v-model="ruleForm2.user"></el-input>
@@ -24,20 +24,43 @@
         </el-form-item>
         <el-form-item>
           <el-button :class='{btn:true,canUse:canUse}' type="primary" @click="submitForm('ruleForm2')">登录</el-button>
-          <el-button class="btn btn_reset" @click="resetForm('ruleForm2')">重置</el-button>
-          <!-- <div class="moreLoginWay">
-            <el-row>
-              <el-col :span="12">
-                短信验证登录
-              </el-col>
-              <el-col style="text-align:right;" :span="12">
-                手机快速注册
-              </el-col>
-            </el-row>
-          </div> -->
+          <!-- <el-button class="btn btn_reset" @click="resetForm('ruleForm2')">重置</el-button> -->
+          <el-button class="btn btn_reset" @click="signUp">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
+
+    <!-- 注册 -->
+    <el-dialog
+    title="注册"
+    style="text-align:center"
+    :show-close="showClose"
+    :visible.sync="dialogVisible">
+    <el-form status-icon class="demo-ruleForm signupForm" :rules="signUpFormRules" ref="signUpForm" :model="signUpForm" label-width="70px">
+      <el-form-item prop="Sex" label="性别：">
+        <el-select v-model="signUpForm.Sex" placeholder="请选择性别">
+          <el-option label="男" value="0"></el-option>
+          <el-option label="女" value="1"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item prop="Account" label="用户名：">
+        <el-input type="text" placeholder="请填写用户名" v-model="signUpForm.Account"></el-input>
+      </el-form-item>
+      <el-form-item prop="Password" label="密码：">
+        <el-input type="password" placeholder="请填写密码" v-model="signUpForm.Password"></el-input>
+      </el-form-item>
+      <el-form-item prop="Name" label="姓名：">
+        <el-input type="text" placeholder="请填写姓名" v-model="signUpForm.Name"></el-input>
+      </el-form-item>
+      <el-form-item prop="Mobile" label="手机号：">
+        <el-input type="text" placeholder="请填写手机号" v-model="signUpForm.Mobile"></el-input>
+      </el-form-item>
+    </el-form>
+    <span slot="footer" class="dialog-footer text-center">
+      <el-button size="small" @click="dialogVisible = false">取 消</el-button>
+      <el-button size="small" type="primary" @click="submitsignUpForm('signUpForm')">确 定</el-button>
+    </span>
+  </el-dialog>
   </div>
 </transition>
 
@@ -45,13 +68,13 @@
 
 <script>
 import Loading from '@/base/loading'
-import {mapMutations} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
   data () {
     var checkUser = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('用户名不能为空'))
+        return callback(new Error('不能为空'))
       } else {
         callback()
       }
@@ -71,18 +94,26 @@ export default {
       show: false,
       canUse: false,
       showLoad: false,
+      showClose: false,
+      dialogVisible: false,
       ruleForm2: {
-        pass: '123321',
-        user: 'Sundar'
+        pass: '', // '123321',
+        user: '' // 'Sundar'
       },
+      signUpForm: {Sex: '0', Account: '', Password: '', Name: '', Mobile: ''},
       rules2: {
         pass: [
-          { validator: validatePass, trigger: 'blur' }
+          { validator: validatePass, trigger: 'change' }
         ],
         user: [
           { validator: checkUser, trigger: 'blur' }
         ]
+      },
+      signUpFormRules: { // 注册表的验证
+        Account: [{ validator: checkUser, trigger: 'blur' }],
+        Password: [{ validator: checkUser, trigger: 'blur' }]
       }
+
     }
   },
   created () {
@@ -94,7 +125,7 @@ export default {
     }, 20)
   },
   methods: {
-    submitForm (formName) {
+    submitForm (formName) { // 登录接口
       this.$refs[formName].validate((valid) => {
         if (valid) { // 验证成功
           this.showLoad = true
@@ -106,7 +137,6 @@ export default {
               'Password': this.ruleForm2.pass
             }
           }).then(res => {
-            // console.log(res)
             if (res.data.Code === 1) { // 验证成功
               this.setUserToken(res.data.Data)
               setTimeout(() => { // 为了有登录请求的样式，这里做个延时
@@ -114,9 +144,12 @@ export default {
                 this.$router.push('/index')
               }, 1000)
             } else {
-              this.$alert(res.Message, {customClass: 'myConfirm'})
+              this.resetForm(formName)
+              this.showLoad = false
+              this.$alert(res.data.Message, {customClass: 'myConfirm'})
             }
           }).catch(res => {
+            this.resetForm(formName)
             this.showLoad = false
             this.$alert('请求出错！！', {
               customClass: 'myConfirm'
@@ -128,13 +161,32 @@ export default {
         }
       })
     },
-    resetForm (formName) {
+    resetForm (formName) { // 重置表格数据
       this.canUse = false
       this.$refs[formName].resetFields()
+    },
+    signUp () { // 注册
+      this.dialogVisible = true
+    },
+    submitsignUpForm (form) { // 注册接口
+      this.$axios.post(`api/AppUser/Add?CanteenToken=${this.userToken}`, {...this.signUpForm}).then(res => {
+        console.log(res)
+        if (res.data.Code === 1) { // 注册成功
+          this.dialogVisible = false
+          this.$message({message: '注册成功，可以用此账号登录啦！！', type: 'success'})
+        } else {
+          this.$alert(res.data.data.Message, {customClass: 'myConfirm'})
+        }
+      }).catch(res => {
+
+      })
     },
     ...mapMutations({
       'setUserToken': 'SET_USER_TOKEN'
     })
+  },
+  computed: {
+    ...mapState(['userToken'])
   },
   components: {
     Loading
@@ -224,8 +276,6 @@ export default {
       color $color-text-yellow
   .passOut
     position relative
-  .moreLoginWay
-    color $color-text-ll
   .iconfont
     position absolute
     left 0

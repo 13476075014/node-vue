@@ -51,8 +51,8 @@
 14.在用ajax上传图片类型数据的时候，老是报错 非法调用。
 	出错原因：原来是ajax在上传数据的时候，有一个processData:true/false,的参数，这个参数默认是true,
 		  就是会把数据类型转换为对象，这里是传的form文件类型，不需要在转换，
-	解决：把这个processData:false,设置成false就可以了。
-
+	解决：把这个processData:false,设置成false就可以了。如果还是不行，就需要修改		
+		contentType这个参数，因为格式可能会被ajax改变，这里是阻止改变。
 
 
 

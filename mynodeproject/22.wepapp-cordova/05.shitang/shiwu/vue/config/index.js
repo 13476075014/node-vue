@@ -56,9 +56,9 @@ module.exports = {
          * Source Maps
          */
 
-    productionSourceMap: true,
+    productionSourceMap: false, // 是一个参数在后面webpack打包的时候设置webpack的source map ，这个属性是来指定是否需要追踪报错的原文件位置。如果在正式环境中不需要去找到报错位置，这里可以设置成false，减小打包的文件大小，优化加载速度。
     // https://webpack.js.org/configuration/devtool/#production
-    devtool: '#source-map',
+    devtool: '#source-map', // 生成source map的方法，是否用这个由上面的productionSourceMap决定。
 
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.

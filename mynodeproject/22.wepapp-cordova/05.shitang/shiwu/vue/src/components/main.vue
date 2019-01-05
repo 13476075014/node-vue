@@ -22,7 +22,9 @@
             <el-menu-item @click="logout" index="2-1">
               退出
             </el-menu-item>
-            <el-menu-item index="2-2">首页</el-menu-item>
+            <router-link to='/index'>
+              <el-menu-item index="2-2">首页</el-menu-item>
+            </router-link>
             <router-link to="/index/user">
               <el-menu-item index="2-3">个人中心</el-menu-item>
             </router-link>
@@ -74,8 +76,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer text-center">
-      <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="submitFormRate('rateForm')">确 定</el-button>
+      <el-button size="small" @click="dialogVisible = false">取 消</el-button>
+      <el-button size="small" type="primary" @click="submitFormRate('rateForm')">确 定</el-button>
     </span>
   </el-dialog>
   <keep-alive>
@@ -107,7 +109,7 @@ export default {
       activebottom: 0,
       activeIndex2: '1',
       collapse_transition: true,
-      headTitle: '校园食堂',
+      headTitle: '智慧食堂',
       hasradius: true,
       showArrow: false,
       dialogVisible: false,
@@ -157,14 +159,14 @@ export default {
       console.log(key, keyPath)
     },
     back () {
-      this.headTitle = '校园食堂'
+      this.headTitle = '智慧食堂'
       this.showArrow = false
     },
     changeTab (index, path, text) { // 底部tab点击事件
       this.activebottom = index * 1
       this.$router.push('/index' + path)
       if (index === 0) {
-        text = '校园食堂'
+        text = '智慧食堂'
       }
       this.headTitle = text
     },
@@ -223,20 +225,30 @@ export default {
             method: 'get',
             url: `api/APPProduct/CommentProduct?productID=${this.rateForm.productID}&star=${this.rateForm.star}&Content=${this.rateForm.Content}&CanteenToken=${this.userToken}`
           }).then(res => {
-            console.log(res)
+            // console.log(res)
             if (res.data.Code === 1) { // 验证成功
               this.$message({message: '操作成功', type: 'success'})
               this.dialogVisible = false
+              this.$router.push('index/allrate')
             } else {
               this.$message({message: res.data.Message, type: 'error'})
               this.dialogVisible = false
             }
             this.$refs['rateForm'].resetFields()
           }).catch(res => {
-            this.$refs['rateForm'].resetFields()
-            this.$alert('请求出错！！', {
-              customClass: 'myConfirm'
-            })
+            const me = res.response.data.Message
+            const str = 'Token'
+            if (me.match(str)) { // 如果是token不正确，就转到登录页面
+              this.$message({message: '登录过期，请重新登录，即将跳转到登录页面！！', duration: 2200})
+              setTimeout(() => {
+                this.$router.push('/login')
+              }, 2000)
+            } else {
+              this.$refs['rateForm'].resetFields()
+              this.$alert('请求出错！！', {
+                customClass: 'myConfirm'
+              })
+            }
           })
         } else {
           this.$refs['rateForm'].resetFields()

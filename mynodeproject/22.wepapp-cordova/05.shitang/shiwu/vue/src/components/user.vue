@@ -1,6 +1,9 @@
 <template>
   <transition name="leftIn">
     <div class="user" v-if="show">
+      <div v-if="showLoad" ref="loading" class="loading_out">
+        <loading :title="loadTitle" class="loading"></loading>
+      </div>
       <div class="top">
         <div class="topbg">
 
@@ -8,13 +11,13 @@
         <div class="card">
           <div class="inner">
             <div>
-              <img src="../assets/imgs/bg7.jpg" alt="">
-              <p>达酱</p>
+              <img @click="updateImg" :src="items.HeadImg ? 'http://chenxiaoming.canteen.sundar.top:8060/' + items.HeadImg : require('../assets/imgs/bg7.jpg')" alt="">
+              <p>{{items.Account}}</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="coontent">
+      <div class="content">
         <ul>
           <li>
             <div class="left">
@@ -36,6 +39,7 @@
               <i class="el-icon-arrow-right"></i>
             </div>
           </li>
+          <router-link to='/index/myrate'>
           <li>
             <div class="left">
               <div class="fl">
@@ -46,6 +50,7 @@
               <i class="el-icon-arrow-right"></i>
             </div>
           </li>
+          </router-link>
            <li>
             <div class="left">
               <div class="fl">
@@ -53,30 +58,144 @@
               </div>
             </div>
             <div class="right">
-              <span>13476075014</span>
+              <span>{{items.Mobile}}</span>
               <!-- <i class="el-icon-arrow-right"></i> -->
             </div>
           </li>
         </ul>
+        <div class="sub">
+          <el-button type="primary" class="btn" @click="signout()">注销</el-button>
+        </div>
       </div>
+      <el-dialog
+        title="上传头像"
+        :append-to-body='appendToBody'
+        style="text-align:center"
+        :visible.sync="dialogVisible">
+
+          <el-upload
+            class="avatar-uploader"
+            action=""
+            :auto-upload="false"
+            :show-file-list="false"
+            :on-change="handleChange">
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        <span slot="footer" class="dialog-footer text-center">
+          <el-button size="small" @click="dialogVisible = false">取 消</el-button>
+          <el-button size="small" type="primary" @click="submitImgForm()">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
   </transition>
 </template>
 
 <script>
+import {mapState, mapMutations} from 'vuex'
+import Loading from '@/base/loading'
+import {clearUserToken} from '@/store/cache'
+
 export default {
   data () {
     return {
-      show: false
+      show: false,
+      items: [],
+      showLoad: false,
+      loadTitle: '正在注销',
+      dialogVisible: false,
+      appendToBody: true,
+      imageUrl: ''
     }
   },
   created () {
     this.$emit('changtab', '3')
+    this.init()
     setTimeout(() => {
       this.show = true
     }, 20)
   },
   methods: {
+    init () {
+      this.$axios.get(`api/AppUser/GetUserInfo?CanteenToken=${this.userToken}`).then(res => {
+        console.log(res)
+        if (res.data.Code === 1) {
+          this.items = res.data.Data
+        }
+      })
+    },
+    signout () { // 退出事件
+      // this.$router.push('/login')
+      this.showLoad = true
+      if (this.userToken) {
+        this.$axios({
+          method: 'post',
+          url: 'api/AppLogin/Logout?token=' + this.userToken
+        }).then(res => {
+          if (res.data.Code === 1) {
+            setTimeout(() => {
+              this.showLoad = false
+              this.setUserToken(clearUserToken())
+              this.$router.push('/login')
+            }, 1000)
+          } else {
+            setTimeout(() => {
+              this.showLoad = false
+              console.log(res.data.Message)
+              this.$router.push('/login')
+            }, 1000)
+          }
+        }).catch(res => {
+          this.showLoad = false
+          this.$alert('请求错误', {
+            customClass: 'myConfirm'
+          })
+          this.$router.push('/login')
+        })
+      } else {
+        this.$router.push('/login')
+      }
+    },
+    updateImg () { // 上传头像
+      this.dialogVisible = true
+    },
+    handleChange (file, fileList) {
+      this.files = file.raw
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    submitImgForm () {
+      let myformData = new FormData()
+      myformData.append('file', this.files)
+      this.$axios.post(`api/AppUser/UpdateUserHeadImg?CanteenToken=${this.userToken}&isformdata=0`, myformData, {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+        console.log(res)
+        if (res.data.Code === 1) {
+          this.dialogVisible = false
+          this.$message({message: '上传成功', type: 'success'})
+          this.init()
+        }
+      }).catch(res => {
+        const me = res.response.data.Message
+        if (me.match('Token')) { // 如果是token不正确，就转到登录页面
+          this.$message({message: '登录过期，请重新登录，即将跳转到登录页面！！', duration: 2200})
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 2000)
+        } else {
+          this.$alert('请求出错！！', {
+            customClass: 'myConfirm'
+          })
+        }
+      })
+    },
+    ...mapMutations({
+      'setUserToken': 'SET_USER_TOKEN'
+    })
+  },
+  computed: {
+    ...mapState(['userToken'])
+  },
+  components: {
+    Loading
   }
 }
 </script>
@@ -84,6 +203,8 @@ export default {
 <style lang="stylus" scoped>
 @import '../assets/styl/mixin'
 
+a
+  color $color-text-l
 .leftIn-enter-active
   transition all linear .2s
 .leftIn-enter,.leftIn-leave-to
@@ -97,6 +218,10 @@ export default {
   z-index 99
   background rgb(244,244,244)
   color $color-text-l
+  .loading
+    position absolute
+    top 100px
+    z-index 2
   .top
     position relative
     .topbg
@@ -123,8 +248,17 @@ export default {
             height 60px
             border-radius 100%
             margin-bottom 5px
-  .coontent
+  .content
     padding-top 70px
+    .sub
+      padding-top 30px
+      text-align center
+      .btn
+        background $color-text-yellow
+        color white
+        border none
+        line-height 25px
+        padding 2px 40px
     ul
       background white
       margin-top 10px
@@ -146,4 +280,17 @@ export default {
           span
             color $color-text-ll
             font-size 12px
+.avatar-uploader-icon
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+
+.avatar
+  width: 178px;
+  height: 178px;
+  display: block;
+
 </style>
