@@ -1,5 +1,5 @@
 <template>
-  <el-carousel ref="carouselOut" class="carouselOut" :interval="2000" >
+  <el-carousel ref="carouselOut" class="carouselOut" :interval="4000" >
     <el-carousel-item v-for="(item,index) in result" :key="index">
       <img v-if="index == 0" @load="hh"  ref="img" :src="item.src" alt="刷新看看">
       <img v-if="index != 0"  ref="img" :src="item.src" alt="刷新看看">
@@ -12,7 +12,7 @@
 export default{
   data () {
     return {
-      result: [{'src': require('../assets/imgs/bg3.jpg')}, {'src': require('../assets/imgs/bg3.jpg')}, {'src': require('../assets/imgs/bg3.jpg')}]
+      result: [{'src': require('../assets/imgs/bg3.jpg')}, {'src': require('../assets/imgs/bg4.jpg')}, {'src': require('../assets/imgs/bg7.jpg')}]
     }
   },
   mounted () {

@@ -21,7 +21,7 @@ Vue.config.productionTip = false
 // Axios.defaults.baseURL = 'http://212.64.74.12:8060/'
 Axios.defaults.baseURL = 'http://chenxiaoming.canteen.sundar.top:8060/'
 Axios.interceptors.request.use(function (config) {
-  console.log(config)
+  // console.log(config)
   if (!config.url.match('isformdata=0')) {
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     if (config.method === 'post') {

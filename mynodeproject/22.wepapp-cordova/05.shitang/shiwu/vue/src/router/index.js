@@ -46,6 +46,7 @@ export default new Router({
       path: 'myrate',
       component: MyRate
     }, {
+      name: 'allrate',
       path: 'allrate',
       component: AllRate
     }, {

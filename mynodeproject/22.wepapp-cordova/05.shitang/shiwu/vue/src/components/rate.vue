@@ -83,9 +83,8 @@ export default {
     },
     init () { // 获取初始值
       this.$axios.get(this.url).then(res => {
-        // console.log(res)
-        console.log(this.url)
         if (res.data.Code === 1) {
+          console.log(res)
           this.items = res.data.Data
         } else {
           console.log(res)

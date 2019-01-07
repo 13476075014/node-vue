@@ -41,8 +41,8 @@
           <p>{{nowDay}}</p>
           <p>{{nowWeek}}</p>
           <ul>
-            <li @click="selectFood(item.ImageUrl,item.Name)" v-for="(item,index) in items" :key="index">
-              {{item.Name}}
+            <li @click="selectFood(item.Id,item.Name)" v-for="(item,index) in items" :key="index">
+              {{item.Name}} <i v-if="item.IsRecommend" class="iconfont recommend">&#xe62a;</i><i v-if="item.IsGood" class="iconfont recommend">&#xe668;</i>
             </li>
           </ul>
         </pull>
@@ -113,12 +113,12 @@ export default {
       hasradius: true,
       showArrow: false,
       dialogVisible: false,
-      showLoad: false,
+      showLoad: true,
       show: false,
       pullUpLoad: false, // 关闭上拉加载
       showClose: false,
       rateForm: {Content: '', star: 0, productID: ''},
-      loadTitle: '正在退出',
+      loadTitle: '正在加载',
       items: [],
       rateRules: {
         Content: [
@@ -145,8 +145,12 @@ export default {
         console.log(res)
         if (res.data.Code === 1) { // 获取数据成功
           this.items = res.data.Data
+        } else {
+          this.$alert(`加载失败：${res.data.Message}`)
         }
+        this.showLoad = false
       }).catch(res => {
+        this.showLoad = false
         this.$refs.pull.forceUpdate()
       })
     },
@@ -163,6 +167,7 @@ export default {
       this.showArrow = false
     },
     changeTab (index, path, text) { // 底部tab点击事件
+      this.showArrow = false
       this.activebottom = index * 1
       this.$router.push('/index' + path)
       if (index === 0) {
@@ -176,7 +181,7 @@ export default {
       }
     },
     logout () { // 退出事件
-      // this.$router.push('/login')
+      this.loadTitle = '正在退出'
       this.showLoad = true
       if (this.userToken) {
         this.$axios({
@@ -192,7 +197,7 @@ export default {
           } else {
             setTimeout(() => {
               this.showLoad = false
-              console.log(res.data.Message)
+              // console.log(res.data.Message)
               this.$router.push('/login')
             }, 1000)
           }
@@ -207,10 +212,10 @@ export default {
         this.$router.push('/login')
       }
     },
-    selectFood (item, name) {
+    selectFood (Id, name) {
       this.headTitle = name
       this.showArrow = true
-      this.$router.push({name: 'foodDetail', params: {img: item}})
+      this.$router.push({name: 'foodDetail', params: {Id: Id}})
     },
     submitForm () { // 提交点评
       this.dialogVisible = true
@@ -229,7 +234,8 @@ export default {
             if (res.data.Code === 1) { // 验证成功
               this.$message({message: '操作成功', type: 'success'})
               this.dialogVisible = false
-              this.$router.push('index/allrate')
+              this.activebottom = 1
+              this.$router.push({name: 'allrate', params: {refresh: 0}})
             } else {
               this.$message({message: res.data.Message, type: 'error'})
               this.dialogVisible = false
@@ -361,11 +367,16 @@ export default {
     p
       padding-top 5px
   ul
-    padding 0 30px
+    padding 0 30px 30px
     li
+      font-size 14px
       margin-top 10px
       background white
       border-radius 5px
       line-height 30px
       cursor pointer
+      .recommend
+        color red
+        font-size 22px
+        vertical-align middle
 </style>
