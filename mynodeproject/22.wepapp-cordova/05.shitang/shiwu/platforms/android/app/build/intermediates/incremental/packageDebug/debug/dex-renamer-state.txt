@@ -1,4 +1,4 @@
-#Mon Jan 07 17:36:52 CST 2019
+#Fri Jan 11 16:14:31 CST 2019
 base.0=E\:\\mynodeproject\\22.wepapp-cordova\\05.shitang\\shiwu\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

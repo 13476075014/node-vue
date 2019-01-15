@@ -18,13 +18,13 @@
         <ul>
           <li v-for="(item,index) in items" :key="index">
             <div class="left">
-              <img src="../assets/imgs/bg12.jpg" alt="">
+              <img :src="require('../assets/imgs/bg12.jpg')" alt="">
             </div>
             <div class="right">
               <p class="user">{{item.UserName}}</p>
               <p>{{item.SuggestMsg}}</p>
               <div class="foodImg">
-                <img v-for="(img,index2) in item.Images" :key="index2" :src="img" alt="">
+                <img v-for="(img,index2) in item.Images" @click="showImg(img)" :key="index2" :src="img" alt="">
               </div>
               <div class="desc">
                 <div class="fl">
@@ -124,7 +124,9 @@ export default {
   },
   methods: {
     onPullingDown () {
-
+      setTimeout(() => {
+        this.init()
+      }, 1000)
     },
     init () {
       this.$axios.get(`api/Suggest/GetSuggestAll?CanteenToken=${this.userToken}`).then(res => {
@@ -136,12 +138,7 @@ export default {
       }).catch(res => {
         // console.log(res.response)
         const me = res.response.data.Message
-        if (me.match('Token')) { // 如果是token不正确，就转到登录页面
-          this.$message({message: '登录过期，请重新登录，即将跳转到登录页面！！', duration: 2200})
-          setTimeout(() => {
-            this.$router.push('/login')
-          }, 2000)
-        } else {
+        if (!me.match('Token')) { // 如果是token不正确，就转到登录页面
           this.$alert('请求出错！！', {
             customClass: 'myConfirm'
           })
@@ -207,6 +204,9 @@ export default {
     },
     handleChange (file, fileList) {
       this.myfiles.push(file)
+    },
+    showImg (img) {
+      this.$alert(`<div style="text-align:center;"><img style="width:90%;" src="${img}" /></div>`, {dangerouslyUseHTMLString: true, customClass: 'myConfirm'})
     }
 
   },
@@ -309,6 +309,7 @@ export default {
               img
                 width 25%
                 height 30px
+                margin-right 5px
             .desc
               text-align right
               font-size 12px

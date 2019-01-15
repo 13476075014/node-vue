@@ -10,6 +10,7 @@ import mutations from './mutation'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'PRODUCTION'
+console.log(debug)
 
 export default new Vuex.Store({
   actions,
@@ -17,5 +18,5 @@ export default new Vuex.Store({
   mutations,
   state,
   strict: debug,
-  plugin: debug ? [createLogger()] : []
+  plugins: debug ? [createLogger()] : []
 })

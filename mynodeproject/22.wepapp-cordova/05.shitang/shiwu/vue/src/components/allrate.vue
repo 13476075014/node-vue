@@ -1,7 +1,7 @@
 <template>
-  <div class="allrate">
-    <rate :url="url"></rate>
-  </div>
+<transition class="allrate" name="leftIn">
+    <rate :url="url" v-if="show"></rate>
+</transition>
 </template>
 
 <script>
@@ -11,11 +11,14 @@ import {mapState} from 'vuex'
 export default {
   data () {
     return {
-
+      show: false
     }
   },
   created () {
     this.$emit('changtab', '1')
+    setTimeout(() => {
+      this.show = true
+    }, 20)
   },
   computed: {
     url () {
@@ -30,6 +33,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="stylus" scoped>
+.leftIn-enter-active
+  transition all linear .2s
+.leftIn-enter,.leftIn-leave-to
+  transform translateX(100%)
 </style>

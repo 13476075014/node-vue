@@ -33,7 +33,8 @@ module.exports = {
          */
 
     // https://webpack.js.org/configuration/devtool/#development
-    devtool: 'cheap-module-eval-source-map',
+    // devtool: 'cheap-module-eval-source-map', // 原来的
+    devtool: 'source-map', // 为了能在vscode上面调试改的
 
     // If you have problems debugging vue-files in devtools,
     // set this to false - it *may* help

@@ -3,6 +3,7 @@
     <div class="foodDetail" v-if="show">
       <no-result v-if="showNoResult" title="暂时没有上传图片"></no-result>
       <scroll :data="results">
+        <div class="scrollInner">
           <ul class="innerDetail">
             <li>
               <img v-if="items.ImageUrl" :src="'http://212.64.74.12/' + items.ImageUrl" alt="找不到图片">
@@ -28,7 +29,7 @@
             <span>精选评价</span>
             <span @click="openComment">写评价</span>
           </div>
-          <ul class="commentDetail">
+          <ul v-if="comments.length > 0" class="commentDetail">
             <li v-for="(item,index) in comments" :key="index">
               <div class="flex">
                 <div class="img">
@@ -46,6 +47,7 @@
               </div>
             </li>
           </ul>
+        </div>
       </scroll>
       <el-dialog
         title="填写评价"
@@ -144,7 +146,7 @@ export default {
     },
     getComment (stop, index) {
       this.$axios.get(`api/APPProduct/GetSingleProductList?CanteenToken=${this.userToken}`, {params: {ProductID: this.$route.params.Id}}).then(res => {
-        // console.log(res)
+        console.log(res)
         if (res.data.Code === 1) {
           if (stop === 'stop') {
             res.data.Data[index].hasClick = true
@@ -188,12 +190,7 @@ export default {
           }).catch(res => {
             const me = res.response.data.Message
             const str = 'Token'
-            if (me.match(str)) { // 如果是token不正确，就转到登录页面
-              this.$message({message: '登录过期，请重新登录，即将跳转到登录页面！！', duration: 2200})
-              setTimeout(() => {
-                this.$router.push('/login')
-              }, 2000)
-            } else {
+            if (!me.match(str)) { // 如果是token不正确，就转到登录页面
               this.$refs['rateForm'].resetFields()
               this.$alert('请求出错！！', {
                 customClass: 'myConfirm'
@@ -239,6 +236,8 @@ export default {
   color $color-text-l
   text-align center
   overflow hidden
+  .scrollInner
+    min-height calc(100vh + 30px)
   .flex
     display flex
   img
@@ -268,6 +267,7 @@ export default {
     justify-content space-between
   .commentDetail
     padding 10px
+    padding-bottom 30px
     li
       padding-bottom 20px
       .img

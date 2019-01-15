@@ -19,7 +19,7 @@
       </div>
       <div class="content">
         <ul>
-          <li>
+          <li @click="showMyMessage">
             <div class="left">
               <div class="fl">
                 我的消息
@@ -108,8 +108,10 @@ export default {
       imageUrl: ''
     }
   },
-  created () {
+  activated () {
     this.$emit('changtab', '3')
+  },
+  created () {
     this.init()
     setTimeout(() => {
       this.show = true
@@ -120,7 +122,15 @@ export default {
       this.$axios.get(`api/AppUser/GetUserInfo?CanteenToken=${this.userToken}`).then(res => {
         console.log(res)
         if (res.data.Code === 1) {
+          this.setUserInfo(res.data.Data)
           this.items = res.data.Data
+        }
+      }).catch(res => {
+        const me = res.response.data.Message
+        if (!me.match('Token')) { // 如果是token不正确，就转到登录页面
+          this.$alert('请求出错！！', {
+            customClass: 'myConfirm'
+          })
         }
       })
     },
@@ -187,8 +197,12 @@ export default {
         }
       })
     },
+    showMyMessage () {
+      this.$alert('您还没有消息！！', {customClass: 'myConfirm'})
+    },
     ...mapMutations({
-      'setUserToken': 'SET_USER_TOKEN'
+      'setUserToken': 'SET_USER_TOKEN',
+      'setUserInfo': 'SET_USER_INFO'
     })
   },
   computed: {

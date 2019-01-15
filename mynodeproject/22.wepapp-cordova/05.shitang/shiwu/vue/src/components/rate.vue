@@ -1,6 +1,5 @@
 <template>
-<transition name="leftIn">
-  <div class="rate" v-if="show">
+  <div class="rate">
     <div class="top">
       <div class="inner">
         <p>点评记录</p>
@@ -21,7 +20,8 @@
             </div>
             <div class="main">
               <div class="avatar">
-                <p><img src="../assets/imgs/bar1.jpg" alt=""></p>
+                <!-- ../assets/imgs/bar1.jpg -->
+                <p><img :src="my ? 'http://chenxiaoming.canteen.sundar.top:8060/' + userInfo.HeadImg : require('../assets/imgs/bar1.jpg')" alt=""></p>
                 <p class="text">{{item.UserID}}</p>
               </div>
               <div class="desc">
@@ -40,34 +40,31 @@
       </pull>
     </div>
   </div>
-</transition>
 </template>
 
 <script>
 import pull from '@/base/scrollupAndDown'
+import {mapState} from 'vuex'
 
 export default {
   props: {
     url: {
       type: String,
       default: ''
+    },
+    my: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
-      show: {
-        type: Boolean,
-        default: false
-      },
       items: [],
       pullUpLoad: false
     }
   },
   created () {
     this.init()
-    setTimeout(() => {
-      this.show = true
-    }, 20)
   },
   activated () { // 每次进来都会调用这个
     if (this.$route.params.refresh === 0) { // 设置的让强制刷新页面
@@ -90,14 +87,7 @@ export default {
           console.log(res)
         }
       }).catch(res => {
-        const me = res.response.data.Message
-        const str = 'Token'
-        if (me.match(str)) { // 如果是token不正确，就转到登录页面
-          this.$message({message: '登录过期，请重新登录，即将跳转到登录页面！！', duration: 2200})
-          setTimeout(() => {
-            this.$router.push('/login')
-          }, 2000)
-        }
+
       })
     },
     onPullingDown () { // 下拉刷新
@@ -107,7 +97,7 @@ export default {
     }
   },
   computed: {
-
+    ...mapState(['userInfo'])
   },
   components: {
     pull
@@ -118,10 +108,6 @@ export default {
 <style lang="stylus" scoped>
 @import '../assets/styl/mixin'
 
-.leftIn-enter-active
-  transition all linear .2s
-.leftIn-enter,.leftIn-leave-to
-  transform translateX(100%)
 .rate
   position fixed
   top 45px
