@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './app.vue'
 import { createRouter } from './router/router'
 import { createStore } from './store/store'
+import { sync } from 'vuex-router-sync'
 
 // 导出一个工程函数，用于创建新的应用程序，router和store实例
 export function createApp() {
