@@ -9,7 +9,6 @@
     @close="handleClose"
     :unique-opened="true"
     :collapse="isCollapse">
-
       <el-submenu v-for="(item,index) in tagData" :key="index" :index="index + ''" :popper-class="themeColor">
         <template slot="title">
           <i :class="item.icon"></i>
@@ -35,21 +34,23 @@
             title:'主页',
             icon:'el-icon-setting',
             child:[
-              {text:'控制台', href:'/index/main-one'},
-              {text:'主页一', href:'/index/main-two'},
-              {text:'主页二', href:'/index/main-three'}
-          ]},
+              {text:'主页', href:'/index/main-one'}
+          ]
+          },
           {
-            title:'组件',
+            title:'配置',
             icon:'el-icon-menu',
             child:[
-              {text:'table', href:'/index/main-one'},
-              {text:'按钮', href:'/index/main-two'},
-              {text:'表单', href:'/index/main-three'}
+              {text:'菜单配置', href:'/index/menu'},
+              {text:'用户设置', href:'/index/main-two'},
+              {text:'权限设置', href:'/index/main-three'}
           ]}
 
         ]
       }
+    },
+    created () {
+      this.getMenuData()
     },
     props:{
       isCollapse:{
@@ -75,6 +76,13 @@
       changeContent (href, text) {
         this.$router.push(href)
         this.$emit('addTag', href, text)
+      },
+      getMenuData () {
+        // this.$reqs.get('http://localhost:60379/AppManage/Home/GetMenuByUser/', {header:{'Content-Type':'application/json'}}).then(res => {
+        //   console.log(res)
+        // }).catch(res => {
+        //   console.log(res)
+        // })
       }
     }
   }

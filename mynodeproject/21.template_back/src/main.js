@@ -9,6 +9,7 @@ import Ele from 'element-ui/lib/theme-chalk/index.css'
 import icon from '@/assets/stylus/icon.css'
 import axios from 'axios'
 import VueCountUp from 'vue-countupjs'
+// import { ipDetail } from '@/assets/js/config'
 
 require('./assets/stylus/base')
 require('./assets/stylus/theme')
@@ -17,6 +18,7 @@ Vue.use(ElementUI)
 Vue.use(VueCountUp)
 Vue.config.productionTip = false
 
+// axios.defaults.baseURL = ipDetail.data_header
 Vue.prototype.$reqs = axios
     /* eslint-disable no-new */
 new Vue({

@@ -5,6 +5,7 @@ import Login from '@/components/login'
 import mainOne from '@/components/main/main'
 import mainTwo from '@/components/main/two'
 import mainThree from '@/components/main/three'
+import setMenu from '@/components/main/setMenu'
 
 Vue.use(Router)
 
@@ -28,6 +29,10 @@ export default new Router({
                 {
                     path: 'main-three',
                     component: mainThree
+                },
+                {
+                    path: 'menu',
+                    component: setMenu
                 }
             ]
         }

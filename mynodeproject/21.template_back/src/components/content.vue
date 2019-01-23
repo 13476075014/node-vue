@@ -14,25 +14,27 @@
        @changeIsCollapse="changeIsCollapse">
        </menuTop>
       <div class="menuLand" :class="themeColor">
-        <router-link
-        v-for="(tag,index2) in dynamicTags"
-        :key="index2"
-        :to="tag.href">
-          <el-tag
-            @click.native="tagClick(index2)"
-            :closable="index2 === 0 ? false : true"
-            class="el-tag"
-            :class="[tag.icon,dynamicTags_active_index === index2 ? 'active' : '']"
-            :disable-transitions="false"
-            @close="handleClose(tag)">
+        <div class="leftMenu">
+          <router-link
+            v-for="(tag,index2) in dynamicTags"
+            :key="index2"
+            :to="tag.href">
+            <el-tag
+              @click.native="tagClick(index2)"
+              :closable="index2 === 0 ? false : true"
+              class="el-tag"
+              :class="[tag.icon,dynamicTags_active_index === index2 ? 'active' : '']"
+              :disable-transitions="false"
+              @close="handleClose(tag)">
 
-            {{tag.text}}
+              {{tag.text}}
 
-          </el-tag>
-        </router-link>
+            </el-tag>
+          </router-link>
+        </div>
       </div>
       <keep-alive>
-        <router-view id="contentView"></router-view>
+        <router-view ref="myRouter" class="contentView"></router-view>
       </keep-alive>
     </div>
   </div>
@@ -52,6 +54,12 @@ const fullScreenWidth = 1000
         themeColor:'bg-black'
       }
     },
+    mounted () {
+      this.fitAddress()
+    },
+    activated () {
+      alert(1)
+    },
     methods:{
       changeIsCollapse () {
         this.isCollapse = !this.isCollapse
@@ -61,8 +69,12 @@ const fullScreenWidth = 1000
       },
       handleClose (tag) {
         this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
+        this.dynamicTags_active_index = 0
+         this.$nextTick(() => {
+           this.$router.push('/index/main-one')
+        })
       },
-      addTag (href, text) {
+      addTag (href, text) { // 添加头部tag
         const index = this.dynamicTags.findIndex(function (item) {
           return item.href == href
         })
@@ -83,6 +95,11 @@ const fullScreenWidth = 1000
       },
       tagClick (index) {
         this.dynamicTags_active_index = index
+      },
+      fitAddress () {
+        const allPath = {'/index/menu':'菜单配置'}
+        const path = this.$route.path
+        this.addTag(path, allPath[path])
       }
     },
     computed:{
@@ -96,6 +113,9 @@ const fullScreenWidth = 1000
     components:{
       menuLeft,
       menuTop
+    },
+    watch:{
+
     }
   }
 
@@ -118,7 +138,8 @@ const fullScreenWidth = 1000
         flex 65px 0 0
     #center
       flex 1
-      #contentView
+      max-width 100%
+      .contentView
         margin 15px
         padding 15px
         background white
@@ -150,6 +171,7 @@ const fullScreenWidth = 1000
       right 0
       height $top-height px
       background white
+      z-index 9999
       &.miniScreen
         left 65px
 
