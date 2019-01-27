@@ -6,6 +6,7 @@ import mainOne from '@/components/main/main'
 import mainTwo from '@/components/main/two'
 import mainThree from '@/components/main/three'
 import setMenu from '@/components/main/setMenu'
+import baseTable from '@/components/main/baseTable'
 
 Vue.use(Router)
 
@@ -33,6 +34,10 @@ export default new Router({
                 {
                     path: 'menu',
                     component: setMenu
+                },
+                {
+                    path: 'baseTable',
+                    component: baseTable
                 }
             ]
         }

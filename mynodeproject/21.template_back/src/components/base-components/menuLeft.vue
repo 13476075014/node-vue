@@ -1,31 +1,42 @@
 <template>
   <div class="menuLeft" :class="fullScreen">
     <div class="inner">
-    <p class="title">menu</p>
-    <el-menu style="border-right:none;" text-color="white" :collapse-transition="collapsetransition"
-    default-active="1"
-    class="el-menu-vertical-demo"
-    @open="handleOpen"
-    @close="handleClose"
-    :unique-opened="true"
-    :collapse="isCollapse">
-      <el-submenu v-for="(item,index) in tagData" :key="index" :index="index + ''" :popper-class="themeColor">
-        <template slot="title">
-          <i :class="item.icon"></i>
-          <span slot="title">{{item.title}}</span>
-        </template>
-        <el-menu-item-group v-for="(item2,index2) in item.child" :key="index2">
-          <el-menu-item @click="changeContent(item2.href,item2.text)" :data-href="item2.href" :index="index + '-' + (index2 + 1)">{{item2.text}}</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
+      <scroll :data="tagData">
+        <div>
+          <p class="title">系统</p>
+          <el-menu style="border-right:none;" text-color="white" :collapse-transition="collapsetransition"
+          default-active="1"
+          class="el-menu-vertical-demo"
+          @open="handleOpen"
+          @close="handleClose"
+          :unique-opened="true"
+          :collapse="isCollapse">
+            <el-submenu v-for="(item,index) in tagData" :key="index" :index="index + ''" :popper-class="themeColor">
+              <template slot="title">
+                <i :class="item.icon"></i>
+                <span slot="title">{{item.title}}</span>
+              </template>
+              <el-menu-item-group v-for="(item2,index2) in item.child" :key="index2">
+                <el-menu-item @click="changeContent(item2.href,item2.text)" :data-href="item2.href" :index="index + '-' + (index2 + 1)">{{item2.text}}</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
 
-    </el-menu>
+          </el-menu>
+        </div>
+      </scroll>
     </div>
   </div>
 </template>
 
 <script>
+// import {dealFoodMenu} from '@/assets/js/menu/leftMenu'
+import Scroll from './scroll'
+import {url} from '@/assets/js/config'
+import {mapMutations, mapState} from 'vuex'
+import { base } from '@/mixin/index'
+
   export default{
+    mixins: [base],
     data () {
       return {
         collapsetransition:false,
@@ -50,7 +61,10 @@
       }
     },
     created () {
-      this.getMenuData()
+
+    },
+    mounted () {
+      this.init()
     },
     props:{
       isCollapse:{
@@ -59,7 +73,7 @@
       },
       fullScreen:{
         type:String,
-        default:'miniScreen'
+        default:'fullScreen'
       },
       themeColor:{
         type:String,
@@ -67,6 +81,9 @@
       }
     },
     methods: {
+      init () {
+        this.tagData = this.menu
+      },
       handleOpen (key, keyPath) {
         console.log(key, keyPath)
       },
@@ -74,15 +91,25 @@
         console.log(key, keyPath)
       },
       changeContent (href, text) {
-        this.$router.push(href)
+        // console.log(href, text)
+        let myUrl = url[href]
+        if (!myUrl) {
+          myUrl = '/index/baseTable'
+        }
+        this.$router.push(myUrl)
         this.$emit('addTag', href, text)
       },
-      getMenuData () {
-        // this.$reqs.get('http://localhost:60379/AppManage/Home/GetMenuByUser/', {header:{'Content-Type':'application/json'}}).then(res => {
-        //   console.log(res)
-        // }).catch(res => {
-        //   console.log(res)
-        // })
+      ...mapMutations({'setMenu':'SET_MENU'})
+    },
+    computed:{
+      ...mapState(['menu'])
+    },
+    components:{
+      Scroll
+    },
+    watch:{
+      menu (newval, oldval) {
+        this.tagData = newval
       }
     }
   }

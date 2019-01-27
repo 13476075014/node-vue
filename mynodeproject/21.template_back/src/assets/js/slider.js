@@ -1,3 +1,4 @@
+import axios from 'axios'
 /*eslint-disable */
 var slis = function(th) {
     var handler = function(captchaObj) {
@@ -10,11 +11,21 @@ var slis = function(th) {
                 if (!result) {
                     return alert('请完成验证')
                 }
-                th.$router.push({ path: '/index/main-one' })
+                axios.defaults.baseURL = 'http://10.202.2.112:55145'
+                th.$reqs.post('/Login', {
+                    'username': th.username,
+                    'password': th.password
+                }).then(res => {
+                    console.log(res)
+                    th.$router.push({ path: '/index/main-one' })
+                }).catch(res => {
+                    console.log(res)
+                })
             })
             // 更多接口说明请参见：http://docs.geetest.com/install/client/web-front/
     }
-    th.$reqs.get('/gt/register-slide?t=' + (new Date()).getTime()).then(function(data) {
+    axios.defaults.baseURL = 'http://10.202.2.112:55146'
+    axios.get('/gt/register-slide?t=' + (new Date()).getTime()).then(function(data) {
         const result = data.data
             // 调用 initGeetest 进行初始化
             // 参数1：配置参数

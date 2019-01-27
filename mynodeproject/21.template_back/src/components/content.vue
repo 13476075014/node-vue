@@ -15,22 +15,22 @@
        </menuTop>
       <div class="menuLand" :class="themeColor">
         <div class="leftMenu">
-          <router-link
-            v-for="(tag,index2) in dynamicTags"
-            :key="index2"
-            :to="tag.href">
-            <el-tag
-              @click.native="tagClick(index2)"
-              :closable="index2 === 0 ? false : true"
-              class="el-tag"
-              :class="[tag.icon,dynamicTags_active_index === index2 ? 'active' : '']"
-              :disable-transitions="false"
-              @close="handleClose(tag)">
+            <template
+              v-for="(tag,index2) in dynamicTags"
+              >
+              <el-tag
+                :key="index2"
+                @click.native="tagClick(index2)"
+                :closable="index2 === 0 ? false : true"
+                class="el-tag"
+                :class="[tag.icon,dynamicTags_active_index === index2 ? 'active' : '']"
+                :disable-transitions="false"
+                @close="handleClose(tag)">
 
-              {{tag.text}}
+                {{tag.text}}
 
-            </el-tag>
-          </router-link>
+              </el-tag>
+            </template>
         </div>
       </div>
       <keep-alive>
@@ -43,16 +43,21 @@
 <script>
 import menuTop from '@/components/base-components/menuTop'
 import menuLeft from '@/components/base-components/menuLeft'
+import {url} from '@/assets/js/config'
+
 const fullScreenWidth = 1000
 
   export default{
     data () {
       return {
         dynamicTags: [{text:'主页', href:'/index/main-one', icon:'el-icon-edit'}],
-        isCollapse:true,
+        isCollapse:false,
         dynamicTags_active_index:0,
         themeColor:'bg-black'
       }
+    },
+    created () {
+      this.init()
     },
     mounted () {
       this.fitAddress()
@@ -61,6 +66,9 @@ const fullScreenWidth = 1000
       alert(1)
     },
     methods:{
+      init () {
+
+      },
       changeIsCollapse () {
         this.isCollapse = !this.isCollapse
       },
@@ -70,19 +78,17 @@ const fullScreenWidth = 1000
       handleClose (tag) {
         this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
         this.dynamicTags_active_index = 0
-         this.$nextTick(() => {
-           this.$router.push('/index/main-one')
-        })
+        this.$router.push('/index/main-one')
       },
       addTag (href, text) { // 添加头部tag
-        const index = this.dynamicTags.findIndex(function (item) {
+        const index = this.dynamicTags.findIndex(function (item) { // 看现在tag里面有没有
           return item.href == href
         })
         const length = this.dynamicTags.length
         let nowIndex = length
-        if (index < 0) {
+        if (index < 0) { // 现在tag没有的话，就加进去
           this.$set(this.dynamicTags, length, {text:text, href:href})
-        } else {
+        } else { // 有的话
           nowIndex = this.dynamicTags.findIndex(function (item) {
               return item.href == href
             })
@@ -94,6 +100,12 @@ const fullScreenWidth = 1000
         }
       },
       tagClick (index) {
+        let myUrl = url[this.dynamicTags[index]['href']]
+        console.log(myUrl)
+        if (!myUrl) {
+          myUrl = '/index/baseTable'
+        }
+        this.$router.push(myUrl)
         this.dynamicTags_active_index = index
       },
       fitAddress () {
@@ -128,6 +140,7 @@ const fullScreenWidth = 1000
     display flex
     height 100vh
     background rgb(242,242,242)
+    overflow hidden
     #left
       overflow hidden
       transition all linear .2s
@@ -138,20 +151,20 @@ const fullScreenWidth = 1000
         flex 65px 0 0
     #center
       flex 1
-      max-width 100%
+      box-sizing border-box
+      overflow hidden
       .contentView
-        margin 15px
+        width 100%
         padding 15px
-        background white
         box-sizing border-box
-        min-height calc(100% - 133px)
+        height calc(100% - 103px)
     .menuLand
-      background white
-      margin-top $top-height px
+      // margin-top $top-height px
       line-height 40px
       height 40px
       box-sizing border-box
       border-bottom 1px solid $light-border-color
+      background white
       .el-tag
         box-sizing border-box
         height 40px
@@ -165,13 +178,13 @@ const fullScreenWidth = 1000
           background rgb(233,233,233)
     #top
       transition left linear .2s
-      position fixed
-      top 0
-      left 220px
-      right 0
+      // position fixed
+      // top 0
+      // left 220px
+      // right 0
       height $top-height px
       background white
-      z-index 9999
+      // z-index 9999
       &.miniScreen
         left 65px
 

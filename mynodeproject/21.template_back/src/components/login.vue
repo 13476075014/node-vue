@@ -36,7 +36,7 @@ export default {
   name: 'backlogin',
   data () {
     return {
-      username: 'admin2' /* TODO:先预存测试值，以免手动输入 */,
+      username: 'System' /* TODO:先预存测试值，以免手动输入 */,
       password: '123456',
       disablebtn: false,
       loginText: '登录',
