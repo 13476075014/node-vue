@@ -20,6 +20,7 @@
           @addBtn="addBtn"
           @handleBtnCheck="handleBtnCheck"
           @editBtn="editBtn"
+          @deleteBtn="deleteBtn"
         >
         </my-table>
       </div>
@@ -29,6 +30,7 @@
           ref="multipleTable"
           :data="hasMenuDate"
           tooltip-effect="dark"
+          height="300"
           style="width: 170px;margin-top:43px;"
           @selection-change="handlehasMenuDateChange"
           >
@@ -165,7 +167,7 @@ export default {
                   name: '王小虎5',
                   phone:'1234567895',
                   password: '1111115'}],
-      tableConfig:{height:'200', showOpera:true, apiUrl2:apiUrl['获取用户可见按钮'], apiMenuAuthQuery2:apiMenuAuthQuery['菜单配置']},
+      tableConfig:{height:'200', showOpera:true, apiUrl2:apiUrl['获取用户可见按钮'], apiMenuAuthQuery2:apiMenuAuthQuery['模块管理'].code},
       tableCheckDate:[],
       dialogVisible:false, // 编辑框
       dialogVisibleBtn:false, // 编辑和添加按钮的弹出框是否展示
@@ -185,18 +187,17 @@ export default {
     }
   },
   created () {
+    this.computedHeight()
     this.initStyle()
     this.init()
   },
   mounted () {
     this.$refs.tree.$el.style.height = '100%'
-    this.getHeight2()
   },
   methods:{
     init () {
       this.treeDate = dealfoodMenu(this.menu) // 左边tree数据
       this.tableData = this.treeDate[0].children.slice(0)
-      console.log(this.tableData)
       // let menuSelectDate = JSON.parse(JSON.stringify(this.treeDate[0].children.slice(0)))
       let menuSelectDate = JSON.parse(JSON.stringify(this.treeDate.slice(0)))
       menuSelectDate[0].value = menuSelectDate[0].id
@@ -222,19 +223,9 @@ export default {
     handleCurrentChange2 (val) { // 处理分页插件中的当前第几页改变时候的事件
 				this.currentPage = val
     },
-    getHeight2 () {
-      this.$nextTick(() => {
-        if (this.$refs.menuRight.getClientRects()[0]) {
-          const h = this.$refs.menuRight.getClientRects()[0].height - 60 - 30
-          this.$set(this.tableConfig, 'height', h)
-        }
-      })
-    },
     resize () {
       const _this = this
-      window.addEventListener('resize', function () {
-        _this.getHeight2()
-      })
+      window.addEventListener('resize', _this.computedHeight, false)
     },
     handleTreeCheck (data, checked) { // 是tree组件里面的复选框点击的事件的回调函数
      // console.log(data, checked) // data是当前选中的节点的数据，checked是所有选中的信息
@@ -277,8 +268,8 @@ export default {
                 }
                 this.resetForm('AddModuleForm')
               }).catch(res => {
+                this.$message({message:res.data.Message, type:'error'})
                 this.resetForm('AddModuleForm')
-                console.log(res)
               })
               this.dialogVisible = false
               this.isEditModule = false
@@ -330,6 +321,11 @@ export default {
     resetForm (formName) { // 重置表格数据
         this.selectedcascader = []
         this.$refs[formName].resetFields()
+        if (formName == 'AddModuleForm') {
+          this.form = {Name:'', Url:'', IconName:'', SortNo:'', IsMenu:'', ParentId:''}
+        } else if (formName == 'btnForm') {
+          this.formBtn = {Name:'', Icon:'', DomId:'', Sort:'', Type:'', ClassName:''}
+        }
       },
     addBtn () { // 添加和编辑按钮
       this.dialogVisibleBtn = true
@@ -341,11 +337,13 @@ export default {
     submitBtnForm () {
       this.addOrUpdateBtn(this.formBtn)
     },
-    handleBtnCheck (id) {
-      this.$reqs.get(apiUrl['获取模块所有按钮'], {params:{page:1, limit:10, moduleId:id}}).then(res => {
+    handleBtnCheck (row) {
+      this.checkBtnMoudleId = row.id
+      this.$reqs.get(apiUrl['获取模块所有按钮'], {params:{page:1, limit:10, moduleId: row.id}}).then(res => {
         console.log(res)
         if (res.data.code == 0) { // 成功
           this.hasMenuDate = res.data.data
+          console.log(this.hasMenuDate)
         }
       }).catch(res => {
 
@@ -358,24 +356,34 @@ export default {
       if (!this.checkIsSlect()) {
         return false
       }
+      this.isEditBtn = true
+      this.formBtn = JSON.parse(JSON.stringify(this.hasMenuCheckDate[0]))
       this.dialogVisibleBtn = true
-      // formBtn:{Name:'', Icon:'', DomId:'', Sort:'', Type:'', ClassName:''}
-      this.formBtn = this.hasMenuCheckDate[0]
     },
     addOrUpdateBtn (data) {
-      const formDate = {Id:data.Id, ModuleId:data.ModuleId, Name:data.Name, DomId:data.DomId, Class:data.ClassName, Sort:data.Sort, Type:data.Type}
-      this.$reqs.post(apiUrl['更新按钮设置'], formDate).then(res => {
-        console.log(res)
+      let formDate = {}
+      let toUrl = ''
+      if (this.isEditBtn) { // 如果是编辑按钮触发的
+          formDate = {Id:data.Id, ModuleId:data.ModuleId, Name:data.Name, DomId:data.DomId, Class:data.ClassName, Sort:data.Sort, Type:data.Type}
+          toUrl = apiUrl['更新按钮设置']
+      } else { // 如果是新增按钮触发的
+          formDate = {ModuleId:this.tableCheckDate[0].id, Name:data.Name, DomId:data.DomId, Class:data.ClassName, Sort:data.Sort, Type:data.Type}
+           toUrl = apiUrl['新增按钮']
+      }
+
+      this.$reqs.post(toUrl, formDate).then(res => {
         if (res.data.Code == 1) {
           this.$message({message:'更新成功！！！', type:'success'})
-          this.$refs.myTable.getCanSeeMenu()
+          this.$refs.myTable.getCanSeeMenu() // 重新获取按钮
+          this.handleBtnCheck(this.tableCheckDate[0]) // 重新获取该菜单所有按钮
         } else {
           this.$message({message:res.data.Message, type:'error'})
         }
         this.resetForm('btnForm')
         this.dialogVisibleBtn = false
       }).catch(res => {
-        this.dialogVisibleBtn = true
+        console.log(res)
+        this.dialogVisibleBtn = false
         this.resetForm('btnForm')
       })
     },
@@ -390,6 +398,35 @@ export default {
         this.$message({message:'请选中表格再操作！！！', type:'error'})
         return false
       }
+    },
+    deleteBtn () {
+       if (!this.checkIsSlect()) {
+        return false
+      }
+       this.$confirm('确定要删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            const ids = [this.hasMenuCheckDate[0].Id]
+            this.$reqs.post(apiUrl['删除按钮'], {ids}).then(res => {
+              // console.log(res)
+              if (res.data.Code == 1) { // 删除成功
+                  this.$message({message:'更新成功！！！', type:'success'})
+                  this.$refs.myTable.getCanSeeMenu() // 重新获取按钮
+                  this.handleBtnCheck(this.tableCheckDate[0]) // 重新获取该菜单所有按钮
+              } else {
+                this.$message({message:res.data.Message, type:'error'})
+              }
+            }).catch(res => {
+
+            })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     }
   },
   computed:{

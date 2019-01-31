@@ -91,15 +91,17 @@ import { base } from '@/mixin/index'
         console.log(key, keyPath)
       },
       changeContent (href, text) {
-        // console.log(href, text)
         let myUrl = url[href]
         if (!myUrl) {
-          myUrl = '/index/baseTable'
+          myUrl = `/index/baseTable?modulecode=${text}`
+        } else {
+          myUrl = `${myUrl}?modulecode=${text}`
         }
         this.$router.push(myUrl)
         this.$emit('addTag', href, text)
+        this.setModulecode(text)
       },
-      ...mapMutations({'setMenu':'SET_MENU'})
+      ...mapMutations({'setMenu':'SET_MENU', 'setModulecode':'SET_MODULECODE'})
     },
     computed:{
       ...mapState(['menu'])

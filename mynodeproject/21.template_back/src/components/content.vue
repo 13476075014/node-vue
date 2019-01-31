@@ -43,7 +43,8 @@
 <script>
 import menuTop from '@/components/base-components/menuTop'
 import menuLeft from '@/components/base-components/menuLeft'
-import {url} from '@/assets/js/config'
+import {url, apiMenuAuthQuery} from '@/assets/js/config'
+import {mapMutations} from 'vuex'
 
 const fullScreenWidth = 1000
 
@@ -63,7 +64,7 @@ const fullScreenWidth = 1000
       this.fitAddress()
     },
     activated () {
-      alert(1)
+      // alert(1)
     },
     methods:{
       init () {
@@ -82,7 +83,7 @@ const fullScreenWidth = 1000
       },
       addTag (href, text) { // 添加头部tag
         const index = this.dynamicTags.findIndex(function (item) { // 看现在tag里面有没有
-          return item.href == href
+          return item.text == text
         })
         const length = this.dynamicTags.length
         let nowIndex = length
@@ -101,18 +102,25 @@ const fullScreenWidth = 1000
       },
       tagClick (index) {
         let myUrl = url[this.dynamicTags[index]['href']]
-        console.log(myUrl)
+        const text = this.dynamicTags[index]['text']
+        this.setModulecode(text)
         if (!myUrl) {
-          myUrl = '/index/baseTable'
+          myUrl = `/index/baseTable?modulecode=${text}`
+        } else {
+           myUrl = `${myUrl}?modulecode=${text}`
         }
         this.$router.push(myUrl)
         this.dynamicTags_active_index = index
       },
       fitAddress () {
-        const allPath = {'/index/menu':'菜单配置'}
         const path = this.$route.path
-        this.addTag(path, allPath[path])
-      }
+        if (path == '/index/main-one') {
+          return false
+        }
+        const text = this.$route.query.modulecode
+        this.addTag(apiMenuAuthQuery[text].href, text)
+      },
+       ...mapMutations({'setModulecode':'SET_MODULECODE'})
     },
     computed:{
       fullScreen () {

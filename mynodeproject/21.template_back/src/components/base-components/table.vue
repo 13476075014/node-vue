@@ -39,6 +39,7 @@
             :label="item.label"
             :filters='item.fil'
             :filter-method="filterHandler"
+            :show-overflow-tooltip='tableShowOverTip'
             >
         </el-table-column>
       </template>
@@ -49,6 +50,7 @@
             align="center"
             :prop="item.prop"
             :label="item.label"
+            :show-overflow-tooltip='tableShowOverTip'
             >
         </el-table-column>
       </template>
@@ -92,6 +94,7 @@
       data () {
         return {
           showDate:[],
+          tableShowOverTip:true,
           currentRow:null,
           currentPage:1,
           combineTableConfig:Object.assign({}, {showTableCheck:true}, this.tableConfig),
@@ -157,10 +160,19 @@
             case '添加模块':
             this.addTable()
             break
+            case '添加':
+            this.addTable()
+            break
             case '删除菜单':
             this.deleteBtn()
             break
+            case '删除':
+            this.toDelete()
+            break
             case '编辑模块':
+            this.editTable()
+            break
+            case '编辑':
             this.editTable()
             break
             case '编辑菜单':
@@ -179,7 +191,7 @@
         },
         handleCheck (index, row) { // 查看按钮的点击事件，来展示当前模块有的按钮
           console.log(index, row)
-          this.$emit('handleBtnCheck', row.id)
+          this.$emit('handleBtnCheck', row)
         },
         handleSizeChange (val) {
           console.log(`每页 ${val} 条`)
@@ -221,8 +233,14 @@
         addTable () {
           this.$emit('addTable')
         },
-        deleteBtn () {
-
+        deleteBtn () { // 删除菜单
+          this.$emit('deleteBtn')
+        },
+        toDelete () {
+           if (!this.checkIsSlect()) {
+            return false
+          }
+          this.$emit('toDelete')
         },
         editBtn () {
           this.$emit('editBtn')
@@ -244,7 +262,6 @@
         },
        getCanSeeMenu () { // 获取当前用户的可见菜单
           this.$reqs.get(this.tableConfig.apiUrl2, {params:{modulecode:this.tableConfig.apiMenuAuthQuery2}}).then(res => {
-            console.log(res)
             if (res.statusText === 'OK') { // 请求成功
               this.canSeeMenu = res.data
             }
@@ -255,6 +272,7 @@
       },
       watch:{
         tableData (newval, oldval) {
+          this.getCanSeeMenu()
           this.currentPage = 1
           this.tochangePage(newval)
         }

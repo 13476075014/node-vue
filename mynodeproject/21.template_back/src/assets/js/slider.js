@@ -26,6 +26,7 @@ var slis = function(th) {
     }
     axios.defaults.baseURL = 'http://10.202.2.112:55146'
     axios.get('/gt/register-slide?t=' + (new Date()).getTime()).then(function(data) {
+        axios.defaults.baseURL = 'http://10.202.2.112:55145'
         const result = data.data
             // 调用 initGeetest 进行初始化
             // 参数1：配置参数

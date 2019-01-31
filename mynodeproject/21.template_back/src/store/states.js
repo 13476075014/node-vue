@@ -1,5 +1,6 @@
 const state = {
-    menu: []
+    menu: [],
+    modulecode: ''
 }
 
 export default state
