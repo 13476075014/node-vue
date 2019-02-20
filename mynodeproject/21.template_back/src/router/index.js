@@ -10,6 +10,7 @@ import baseTable from '@/components/main/baseTable'
 import org from '@/components/main/org'
 import role from '@/components/main/role'
 import user from '@/components/main/user'
+import product from '@/components/main/foodList'
 
 Vue.use(Router)
 
@@ -49,6 +50,10 @@ export default new Router({
                 {
                     path: 'user',
                     component: user
+                },
+                {
+                    path: 'product',
+                    component: product
                 },
                 {
                     path: 'baseTable',

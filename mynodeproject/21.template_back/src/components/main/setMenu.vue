@@ -160,7 +160,7 @@ export default {
       selectedcascader:[],
       treeDate:[],
       menuSelectDate:[],
-      talPro:[{prop:'_id', label:'id', fil:[]}, {prop:'name', label:'姓名', fil:[]}, {prop:'password', label:'密码'}, {prop:'phone', label:'手机'}], // 要显示的表头
+      talPro:[], // 要显示的表头
       total:12, // 总共条数
       page_sizes:[4], // 每页显示的个数
       tableData: [{_id: '2016-05-05',

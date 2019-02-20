@@ -17,6 +17,7 @@
     <el-table
       ref="elTable"
       :allData="tableData"
+      v-if="showDate.length"
       :data="showDate"
       highlight-current-row
       @current-change="handleCurrentChange"
@@ -30,6 +31,8 @@
         type="selection"
         width="55">
       </el-table-column>
+
+      <!-- 表格的表头 -->
       <template v-for="(item,index) in talPro">
           <el-table-column
              v-if="item.fil"
@@ -44,31 +47,44 @@
         </el-table-column>
       </template>
       <template v-for="(item,index) in talPro">
-          <el-table-column
-             v-if="!item.fil"
-            :key="index"
-            align="center"
-            :prop="item.prop"
-            :label="item.label"
-            :show-overflow-tooltip='tableShowOverTip'
-            >
-        </el-table-column>
-      </template>
-          <el-table-column v-if="tableConfig.showOpera" label="操作" align="center">
-            <slot></slot>
+
+        <el-table-column
+          v-if="!item.fil && item.istoSlot"
+          :key="index"
+          :label="item.label"
+          >
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="handleCheck(scope.$index, scope.row)">查看按钮</el-button>
-            <!-- <el-button
-              size="mini"
-              @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
+              <!-- {{scope.row}} -->
+              <slot :data="scope.row" :name="item.prop"></slot>
           </template>
         </el-table-column>
+
+        <el-table-column
+          v-if="!item.fil && !item.istoSlot"
+          :key="index"
+          align="center"
+          :prop="item.prop"
+          :label="item.label"
+          :show-overflow-tooltip='tableShowOverTip'
+          >
+        </el-table-column>
+      </template>
+      <slot name="tableColumn"></slot>
+      <el-table-column v-if="tableConfig.showOpera" label="操作" align="center">
+        <slot name="opera"></slot>
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="handleCheck(scope.$index, scope.row)">查看按钮</el-button>
+          <!-- <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
+        </template>
+      </el-table-column>
     </el-table>
 
     <!--分页-->
@@ -138,8 +154,8 @@
               height:'200', // 高度
               showOpera:true,
               showTableCheck:true, // 是否展示多选框
-              apiUrl2:'',
-              apiMenuAuthQuery2:''
+              apiUrl2:'', // 获取table的可见按钮的api地址
+              apiMenuAuthQuery2:'' // 模块获取按钮请求对应的模块
             }
           }
         },

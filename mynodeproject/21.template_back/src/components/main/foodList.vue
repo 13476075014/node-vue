@@ -10,6 +10,18 @@
         :tableConfig="tableConfig"
 				@handleCk="handleCurrentChange2"
       >
+      <!-- 插入子组件中的关于自定义的菜品是否在售的内容 -->
+      <div slot="Status" slot-scope="hh">
+        <input ref="inputStatus" style="display:none;" type="text" :value="hh.data.Status">
+        <el-switch
+          @change="changeStatus(hh.data.Status,hh.data.Id)"
+          v-model="hh.data.Status"
+          :active-value=1
+          :inactive-value=0
+          active-text="是"
+          inactive-text="否">
+        </el-switch>
+      </div>
       </my-table>
     </div>
   </div>
@@ -30,20 +42,9 @@ export default {
       total:12, // 总共条数
       page_sizes:[10], // 每页显示的个数
       moduleCode:this.$route.query.modulecode,
-      tableData: [{_id: '2016-05-02',
-                  name: '王小虎',
-                  phone:'123456789',
-                  password: '111111'}, {_id: '2016-05-03',
-                  name: '王小虎2',
-                  phone:'1234567892',
-                  password: '1111112'}, {_id: '2016-05-04',
-                  name: '王小虎3',
-                  phone:'1234567893',
-                  password: '1111113'}, {_id: '2016-05-05',
-                  name: '王小虎5',
-                  phone:'1234567895',
-                  password: '1111115'}],
-      tableConfig:{height:'200', showOpera:false, apiMenuAuthQuery2:'', apiUrl2:apiUrl['获取用户可见按钮']}
+      tableData: [],
+      tableConfig:{height:'200', showOpera:false, apiMenuAuthQuery2:'', apiUrl2:apiUrl['获取用户可见按钮']},
+      status:true
     }
   },
   props:{
@@ -67,7 +68,6 @@ export default {
       const url = apiMenuAuthQuery[this.modulecode].getDateListUrl
       if (url) {
         this.$reqs.get(url).then(res => {
-          // console.log(res)
           if (res.data.code == 0) {
             this.tableData = res.data.data
              this.changePro(this.tableData[0]) // 改变表头
@@ -78,7 +78,6 @@ export default {
       }
     },
     changeSearch (data) {
-      console.log(data)
       data.forEach((item, index) => { // 让表单有筛选功能
         if (item.fil) {
           alert(88)
@@ -105,16 +104,18 @@ export default {
     },
     changePro (data) { // 表格数据表头的设定
       const pro = [
-        // {prop:'ID', label:'ID'}, {prop:'IconName', label:'图标'},
-        // {prop:'Name', label:'模块名称'}, {prop:'Url', label:'模块地址'},
-        // {prop:'SortNo', label:'序列号'}, {prop:'ParentName', label:'所属模块'}
-        ]
-        for (var key in data) {
-          let item = {prop:key, label:key}
-          pro.push(item)
-        }
+        {label:'ID', prop:'Id'}, {label:'名称', prop:'Name'}, {label:'图片', prop:'ImageUrl'}, {label:'描述', prop:'Describe'}, {label:'创建时间', prop:'CreateTime'}, {label:'更新时间', prop:'UpdateTime'}, {label:'是否在售', prop:'Status', istoSlot:true}, {label:'评价数量', prop:'CommentCount'}, {label:'平均分', prop:'AvgStar'}, {label:'是否推荐', prop:'IsRecommend'}
+      ]
         this.talPro = pro
         this.changeSearch(this.talPro)
+    },
+    changeStatus (newval, id) {
+      this.$reqs.post(apiUrl['更新菜品是否在售'], {Status:newval == true, id:id}).then(res => {
+        console.log(res)
+        if (res.data == 'True') { // 修改成功
+          this.$message({message:'修改成功！！', type:'success'})
+        }
+      })
     },
     ...mapMutations({'setModulecode':'SET_MODULECODE'})
   },

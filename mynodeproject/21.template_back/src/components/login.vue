@@ -2,6 +2,8 @@
 	<div class="backlogin">
 		<div id="can"></div>
       <div class="login_box">
+        <loading v-if="showSd"></loading>
+        <div class="sdInner" :class='{"changeSd":showSd}'>
           <div class="title">后台登录</div>
           <div>
               <input class="myinput username" type="text" placeholder="手机号/用户名" v-model="username" />
@@ -23,6 +25,7 @@
       <!--<button :disabled="disablebtn" class="login" @click="login">{{loginText}}</button>-->
       <button :disabled="disablebtn" class="login" id="btn">{{loginText}}</button>
       </div>
+      </div>
   </div>
 </template>
 
@@ -31,6 +34,7 @@ import snow from '@/assets/js/snow' // 这里是引进用到的登录页的背�
 import '../assets/js/jquery-1.9.0.js'
 import '../assets/js/gt.js'
 import sli from '../assets/js/slider.js'
+import Loading from '@/components/base-components/loading'
 
 export default {
   name: 'backlogin',
@@ -40,7 +44,8 @@ export default {
       password: '123456',
       disablebtn: false,
       loginText: '登录',
-      checked: true
+      checked: true,
+      showSd:false
     }
   },
   mounted: function () {
@@ -49,6 +54,9 @@ export default {
   },
   created: function () {
     sli(this)
+  },
+  components:{
+    Loading
   },
   methods: {
 
@@ -77,8 +85,12 @@ export default {
   width: 320px;
   margin: 50px auto;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(225, 225, 225, 0.7);
 }
+.sdInner{
+  transform-origin: bottom;
+}
+.sdInner.changeSd{animation:uu linear 1s ;animation-fill-mode: forwards;}
 .login_box .myinput {
   width: 100%;
   border: 1px solid #cad3de;
@@ -161,4 +173,8 @@ export default {
   color: #666;
   margin: 0;
 }
+@keyframes uu{
+				0%{transform: rotateX(0);}
+				100%{transform: rotateX(90deg);}
+			}
 </style>

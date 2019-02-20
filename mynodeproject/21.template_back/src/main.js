@@ -51,7 +51,6 @@ axios.interceptors.response.use(function(response) { // 响应拦截器
 }, function(error) {
     // 对响应错误做点什么
     // const me = error.response.data.Message
-    console.log(error)
     if (error.response) {
         const me = error.response.data
         console.log(me)
@@ -59,7 +58,7 @@ axios.interceptors.response.use(function(response) { // 响应拦截器
         if (me.match(str)) { // 如果是token不正确，就转到登录页面
             new Vue().$message({ message: '登录过期，请重新登录，即将跳转到登录页面！！', duration: 2200 })
             setTimeout(() => {
-                // window.location.href = '#/'
+                window.location.href = '#/'
             }, 2000)
         }
     }

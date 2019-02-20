@@ -8,7 +8,8 @@ export const url = {
     '/ModuleManager/Index': '/index/menu', // 模块管理的地址
     '/OrgManager/Index': '/index/org', // 部门管理
     '/RoleManager/Index': '/index/role', // 角色管理
-    '/UserManager/Index': '/index/user'
+    '/UserManager/Index': '/index/user', // 用户管理
+    '/Product/Index': '/index/product' // 菜品列表
 }
 
 export const apiUrl = { // 一些接口地址
@@ -30,7 +31,8 @@ export const apiUrl = { // 一些接口地址
     '更新角色': '/RoleManager/Update', // Id: 6; Name: 444445555888;Organizations: 集团总部; OrganizationIds: 1;Status: 1
     '获取部分用户': 'UserManager/Load?page=1&limit=10', // &orgId=1
     '新增或更新用户': '/UserManager/AddOrUpdate', // Id: ; Account: 555;Name: 555;Organizations: 集团总部; OrganizationIds: 1;Sex: 0;Status: 1
-    '删除用户': '/UserManager/Delete' // ids[]: 4
+    '删除用户': '/UserManager/Delete', // ids[]: 4
+    '更新菜品是否在售': 'http://localhost:55145/Product/UpdateSailStatus' // post； Status:true ；id: 55
 }
 
 export const apiMenuAuthQuery = { // 配置后台的基本页面的菜单按钮获取的code名

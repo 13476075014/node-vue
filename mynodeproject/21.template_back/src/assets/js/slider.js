@@ -7,6 +7,7 @@ var slis = function(th) {
             $('#wait').hide()
         })
         $('#btn').click(function() {
+                th.showSd = true
                 var result = captchaObj.getValidate()
                 if (!result) {
                     return alert('请完成验证')
@@ -17,9 +18,14 @@ var slis = function(th) {
                     'password': th.password
                 }).then(res => {
                     console.log(res)
-                    th.$router.push({ path: '/index/main-one' })
+                    setTimeout(() => {
+                        th.$router.push({ path: '/index/main-one' })
+                    }, 2000)
+
                 }).catch(res => {
-                    console.log(res)
+                    th.showSd = false
+                    th.$message({ message: '服务器内部错误，请联系管理人员！！！', type: 'error' })
+                    console.log(res, 2)
                 })
             })
             // 更多接口说明请参见：http://docs.geetest.com/install/client/web-front/
