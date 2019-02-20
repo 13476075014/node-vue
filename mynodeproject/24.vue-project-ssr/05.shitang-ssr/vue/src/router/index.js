@@ -34,6 +34,7 @@ export function createRouter () {
   const hasToken = getUserToken().length > 0 ? Main : Login // 如果有token就是已经登录过了不需要在登陆
 
   return new Router({
+    mode: 'history',
     routes: [{
       path: '/',
       component: hasToken

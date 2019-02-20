@@ -2,9 +2,11 @@
 // 这个是基本的vue实例化的文件，在客户端和服务端都要引用
 
 import Vue from 'vue'
-import App from './App'
-import store from '@/store/index'
-import router from './router'
+import App from '@/App'
+// import store from '@/store/index'
+import { createStore } from '@/store/index'
+// import router from './router'
+import { createRouter } from '@/router/index'
 import '@/assets/icon/iconfont.css'
 // import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/styl/base.styl'
@@ -65,10 +67,15 @@ Vue.use(VueLazyLoad, {
 
 Vue.prototype.$axios = Axios
 Vue.prototype.$jquery = Jquery
-/* eslint-disable no-new */
-const newApp = new Vue({
-  store,
-  router,
-  render: h => h(App)
-})
-return { newApp, router, store }
+
+export function createApp () {
+  const router = createRouter()
+  const store = createStore()
+  /* eslint-disable no-new */
+  const newApp = new Vue({
+    store,
+    router,
+    render: h => h(App)
+  })
+  return { newApp, router, store }
+}

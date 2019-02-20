@@ -1,5 +1,8 @@
 // 这个文件主要处理localstorage
-import storage from 'good-storage'
+if (typeof window !== 'undefined') {
+  // import storage from 'good-storage'
+  var storage = require('good-storage')
+}
 
 const USERTOKEN = '__userToken__'
 
