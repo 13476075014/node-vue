@@ -46,7 +46,7 @@ export const dealFoodMenu = function (data) {
         item.ParentName = item.Item.ParentName
             // item.IsMenu = item.Item.IsMenu
         if (item.Item.ParentId !== 0) {
-            item.disabled = true
+            // item.disabled = true
         }
         if (item.Children.length) {
             dealFoodMenu(item.Children)

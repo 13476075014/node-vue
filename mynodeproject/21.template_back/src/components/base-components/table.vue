@@ -194,6 +194,8 @@
             case '编辑菜单':
             this.editBtn()
             break
+            case '添加菜品':
+            this.addFoodBtn()
          }
         },
         clearFilter () {
@@ -260,6 +262,9 @@
         },
         editBtn () {
           this.$emit('editBtn')
+        },
+        addFoodBtn () { // 菜品列表的添加菜品点击事件
+          this.$emit('myaddFoodBtn')
         },
         tochangePage (newval) {
           const star = (this.currentPage - 1) * this.page_sizes[0]

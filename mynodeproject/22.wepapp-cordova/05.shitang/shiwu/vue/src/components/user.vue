@@ -186,10 +186,7 @@ export default {
       }).catch(res => {
         const me = res.response.data.Message
         if (me.match('Token')) { // 如果是token不正确，就转到登录页面
-          this.$message({message: '登录过期，请重新登录，即将跳转到登录页面！！', duration: 2200})
-          setTimeout(() => {
-            this.$router.push('/login')
-          }, 2000)
+
         } else {
           this.$alert('请求出错！！', {
             customClass: 'myConfirm'

@@ -15,7 +15,7 @@
               <el-dropdown-item>基本资料</el-dropdown-item>
               <el-dropdown-item>修改密码</el-dropdown-item>
               <router-link to="/">
-                <el-dropdown-item divided>
+                <el-dropdown-item @click="logout" divided>
                 退出
                 </el-dropdown-item>
               </router-link>
@@ -54,6 +54,9 @@
       thmemColor (color) {
         this.$emit('changeTheme', color)
         this.dialogThemeVisible = false
+      },
+      logout () { // 注销登录按钮的点击事件，返回到登录页，并清除session
+
       }
     },
     props:{

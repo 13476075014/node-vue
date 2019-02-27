@@ -12,6 +12,7 @@
       >
       </my-table>
     </div>
+
   </div>
 </template>
 
@@ -91,7 +92,7 @@ export default {
       })
     },
     handleCurrentChange2 (val) { // 处理分页插件中的当前第几页改变时候的事件
-				this.currentPage = val
+        this.currentPage = val
     },
     resize () {
       const _this = this

@@ -32,7 +32,8 @@ export const apiUrl = { // 一些接口地址
     '获取部分用户': 'UserManager/Load?page=1&limit=10', // &orgId=1
     '新增或更新用户': '/UserManager/AddOrUpdate', // Id: ; Account: 555;Name: 555;Organizations: 集团总部; OrganizationIds: 1;Sex: 0;Status: 1
     '删除用户': '/UserManager/Delete', // ids[]: 4
-    '更新菜品是否在售': 'http://localhost:55145/Product/UpdateSailStatus' // post； Status:true ；id: 55
+    '更新菜品是否在售': '/Product/UpdateSailStatus', // post； Status:true ；id: 55
+    '添加菜品': '/Product/AddProduct' // Form Data ; Name:...;Describe:....; pic1:file
 }
 
 export const apiMenuAuthQuery = { // 配置后台的基本页面的菜单按钮获取的code名
