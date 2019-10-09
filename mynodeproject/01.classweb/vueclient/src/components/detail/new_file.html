@@ -1,0 +1,118 @@
+@model FamilyCommand.Models.AppOrderItem
+
+
+
+<div id="OrderInfoTracking">
+    <div class="Trackrow">
+        <ul>
+            <li style="width:100%;"><span>客户名称：</span><span>@Model.UserName</span></li>
+        </ul>
+    </div>
+    <div class="Trackrow">
+        <ul>
+            <li><span>服务项目：</span><span class="label label-sm label-warning">@Model.ServiceItem</span></li>
+            <li><span>服务费：</span><span>￥@Model.Cost</span></li>
+            <li><span>支付状态：</span><span>@Model.PayState</span></li>
+        </ul>
+    </div>
+    <div class="Trackrow">
+        <ul>
+            <li><span>联系人：</span><span>@Model.ClientName</span></li>
+            <li><span>联系电话：</span><span>@Model.ClientMobile</span></li>
+            <li><span>手机：</span><span>@Model.UserPhone</span></li>
+        </ul>
+    </div>
+    <div class="Trackrow">
+        <ul>
+            <li><span>区域代码：</span><span>@Model.areacode</span></li>
+            <li><span>省市区：</span><span>@Model.Province  @Model.City  @Model.Country</span></li>
+            <li><span>地&nbsp;&nbsp;址：</span><span>@Model.Address</span></li>
+        </ul>
+    </div>
+    <div class="Trackrow">
+        <ul>
+            <li><span>机器品牌：</span><span>@Model.productinfo.CompanyName</span></li>
+            <li><span>机器型号：</span><span>@Model.productinfo.ProductModel</span></li>
+            <li><span>机器名称：</span><span>@Model.productinfo.ProductName</span></li>
+        </ul>
+    </div>
+    @if (Model.ServiceItem == "移机")
+    {
+        <div class="Trackrow">
+            <ul>
+                <li><span>新客户名称：</span><span>@Model.NewName</span></li>
+                <li><span>新联系电话：</span><span>@Model.NewMobile</span></li>
+                <li><span>新手机：</span><span>@Model.NewTel</span></li>
+            </ul>
+        </div>
+        <div class="Trackrow">
+            <ul>
+                <li><span>新客户联系人：</span><span>@Model.NewContact</span></li>
+                <li><span>新省市区：</span><span>@Model.DesProvince @Model.DesCity @Model.DesCountry</span></li>
+                <li><span>新地址：</span><span>@Model.DesAddress</span></li>
+            </ul>
+        </div>
+
+    }
+
+    <div class="Trackrow">
+        <ul>
+            <li class="totlrow"><span>备注：</span><textarea rows="5" readonly>@Model.Remark</textarea></li>
+        </ul>
+        <div style="clear:both;"></div>
+    </div>
+    @{
+        string isshow = Model.ServiceItem == "安装" ? "" : "display:none ;";
+        string sendWay = string.Empty;
+        switch (Model.shippingtype)
+        {
+            case 1:
+                sendWay = "送装一体";
+                break;
+            case 2:
+                sendWay = "送装分离";
+                break;
+            default:
+
+                break;
+        }
+    }
+    <div class="Trackrow" style="@isshow">
+        <ul>
+            <li><span>送装信息：</span><span>@sendWay</span></li>
+            <li><span>快递公司：</span><span>@Model.expressCompanyName</span></li>
+            <li><span>快递单号：</span><span>@Model.trackNumber</span></li>
+            <li>&nbsp;</li>
+        </ul>
+    </div>
+    @{
+        int NoServiceSM = CRMCommand.OrderState.NoServiceSM;
+        int NoServiceWSM = CRMCommand.OrderState.NoServiceWSM;
+        string state = "";
+        string isservice = "style=display:none;";
+        if (Model.CRMCheck == NoServiceSM)
+        {
+            state = "无服务上门完成";
+            isservice = "";
+        }
+        else if (Model.CRMCheck == NoServiceWSM)
+        {
+            state = "无服务未上门完成";
+            isservice = "";
+        }
+    }
+
+    <div class="Trackrow" @isservice>
+        <ul>
+            <li><span>时间：</span><span>@Model.ModifyTime.ToString("yyyy-MM-dd hh:mm:ss")</span></li>
+            <li><span>状态：</span><span>@state</span></li>
+            <li>&nbsp;</li>
+        </ul>
+    </div>
+
+    <div class="Trackrow" @isservice>
+        <ul>
+            <li class="totlrow"><span>无服务备注：</span><span>@Model.NoServiceRemark</span></li>
+        </ul>
+    </div>
+</div>

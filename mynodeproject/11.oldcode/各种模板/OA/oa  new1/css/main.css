@@ -1,0 +1,403 @@
+@charset "utf-8";
+html {overflow: hidden;}
+body{
+	background-image:url(../images/bg4.jpg);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	overflow:hidden;
+}
+.box-shadow{  
+   -webkit-box-shadow:0 0 10px #727272;  
+  -moz-box-shadow:0 0 10px #727272;  
+  box-shadow:0 0 10px #727272; 
+}
+ul,li{
+	margin:0;
+	padding:0;
+}
+a{
+	cursor:pointer
+}
+li{
+	list-style-type:none
+}
+.hand{
+	cursor:pointer
+}
+.dn{display:none}
+.alpha{
+	 filter:alpha(opacity=0);  
+      -moz-opacity:0.5;  
+      -khtml-opacity: 0.5;  
+      opacity: 0.5;
+}
+#digbg{
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	background-color:#000000;
+	filter:alpha(opacity=70);  
+      -moz-opacity:0.7;  
+      -khtml-opacity: 0.7;  
+      opacity: 0.7;
+	z-index:2000;
+	padding:30px;
+	display:none;
+}
+#digcontent{
+	position:absolute;
+	width:60%;
+	height:60%;
+	z-index:2001;
+	background-color:#FFFFFF;
+	border:5px solid #e5e5e5;
+	overflow:hidden;
+	display:none;
+	top:20%;
+	left:20%;
+	padding:20px;
+}
+#digcontent_img{
+	position:absolute;
+	height:80%;
+	top:10%;
+	z-index:2001;
+	background-color:#FFFFFF;
+	border:5px solid #e5e5e5;
+	overflow:hidden;
+	display:none;
+	padding:20px;
+}
+#digcontent_img_main{
+	text-align:center
+}
+#dig_nav{
+	height:2000px;
+	border-right:1px #e3e3e3 solid;
+	padding:10px;
+	font-size:75%;
+	margin-right:20px;
+	float:left;
+}
+#dig_nav li{
+	cursor:pointer;
+	margin-bottom:10px;
+}
+#dig_nav i{
+	margin-bottom:5px
+}
+#dig_nav li.plan-divider{
+	height:1px;
+	width:100%;
+	border-bottom:1px solid #e5e5e5
+}
+
+#dig_files_main{
+	width:100%;
+	overflow:hidden;
+}
+#dig_files_main li{
+	float:left;
+	margin:0 10px;
+	width:60px;
+	min-height:100px;
+	_height:120px;
+	overflow:hidden;
+	padding-top:60px;
+	text-align:center;
+	background-repeat:no-repeat;
+	background-size:60px auto;
+	cursor:pointer;
+	word-wrap: break-word;
+	line-height:12px;
+	font-size:60%;
+}
+#dig_files_main li.folder{
+	background-image:url(../images/Suffix/folders.jpg);
+}
+.type-null{
+	background-image:url(../images/Suffix/0.jpg);
+}
+.type-add{
+	background-image:url(../images/Suffix/add.jpg);
+}
+#dig_nav{
+	padding-bottom:30px;
+	width:100%;
+	height:30px;
+
+}
+
+
+
+
+
+#dig_files_main li:hover{
+	filter:alpha(opacity=80);  
+	-moz-opacity:0.8;  
+	-khtml-opacity: 0.8;  
+	opacity: 0.8;
+} 
+
+
+.wos-fr{
+	float:right;
+}
+.wos-border-top-0{
+	border-top:0px
+}
+.wos-border-right-0{
+	border-right:0px
+}
+.wos-text-right{
+	text-align:right
+}
+.wos-text-left{
+	text-align:left
+}
+.wos-img-border{
+	padding:5px;
+	border:1px #e3e3e3 solid;
+	cursor:pointer;
+}
+.wos-btn{
+	padding:5px 10px
+}
+#sys-alert-info{
+	padding:20px;
+	text-align:left;
+}
+.wos-btn-danger{
+	background-color:#dd514c;
+	color:#FFFFFF;
+	border:1px solid #d5443f;
+}
+.wos-btn-default{
+	background-color:#e6e6e6;
+	color:#000;
+	border:1px solid #e6e6e6;
+}
+#showlogin{
+	width:350px;
+	height:265px; 
+	overflow:hidden;
+	margin:0 auto;
+	background-color:#fff;
+	padding:10px;
+}
+#nav{
+	background-color:#FFFFFF;
+	border-radius:20px;
+	float:left;
+	overflow:hidden
+}
+#navul{
+	overflow-x:hidden;
+	height:80%;
+	position:relative;
+
+	margin-right:20px;
+}
+#nav li{
+	width:100%;
+	text-align:center;
+	padding:10%;
+	cursor:pointer;
+	position:relative;
+	margin-left:-5px;
+	border-bottom:1px solid #e3e3e3
+}
+#nav li:hover{
+	background-color:#eeeeee;
+} 
+#nav div{
+	width:100%;
+	padding-top:10px;
+}
+#nav-logo{
+	border-bottom:1px solid #e3e3e3;
+	text-align:center
+}
+
+#topmenu{
+	height:80px
+}
+#search{
+	background-color:#ffffff;
+	border-radius:10px;
+	padding:10px 10px 10px 20px;
+	height:80px;
+	overflow:hidden
+}
+#search input{
+	height:60px;
+	line-height:40px;
+	font-size:150%;
+	border:0;
+	outline:none;
+	color:#A0A0A0;
+}
+#search i{
+	float:right;
+}
+.wos-icon-search-plus{
+	background-image:url(../images/search-plus.jpg);
+	background-repeat:no-repeat;
+	background-position:center center;
+	height:60px;
+	width:60px;
+	cursor:pointer;
+}
+
+
+#userinfo{
+	background-color:#ffffff;
+	border-radius:10px;
+	height:80px;
+	overflow:hidden
+}
+#userinfo li{
+	float:left;
+	cursor:pointer;
+}
+#face{
+	margin:10px 10px 10px 0px 
+}
+#face img{
+	width:60px;
+	height:60px;
+}
+#nickname{
+	width:30%;
+	margin:10px 10px 10px 0px
+}
+#nickname_username{
+	font-size:200%;
+	height:35px;
+	line-height:35px;
+}
+#nickname_role{
+	color:#aaaaaa;
+	padding-top:5px;
+}
+#userinfo .lishow{
+	width:80px;
+	line-height:80px;
+	text-align:center;
+	float:right
+}
+.lishow_line{
+	border-left:1px solid #e3e3e3
+}
+li.lishow:hover{
+	background-color:#c9452b;
+} 
+
+#loginout{
+	background-color:#c9452b;
+	border-radius:10px;
+	color:#ffffff;
+	text-align:center;
+	font-size:150%;
+	line-height:80PX;
+	height:80px;
+	overflow:hidden
+}
+
+#plan{
+	background-color:#FFF;
+	border-radius:10px;
+	padding:15px;
+	overflow:hidden;
+}
+#plancontent{
+	overflow:hidden;
+	padding:10px;
+	overflow-y:auto;
+}
+#plan_left{
+	width:100px;
+	height:80%;
+	border-right:1px #e3e3e3 solid;
+	padding:10px;
+	font-size:75%;
+	margin-right:20px;
+	float:left;
+}
+#plan_left li{
+	height:35px;
+	line-height:35px;
+	text-align:center;
+	cursor:pointer;
+	margin-bottom:10px;
+	background-color:#c9452b;
+	color:#FFFFFF;
+	border-radius:5px
+}
+#plan_left li:hover{
+	background-color:#e3e3e3;
+	color:#000000
+}
+#plan_left li.plan-divider{
+	height:1px;
+	width:100%;
+	border-bottom:1px solid #e5e5e5
+}
+ 
+#plan_left_black{
+	width:120px;
+	height:90%;
+	border-right:1px #e3e3e3 solid;
+	padding:10px;
+	font-size:75%;
+	margin-right:20px;
+	float:left;
+}
+#plan_left_black li{
+	height:35px;
+	line-height:35px;
+	text-align:center;
+	cursor:pointer;
+	margin-bottom:10px;
+	color:#000000;
+	border-radius:5px
+}
+#plan_left_black li:hover{
+	background-color:#e3e3e3;
+	color:#000000
+}
+#plan_left_black li.plan-divider{
+	height:1px;
+	width:100%;
+	border-bottom:1px solid #e5e5e5
+}
+
+
+
+.plan_ico{
+	float:right;
+	position:relative;
+	width:100px;
+}
+.plan_btn{
+	float:right;
+	position:relative;
+	z-index:997
+}
+#plan_right{
+	float:left;
+	height:80%;
+}
+#btm{
+	text-align:center;
+	font-size:75%;
+	position:absolute;
+	bottom:5px;
+	width:100%;
+	color:#FFFFFF;
+}
+input{outline:none} 
+
+

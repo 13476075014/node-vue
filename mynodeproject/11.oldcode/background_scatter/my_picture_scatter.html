@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.9.0.js"></script>
+		<style>
+			body{background:lavender;}
+			/*用line-height属性来解决内联块元素的行间距问题*/
+			.container{width:500px;height:500px;margin:10px auto;;line-height:0;font-size:0;border-radius: 600px;} 
+			/*对小的div进行设置*/
+			.container div{background:url(img/dd5.jpg) no-repeat;background-size:500px 500px; ;width:100px;height:100px;/*background:rgba(0,0,0,0.5)*/;transition: all linear 1s;display: inline-block;position:relative;left:0;top:0;}
+		
+		
+		
+		</style>
+	</head>
+	<body>
+		<!--
+			做一个背景散开的步骤：
+				1.页面元素:
+					一个父级元素，定一个宽高；里面的小div用js动态生成，看自己想要分成多少分来安排比例
+		-->
+		
+		<div class="container">
+			<!--
+				这里是要写成外面宽600，高600的，所以里面分成纵横各6排，每个小div宽高都100px
+			-->
+		</div>
+		
+		<script>
+			$(function(){
+				//动态生成36个小的div
+					var divs = [];
+					function change(){
+						for(var i=0;i<25;i++){
+							//随机的小方块的位置
+							  var num = Math.floor(Math.random()*100);
+							  divs[i].style.top= num + "px";
+							  divs[i].style.left=num + "px";
+							
+						}
+					}
+				for(var i=0;i<25;i++){
+					divs.push(document.createElement("div"));
+					
+					//一整张背景图片的位置的分布，这一步是整个核心，如何让每个小div的背景连在一起成为一整张图
+								//就是在横轴上每个小div的背景相隔100px，用和五取余数，在乘以100的方式去完成(这样得到0-500循环)
+								//就是纵轴就是每一排的位置相同，和下一排相隔100px;所以用 i/5 向下取整，再乘以100；
+						
+					console.log(-i%5*100 + "px" + -Math.floor(i/5)*100 + "px")
+					$(".container").append(divs[i]);
+					divs[i].style.backgroundPosition = -i%5*100 + "px " + -Math.floor(i/5)*100 + "px" ;
+//					 divs[i].style.backgroundPosition = -i%5*100 + "px " + -Math.floor(i/5)*100 + "px";
+				}
+				 change()
+				
+				//鼠标滑入的时候回归原位
+				$(".container").mouseenter(function(){
+					$(".container div").css({"left":"0px","top":"0px"})
+				})
+				
+				$(".container").mouseleave(function(){
+					change();
+				})
+				
+			})
+		</script>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!--
+			scatter:散开，分散，散播
+		-->
+	</body>
+</html>

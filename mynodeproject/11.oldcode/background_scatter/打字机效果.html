@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.9.0.js"></script>
+		<style>
+			.p1{padding:2px 5px;width:0px;overflow: hidden;white-space: nowrap;/*transition: linear .5s*/;transform: translateY(10px);}
+		</style>
+	</head>
+	<body>
+		<p class="p1">	
+			我是P1，我是	p1,lala啦啦啦啦啦啦啦啦啦；
+		</p>
+		
+		
+		
+		
+		<script>
+			$(".p1").animate({"width":"500px"},1500,function(){
+				$(".p1").css({"transition":"1s linear"})
+				$(".p1").css({"transform":"translateY(0)"})
+			})
+		</script>
+	</body>
+</html>

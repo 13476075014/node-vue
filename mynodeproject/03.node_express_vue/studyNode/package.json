@@ -1,0 +1,11 @@
+{
+  "name": "studynode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "01.fs模块.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

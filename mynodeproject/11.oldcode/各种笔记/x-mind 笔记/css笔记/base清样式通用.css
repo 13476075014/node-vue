@@ -1,0 +1,28 @@
+@charset "utf-8";
+/* 基本元素重置 */
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0;}
+body,input,textarea,select,button,table{font-size:14px;line-height:1.25em; background:#fff}
+body{font-family:'microsoft yahei',Verdana,Arial,Helvetica,sans-serif;color:#000;-webkit-text-size-adjust:none;}
+img,fieldset{border:0;}
+ul,ol{list-style:none;}
+em,address{font-style:normal;}
+a{color:#666;text-decoration:none;}
+table{border-collapse:collapse;}
+h1,h2,h3,h4,h5,h6,em,i{font-style:normal; font-weight:400; outline:none;}
+img{ border:none}
+
+
+/* 重用类样式 */
+.f_l{float:left !important;}
+.f_r{float:right !important;}
+.no_margin{margin:0px !important;}
+.no_border{border:0px !important;}
+.no_bg{background:none !important;}
+.clear_both{clear:both !important;}
+.display_block{display:block !important;}
+.clearfix:after{ content:" "; display:block; height:0; clear:both;visibility:hidden;}
+.clearfix{ display:inline-block;}
+.white{background:white}
+.grey{background:#f9f9f9}
+.red{ color:#fcbf0c;}
+.orange{color:#F99C35}

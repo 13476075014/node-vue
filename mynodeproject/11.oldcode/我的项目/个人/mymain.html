@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="buding" />
+    <meta name="Description" content="buding" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="shortcut icon" href="images/icon01.png">
+    <title>个人</title>
+    <script src="js/jquery_1.9.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/waifu.css" />
+    <link rel="stylesheet" href="layui/css/layui.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+</head>
+<style>
+    #carousel-example-generic {
+        padding-top: 51px;
+    }
+    
+    .nav .nav_slider {
+        opacity: 0;
+        transition: all linear .2s;
+        width: 72px;
+        height: 50px;
+        background: #f38181;
+        position: fixed;
+        left: 50px;
+        top: 0;
+        z-index: -1;
+    }
+    
+    .touch_right .btn {
+        text-align: left;
+        border-bottom: 1px solid rgb(219, 219, 219);
+        border-radius: 0;
+        outline: none!important;
+        padding: 10px 0;
+    }
+    
+    .touch_left ul {
+        padding-left: 0;
+    }
+    
+    .myfooter {
+        line-height: 200px;
+        background: #f1f4f6;
+        position: relative;
+        z-index: 9999;
+    }
+    
+    .con_inner li {
+        transition: all linear .6s;
+        position: relative;
+        top: 220px;
+        left: -220px;
+        transform: scale(0);
+    }
+    
+    .con_inner li:nth-of-type(2) {
+        top: 220px;
+        left: 0px;
+    }
+    
+    .con_inner li:nth-of-type(3) {
+        top: 220px;
+        left: 220px;
+    }
+    
+    .li_inner img {
+        width: 100%;
+        height: 250px;
+    }
+    
+    .navbar-brand {
+        padding: 5px 15px;
+    }
+    
+    .navbar-brand img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .about_work {
+        background: #153b44;
+        padding: 50px 0;
+        color: white;
+        margin: 30px 0;
+        margin-top: 0;
+    }
+    
+    .layui-text {
+        color: white;
+    }
+    
+    .layui-timeline-item i {
+        transition: all linear .3s;
+    }
+    
+    .layui-timeline-item:hover>i {
+        transform: scale(1.8);
+        background: #f38181;
+        color: white;
+    }
+    
+    .layui-text h1,
+    .layui-text h2,
+    .layui-text h3 {
+        color: white;
+    }
+    
+    .con_title {
+        padding: 20px 0;
+    }
+    /*.con_title div{transition:all linear .3s;}
+		.con_title:hover div{transform: rotateX(30deg);box-shadow: 0 5px 80px #f38181;cursor: pointer;}
+		*/
+    
+    @media only screen and (max-width: 640px) {
+        .nav .nav_slider {
+            display: none;
+        }
+        .li_inner img {
+            height: auto;
+        }
+    }
+</style>
+
+<body>
+    <div class="waifu" style="position:fixed;bottom:20px;left:0;z-index:999999;">
+        <div class="waifu-tips"></div>
+        <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+        <div class="waifu-tool">
+            <span class="fui-home"></span>
+            <span class="fui-chat"></span>
+            <span class="fui-eye"></span>
+            <span class="fui-user"></span>
+            <span class="fui-photo"></span>
+            <span class="fui-info-circle"></span>
+            <span class="fui-cross"></span>
+        </div>
+    </div>
+
+    <script src="assets/waifu-tips.js"></script>
+    <script src="assets/live2d.js"></script>
+    <script type="text/javascript">
+        initModel("assets/")
+    </script>
+
+    <div class="wrap">
+        <audio src="" autoplay=""></audio>
+        <!--头部-->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!--折叠隐藏-->
+                <div class="navbar-header">
+                    <button class="collapsed navbar-toggle" data-target="#yc" data-toggle="collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+                    <!--logo  "navbar-brand"-->
+                    <div class="navbar-brand">
+                        <img src="images/icon01.png" alt="" />
+                    </div>
+                </div>
+
+                <div class="collapse navbar-collapse" id="yc">
+                    <!--横向的导航条内容  “nav”“navbar-nav"-->
+                    <ul class="nav navbar-nav">
+                        <li class="nav_slider"></li>
+                        <li class="nav_active">
+                            <a href="#">主页</a>
+                        </li>
+                        <li>
+                            <a href="#about_project">项目展示</a>
+                        </li>
+                        <li>
+                            <a href="#about_me">关于我</a>
+                        </li>
+                        <li>
+                            <a href="#about_work">工作经验</a>
+                        </li>
+                        <li>
+                            <a href="http://www.cnblogs.com/chun321/">博客</a>
+                        </li>
+                        <li>
+                            <a href="#about_contact">联系方式</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--头部轮播图-->
+        <div id="carousel-example-generic" class="carousel slide return_image" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="images/banner1.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <h4>博客园地址：<a href="http://www.cnblogs.com/chun321/" target="blank">http://www.cnblogs.com/chun321/</a></h4>
+                        <h4>github地址：<a href="https://github.com/13476075014">https://github.com/13476075014</a></h4>
+                        <h4>前端网地址：<a href="https://www.qdfuns.com/u/45531/works/articles">http://www.cnblogs.com/chun321/</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--中间内容-->
+        <div class="content">
+            <!--项目展示-->
+            <div class="con_inner  container" id="about_project">
+                <h3 class="text-center con_title">
+                    <div>项目展示</div>
+                </h3>
+                <ul>
+                    <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="li_inner">
+                            <div class="shade">
+                                <div class="sha_in">
+                                    <a href="http://wechat.hoyofuwu.com/AppManage/Account/Index">
+                                        <p>浩优</p>
+                                        <p>.net</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="li_img">
+                                <img src="images/1.jpg" alt="" />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="li_inner">
+                            <div class="shade">
+                                <div class="sha_in">
+                                    <a href="#">
+                                        <p>浩泽官网</p>
+                                        <p>ajax mvc</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="li_img">
+                                <img src="images/2.jpg" alt="" />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="li_inner">
+                            <div class="shade">
+                                <div class="sha_in">
+                                    <a href="#">
+                                        <p>项目名称</p>
+                                        <p>用到的技术</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="li_img">
+                                <img src="images/3.jpg" alt="" />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+            <!--内容的分，个人简介-->
+            <div class="about_myself" id="about_me">
+                <div class="my_inner container text-center">
+                    <h3 class="con_title">关于我</h3>
+                    <div class="my_img">
+                        <img src="images/my.jpg" alt="" style="width:70px;height:80px;border-radius: 80px;box-shadow: 0px 0px 20px 1px rgb(243, 129, 129);" />
+                    </div>
+                    <p><label for="">姓名：</label><i>刘春春</i></p>
+                    <p><label for="">学历：</label><i>本科（武汉   江汉大学）</i></p>
+                    <div id="like">
+                        <p><label for="">擅长的技术：</label></p>
+                        <p><span>.net</span><span>node</span></p>
+                        <p><span>vue</span><span>photoshop</span></p>
+                        <p><span>mongo</span><span>sqlserver</span><span>webpack</span></p>
+                        <p><span>javascript</span><span>jquery</span></p>
+                        <p><span>css</span><span>less</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!--工作经验-->
+            <div class="about_work" id="about_work">
+                <h3 class="text-center con_title">工作经验</h3>
+                <div class="container">
+                    <ul class="layui-timeline">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">7月12日</h3>
+                                <p>
+                                    2016.07.12-2017.07.20
+                                    <br>在武汉衣美裳有限公司工作一年时间。
+                                    <br>就职岗位是前端开发工程师 <i class="layui-icon"></i>
+                                    <br>主要负责前端相关工作。
+                                </p>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">8月07日</h3>
+                                <p>
+                                    2018.07.07-至今
+                                    <br>在上海市浦东新区 浩泽集团工作至今。
+                                    <br>就职岗位是前端开发工程师。
+                                    <br>主要的工作任务是负责信息部的前端相关工作，和部分.net开发工作。
+                                </p>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">工作意向</h3>
+                                <p>
+                                    <br>想找前端vue方向的工作，和node开发工作。
+                                    <br>希望公司团队氛围和谐，公司业务发展有未来，愿意与其共发展。
+                                    <br>期望薪资：13000 RMB 。
+                                    <br>非诚心想招人者勿扰。
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <!--内容的部分，跟人联系方式-->
+            <div class="touch container" id="about_contact">
+                <h3 class="text-center con_title">联系</h3>
+                <!--左边-->
+                <div class="touch_left">
+                    <div class="" style="text-align: center;">
+                        <h4>个人联系方式</h4>
+                        <ul>
+                            <li>
+                                地址：上海市浦东新区金皖路
+                            </li>
+                            <li>
+                                手机号：13476075014
+                            </li>
+                            <li>
+                                邮箱：113708775@qq.com
+                            </li>
+                        </ul>
+                        <p>
+                            <i class="fa fa-weixin"></i>扫描下面二维码加我微信详聊
+                            <div class="addme">
+                                <img src="images/mychat.jpg" alt="">
+                            </div>
+
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--底部-->
+        <div class="myfooter">
+            <div class="container text-center">
+                &copy;chunchunliu
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.carousel').carousel();
+        //导航栏Li的点击事件
+        $(".navbar-nav>li").on("click", function() {
+            $(".navbar-nav>li").removeClass("nav_active");
+            $(this).addClass("nav_active");
+        })
+
+
+
+
+        $("audio").get(0).volume = 0.3;
+
+        function li_active(obj) {
+            obj.find(">a").css({
+                "color": "#ffc77f"
+            });
+            var oleft = obj.offset().left;
+            var owidth = obj.outerWidth(true);
+            $(".nav_slider").css({
+                "left": oleft,
+                "opacity": "1",
+                "width": owidth
+            });
+        }
+
+        li_active($(".nav_active"))
+
+        //适应屏幕决定content的margin-top值；
+        function con_margin() {
+            var banner_height = $(".return_image").outerHeight(true);
+            $(".content").css("margin-top", banner_height);
+        };
+
+        var audio_index = ["images/a1.mp3", "images/a2.mp3", "images/a3.mp3", "images/a4.mp3", "images/a5.mp3"]
+        window.onload = function() {
+            //轮播图的高度调整
+            function carimg() {
+                var returnimg_h = $(".carousel-inner .item.active img").outerHeight(true);
+                $(".carousel-inner img").css({
+                    "height": returnimg_h,
+                    "width": "100%"
+                });
+
+            };
+            carimg();
+            con_margin();
+
+            window.onresize = function() {
+                $(".carousel-inner .item.active img").css("height", "auto");
+                carimg();
+
+                carimg();
+                con_margin();
+                li_active($(".nav_active"));
+                nav_change();
+            };
+            nav_change();
+            //导航栏的特效；
+            function nav_change() {
+                $(".navbar-nav>li").hover(function() {
+                    var auin = $(this).index() - 1;
+                    auin = auin % 5;
+                    $("audio").attr("src", audio_index[auin])
+                    $(this).find(">a").css({
+                        "color": "#ffc77f"
+                    });
+                    var oleft = $(this).offset().left;
+                    var owidth = $(this).outerWidth(true);
+                    $(".nav_slider").css({
+                        "left": oleft,
+                        "opacity": "1",
+                        "width": owidth
+                    });
+                    if ($(this).index() != $(".nav_active").index()) {
+                        $(".nav_active").find(">a").css("color", "rgb(119,119,119)");
+                    };
+
+                }, function() {
+                    $(this).find(">a").css({
+                        "color": "rgb(119,119,119)"
+                    });
+                    li_active($(".nav_active"));
+                });
+            };
+
+            //第一个内容的距离顶部的距离
+            $(".con_inner li").css({
+                "top": "0",
+                "left": "0",
+                "transform": "scale(1)"
+            });
+
+        };
+        //写一个滚动事件
+        $(window).on("scroll", function() {
+            var scrotop = $(window).scrollTop(); //获取当前的滚动高度
+            //第一个内容的距离顶部的距离
+            var con1_top = $(".con_inner").offset().top + 30;
+            var wh = $(window).height();
+            var now_top = scrotop + wh;
+            if (now_top >= con1_top) {
+                $(".con_inner li").css({
+                    "top": "0",
+                    "left": "0",
+                    "transform": "scale(1)"
+                })
+            } else {
+                $(".con_inner li:eq(0)").css({
+                    "top": "220px",
+                    "left": "-220px",
+                    "transform": "scale(0)"
+                });
+                $(".con_inner li:eq(1)").css({
+                    "top": "220px",
+                    "left": "0px",
+                    "transform": "scale(0)"
+                });
+                $(".con_inner li:eq(2)").css({
+                    "top": "220px",
+                    "left": "220px",
+                    "transform": "scale(0)"
+                });
+            };
+
+        });
+
+        //内容1的一些效果
+        $(".con_inner ul").on("mouseenter", "li", function() {
+            $(this).find(".shade").css({
+                "opacity": "1"
+            });
+            $(this).find(".shade p").css({
+                "left": "0"
+            });
+        });
+        $(".con_inner ul").on("mouseleave", "li", function() {
+            $(this).find(".shade").css({
+                "opacity": "0"
+            });
+            $(this).find(".shade p:nth-of-type(1)").css({
+                "left": "-60px"
+            });
+            $(this).find(".shade p:nth-of-type(2)").css({
+                "left": "60px"
+            });
+        });
+    </script>
+</body>
+
+</html>

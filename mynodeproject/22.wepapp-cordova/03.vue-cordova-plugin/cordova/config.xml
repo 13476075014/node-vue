@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="chunchun.com.haha" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>chunchun</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <splash density="land-hdpi" src="res/screen/all.png" />
+    <splash density="land-ldpi" src="res/screen/all.png" />
+    <splash density="land-mdpi" src="res/screen/all.png" />
+    <splash density="land-xhdpi" src="res/screen/all.png" />
+    <splash density="port-hdpi" src="res/screen/all.png" />
+    <splash density="port-ldpi" src="res/screen/all.png" />
+    <splash density="port-mdpi" src="res/screen/all.png" />
+    <splash density="port-xhdpi" src="res/screen/all.png" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="^8.0.1">
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
+    </plugin>
+    <engine name="browser" spec="^5.0.4" />
+    <engine name="android" spec="^7.1.4" />
+</widget>

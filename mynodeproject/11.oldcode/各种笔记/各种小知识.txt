@@ -1,0 +1,63 @@
+1.当在js中如果想要写很长的字符串对象的时候，想分成多行来写
+  除了使用+号拼接外的方法：
+      使用反斜线\在每一行的最后面转义就可以正常使用了。
+
+2.如果引入的amazeui中的固定定位gotop组件
+	就是在滚动条滚动高度大于50的时候出现，在0的时候消失。
+
+3.遇到文字的某个间距变得很大的问题：
+	解决：可能是设置了letter-spacing的css属性，这个属性是设置文字的间距的；
+
+4.新的鼠标事件：
+	看一些demo的时候，才知道有document.oncontextmenu事件；这个事件是鼠标的右击事件；
+	浏览器鼠标右击后会有弹出选框的默认事件，我们这个时候通过在函数中写一个触发事件，
+        和在最后面 return false ，来阻止默认事件。
+
+5.阻止元素的鼠标事件：
+	pointer-events:值为none的时候，阻止鼠标事件；值为auto的时候恢复正常
+
+6.JSON的方法：
+	JSON.parse():把字符串中的json，转换成Jason格式；
+	JSON.stringify():把json格式，转换成字符串格式；
+
+7.怎么兼容各个浏览器。关闭当前页面：
+	 window.location.href = "about:blank";
+         window.close();
+
+8.关于方法attr() 和 prop的区别：
+	attr是针对一般的自定义属性或本来有的属性，
+        而prop属性是元素本身就有的固定属性；
+	例如 ：
+		<input type="checkedbox" /> $("input").attr("checked") = undifine $("input").prop("checked")=false;
+
+
+9.关于jquery的来处理checkedbox的input标签的一些知识：
+
+
+10.关于contenteditable = true,这个属性可以让块元素来模拟输入框功能；
+   但是在苹果手机上有时候会遇到不能输入的情况；需要在样式中加上 -webkit-user-select:auto;
+
+11.给图片加上模糊的效果的话就可以用css的filter属性
+	.background{filter:blur(10px) }
+
+12.jquery通过serializeArray()方法获取到form表单中要提交的字段，并转换成json的格式：
+	例如： var params = $("#Repair_Form").serializeArray();
+
+	serialize()，是把form重要提交的字段和其数值变成了字符串格式
+
+13.让select的字体向右靠，普通的text-align没有用，需要设置direction: rtl;这个属性就右边了。
+	
+
+14.在用ajax上传图片类型数据的时候，老是报错 非法调用。
+	出错原因：原来是ajax在上传数据的时候，有一个processData:true/false,的参数，这个参数默认是true,
+		  就是会把数据类型转换为对象，这里是传的form文件类型，不需要在转换，
+	解决：把这个processData:false,设置成false就可以了。如果还是不行，就需要修改		
+		contentType这个参数，因为格式可能会被ajax改变，这里是阻止改变。
+
+
+
+
+
+
+
+

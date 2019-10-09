@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.9.0.js"></script>
+		<script src="flow.js"></script>
+		<link rel="stylesheet" href="flow.css" />
+	</head>
+	<body>
+		<!--
+			使用方法，首先引入jquery包，和flow包，然后写一个容器，里面的流程需要用class为 “flowChart_inner“；
+				最后 $(".flowChart").flow({
+							index:2  //index是现在进入到的第几步骤，这个可以动态获取去改变，从0开始，这里是进入到第三步
+						});
+		-->
+		<div class="flowChart">
+             <p class="flowChart_inner">订单已提交</p>                    
+             <p class="flowChart_inner">订单已发货</p>                    
+             <p class="flowChart_inner">订单已揽件</p>                    
+             <p class="flowChart_inner">订单已签收</p>                    
+             <p class="flowChart_inner">订单已完成</p>  
+		</div>
+		<script>
+			$(".flowChart").flow({
+				index:2
+			});
+		</script>
+		
+	</body>
+</html>

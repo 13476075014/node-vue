@@ -1,0 +1,14 @@
+1.怎么给元素强制换行？
+	css属性：word-break: break-all;
+
+
+2.遇到文字的某个间距变得很大的问题：
+	解决：可能是设置了letter-spacing的css属性，这个属性是设置文字的间距的；
+
+3.文本超出变省略号：
+	overflow: hidden; /*自动隐藏文字*/
+   	 text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+   	 white-space: nowrap;/*强制不换行*/
+
+4.禁用掉某个元素的鼠标的一系列事件的属性：
+	pointer-events:none  ;还原的话： pointer-events:auto;

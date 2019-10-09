@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-2.1.0.js"></script>
+		<style>
+			*{margin:0;padding:0;}
+			body{background:linear-gradient(to top,rgb(36,191,255),rgb(25,158,255));}
+			.wrap{100%}
+			.inner{width:1440px;height:100%;overflow: hidden;position:relative;margin:0 auto;}
+			.left1{position:absolute;left:184px;top:0;z-index:88}
+			.left2{position:absolute;left:359px;top:0;z-index:77}
+			.right{float:right;margin-right:187px;color:white;font-family: PingFangSC-Regular;}
+			.right h1{height: 68px;font-family: PingFangSC-Regular;font-size: 72px;font-weight: normal;font-stretch: normal;letter-spacing: 6px;}
+			.right h3{margin-top:20px;height: 44px;font-family: STLibianSC-Regular;font-size: 50px;font-weight: normal;font-stretch: normal;letter-spacing: 6px;}
+			.r_bottom{margin-top:140px;position:relative;}
+			.r_bottom .b1{margin-left:36px;font-size: 24px;line-height:40px;padding-left:55px;background:url(img/apple_Icon.png)3px center no-repeat; )}
+			.r_bottom .b2{margin-left:36px;font-size: 24px;line-height:50px;margin-top:40px;padding-left:55px;background:url(img/An_Icon.png)3px center no-repeat; )}
+			.r_bottom .r_logo img{width:124px;height:124px;}
+			.r_bottom .r_logo{position:absolute;right:80px;top:3px;}
+			.footer{width:100%;height:121px;position:absolute;bottom:0;left:0;background:url(img/bg_bottom.png) no-repeat;background-size:cover;}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="inner">
+				<div class="left1">
+					<img src="img/首页.png" alt="" />
+				</div>
+				<div class="left2">
+					<img src="img/启动页.png" alt="" />
+				</div>
+				<div class="right">
+					<h1>浩泽代理商APP</h1>
+					<h3>商用净水第一品牌</h3>
+					<div class="r_bottom">
+						<p class="b1">IOS版下载</p>
+						<p class="b2">Android版下载</p>
+						<div class="r_logo">
+							<img src="img/ewm_big.jpg" alt="" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+			</div>
+		</div>
+		
+		
+		<script>
+			$(function(){
+				function fixed(){
+					var sh = $(window).height();
+					var sw = $(window).width();
+					$(".wrap").css({"width":sw,"height":sh})
+					var left1_top = (sh - $(".left1").outerHeight(true))/2;
+					var left2_top = (sh - $(".left2").outerHeight(true))/2;
+					var right_top = (sh - $(".right").outerHeight())/2;
+					$(".left1").css({"top":left1_top});
+					$(".left2").css({"top":left2_top});
+					$(".right").css({"margin-top":right_top});
+				}
+				fixed();
+				
+				window.onresize = function(){
+					fixed();
+				}
+				
+			})
+		</script>
+	</body>
+</html>
