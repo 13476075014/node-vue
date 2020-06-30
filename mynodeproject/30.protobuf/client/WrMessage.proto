@@ -1,0 +1,18 @@
+﻿syntax = "proto3";  //指定语法
+package protobuf;   //指定包名
+
+message ComData {
+  int32 Type = 1;
+}
+
+//上报客户端收到的消息
+message UploadReciveMessage {
+  string MsgId = 1;
+  int32 MsgType = 2;
+  string MsgData = 3;
+  string SendWhatsId = 4;
+  string RecvWhatsId = 5;
+  string GroupNumber = 6;
+  int32 MsgStype = 7;
+  int32 MsgStime = 8;
+}
