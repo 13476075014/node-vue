@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul>
+    <li>A</li>
+    <li>B</li>
+    <li>C</li>
+  </ul>
+
+  <script>
+    var lis = document.querySelectorAll("li")
+    for(var i=0;i<lis.length;i++){
+        lis[i].onclick = function(e){
+        var text = this.innerText
+        console.log(text)
+        window.history.pushState("","",location + "?a="+text)
+        history.go(-1) //经过上面的处理，执行返回上一级的时候页面并不会变，只是在popstate监听中知道执行了页面返回的操作，去做处理
+      }
+    }
+    window.addEventListener('popstate', function (e) {
+      console.log(e.state);
+      console.log(location.href);
+    })
+  </script>
+</body>
+</html>
