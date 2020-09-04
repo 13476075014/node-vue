@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <child @test3="toAlert(3)" :test4="toAlert" />
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
@@ -31,10 +32,27 @@
 </template>
 
 <script>
+import Child from './child'
 export default {
+  // provide:{ //如果是对象的类型在里面不能用this会找不到,只有是函数类型才可以
+  //   clickFn:"66"
+  // },
+  provide(){
+    return {
+       clickFn:this.toAlert
+    }
+  },
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  components:{
+    Child
+  },
+  methods:{
+    toAlert(count){
+      alert(count||1)
+    }
   }
 }
 </script>
