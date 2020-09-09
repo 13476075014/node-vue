@@ -47,7 +47,7 @@ export function proxy (target: Object, sourceKey: string, key: string) {
 
 export function initState (vm: Component) {
   vm._watchers = []
-  const opts = vm.$options
+  const opts = vm.$options //获取vue对象包括data,methods等这些
   if (opts.props) initProps(vm, opts.props)
   if (opts.methods) initMethods(vm, opts.methods)
   if (opts.data) {
