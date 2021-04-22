@@ -1,0 +1,47 @@
+参考地址：https://segmentfault.com/a/1190000007294861
+
+plugins: [
+        new HtmlWebpackPlugin({一些参数})
+    ]
+
+参数：
+title: 生成的html文件的标题
+filename：生成的html的文件名 （默认为 index.html.）
+
+template：要参照的模板，根据自己的指定的模板文件来生成特定的 html 文件。这里的模板类型可以是任
+	意你喜欢的模板，可以是 html, jade, ejs, hbs, 等等，但是要注意的是，使用自定义的模板文件时
+	，需要提前安装对应的 loader， 否则webpack不能正确解析。以 jade 为例。
+	（如果你既指定了 template 选项，又指定了 title 选项，
+ 	事实上，这时候会选择你指定的模板文件的 title, 即使你的模板文件中未设置 title。）
+
+inject： true 默认值，script标签位于html文件的 body 底部
+	body 同true
+	head （script 标签位于 head 标签内）
+	false 不插入生成的js到文件，单纯生成html
+
+favicon：给生成的 html 文件生成一个 favicon。属性值为 favicon 文件所在的路径名。
+	（同 title 和 filename 一样，如果在模板文件指定了 favicon，会忽略该属性。）
+
+minify：minify 的作用是对 html 文件进行压缩，minify 的属性值是一个压缩选项或者 false 。默认值为
+	false, 不对生成的 html 文件进行压缩。来看看这个压缩选项。
+
+hash：hash选项的作用是 给生成的 js 文件一个独特的 hash 值，该 hash 值是该次 webpack 编译的 
+	hash 值。默认值为 false 。同样看一个例子。
+
+cache： 默认值是 true。表示只有在内容变化时才生成一个新的文件。
+
+showErrors：showErrors 的作用是，如果 webpack 编译出现错误，webpack会将错误信息包裹在一个
+	 pre 标签内，属性的默认值为 true ，也就是显示错误信息。
+	chunks： chunks 选项的作用主要是针对多入口(entry)文件。当你有多个入口文件的时候，对应
+	就会生成多个编译后的 js 文件。那么 chunks 选项就可以决定是否都使用这些生成的 js 文件。
+	chunks 默认会在生成的 html 文件中引用所有的 js 文件，当然你也可以指定引入哪些特定的文件。
+
+excludeChunks ： 跟 chunks 是相反的，排除掉某些 js 文件。 比如上面的例子，其实等价于下面这一行
+
+chunksSortMode： 这个选项决定了 script 标签的引用顺序。默认有四个选项，'none', 'auto', 
+	'dependency', '{function}'。
+
+xhtml： 一个布尔值，默认值是 false ，如果为 true ,则以兼容 xhtml 的模式引用文件。
+
+
+

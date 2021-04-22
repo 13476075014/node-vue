@@ -1,0 +1,9 @@
+editorconfig for vs code
+eslint
+graphql
+px to rem &rpx(cssrem)
+scss formatter
+vetur
+vue vscode snippets
+code spell checker
+beautify
