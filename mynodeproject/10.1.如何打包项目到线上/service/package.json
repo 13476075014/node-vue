@@ -15,7 +15,7 @@
     "gt3-sdk": "^2.0.0",
     "jade": "~1.11.0",
     "mongodb": "2.2.33",
-    "mongoose": "^5.1.0",
+    "mongoose": "^5.7.5",
     "morgan": "~1.9.0",
     "nodemailer": "^4.6.4",
     "serve-favicon": "~2.4.5"
