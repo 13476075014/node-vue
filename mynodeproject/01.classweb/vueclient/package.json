@@ -10,7 +10,7 @@
         "build": "node build/build.js"
     },
     "dependencies": {
-        "axios": "^0.17.1",
+        "axios": "^0.21.1",
         "element-ui": "^2.5.4",
         "gt3-sdk": "^2.0.0",
         "velocity-animate": "^1.5.2",
