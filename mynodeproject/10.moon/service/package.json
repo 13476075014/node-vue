@@ -17,7 +17,7 @@
     "mongodb": "2.2.33",
     "mongoose": "^5.1.0",
     "morgan": "~1.9.0",
-    "nodemailer": "^4.6.4",
+    "nodemailer": "^6.4.16",
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
