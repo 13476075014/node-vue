@@ -17,7 +17,7 @@
         "element-ui": "^2.4.7",
         "express-session": "^1.15.6",
         "gt3-sdk": "^2.0.0",
-        "qs": "^6.6.0",
+        "qs": "^6.6.1",
         "vue": "^2.5.2",
         "vue-countupjs": "^1.0.0",
         "vue-router": "^3.0.1",
