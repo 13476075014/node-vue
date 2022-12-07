@@ -9,7 +9,7 @@
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "express": "~4.15.5",
+    "express": "~4.17.3",
     "express-session": "^1.15.6",
     "gt3-sdk": "^2.0.0",
     "jade": "~1.11.0",
